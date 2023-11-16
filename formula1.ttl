@@ -42,6 +42,10 @@
   a rdfs:Class ;
   rdfs:subClassOf rdfs:Resource ;
 .
+:FIA
+  a rdfs:Class ;
+  rdfs:subClassOf rdfs:Resource ;
+.
 :Journalist
   a rdfs:Class ;
   rdfs:subClassOf :PressMember ;
@@ -53,10 +57,6 @@
 :Mechanic
   a rdfs:Class ;
   rdfs:subClassOf :TeamMember ;
-.
-:Mechanic_1
-  a rdfs:Class ;
-  rdfs:subClassOf :Mechanic ;
 .
 :MedicalCar
   a rdfs:Class ;
@@ -150,6 +150,12 @@
   a rdfs:Class ;
   rdfs:subClassOf :TeamMember ;
 .
+:champion
+  a rdf:Property ;
+  rdfs:domain :RacingDriver ;
+  rdfs:range :Championship ;
+  rdfs:subPropertyOf :raced-in ;
+.
 :cylinders
   a rdf:Property ;
   rdfs:domain :Engine ;
@@ -170,19 +176,38 @@
   rdfs:domain :Engine ;
   rdfs:range xsd:decimal ;
 .
+:has-car
+  a rdf:Property ;
+  rdfs:domain :Team ;
+  rdfs:range :RacingCar ;
+.
+:has-engine
+  a rdf:Property ;
+  rdfs:domain :Car ;
+  rdfs:range :Engine ;
+.
 :height
   a rdf:Property ;
   rdfs:domain :RacingDriver ;
   rdfs:range xsd:decimal ;
+.
+:location
+  a rdf:Property ;
+  rdfs:domain :Circuit ;
+  rdfs:range xsd:string ;
 .
 :manufacturer
   a rdf:Property ;
   rdfs:domain :Engine ;
   rdfs:range xsd:string ;
 .
-:name
+:model
   a rdf:Property ;
   rdfs:domain :Car ;
+  rdfs:range xsd:string ;
+.
+:name
+  a rdf:Property ;
   rdfs:domain :Channel ;
   rdfs:domain :Circuit ;
   rdfs:domain :Person ;
@@ -194,6 +219,32 @@
   rdfs:domain :Person ;
   rdfs:range xsd:string ;
 .
+:number
+  a rdf:Property ;
+  rdfs:domain :RacingDriver ;
+  rdfs:range xsd:integer ;
+.
+:participated
+  a rdf:Property ;
+  rdfs:domain :Team ;
+  rdfs:range :Championship ;
+.
+:podium-finisher
+  a rdf:Property ;
+  rdfs:domain :RacingDriver ;
+  rdfs:range :Race ;
+  rdfs:subPropertyOf :race-participant ;
+.
+:race-participant
+  a rdf:Property ;
+  rdfs:domain :RacingDriver ;
+  rdfs:range :Race ;
+.
+:raced-in
+  a rdf:Property ;
+  rdfs:domain :RacingDriver ;
+  rdfs:range :Championship ;
+.
 :salary
   a rdf:Property ;
   rdfs:domain :RacingDriver ;
@@ -204,8 +255,26 @@
   rdfs:domain :Team ;
   rdfs:range xsd:string ;
 .
+:takes-place
+  a rdf:Property ;
+  rdfs:domain :Event ;
+  rdfs:range :Circuit ;
+.
 :weight
   a rdf:Property ;
   rdfs:domain :RacingDriver ;
   rdfs:range xsd:decimal ;
+.
+:winner
+  a rdf:Property ;
+  rdfs:domain :RacingDriver ;
+  rdfs:range :Race ;
+  rdfs:subPropertyOf :podium-finisher ;
+.
+:works-for
+  a rdf:Property ;
+  rdfs:domain :Person ;
+  rdfs:range :Channel ;
+  rdfs:range :FIA ;
+  rdfs:range :Team ;
 .

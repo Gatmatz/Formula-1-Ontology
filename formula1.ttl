@@ -1,0 +1,211 @@
+# baseURI: http://example.org/formula1
+
+@prefix : <http://example.org/formula1#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/formula1>
+  a owl:Ontology ;
+  owl:versionInfo "Created with TopBraid Composer" ;
+.
+:Cameraman
+  a rdfs:Class ;
+  rdfs:subClassOf :PressMember ;
+.
+:Car
+  a rdfs:Class ;
+  rdfs:subClassOf rdfs:Resource ;
+.
+:Championship
+  a rdfs:Class ;
+  rdfs:subClassOf rdfs:Resource ;
+.
+:Channel
+  a rdfs:Class ;
+  rdfs:subClassOf rdfs:Resource ;
+.
+:Circuit
+  a rdfs:Class ;
+  rdfs:subClassOf rdfs:Resource ;
+.
+:Engine
+  a rdfs:Class ;
+  rdfs:subClassOf rdfs:Resource ;
+.
+:Engineer
+  a rdfs:Class ;
+  rdfs:subClassOf :TeamMember ;
+.
+:Event
+  a rdfs:Class ;
+  rdfs:subClassOf rdfs:Resource ;
+.
+:Journalist
+  a rdfs:Class ;
+  rdfs:subClassOf :PressMember ;
+.
+:MainRace
+  a rdfs:Class ;
+  rdfs:subClassOf :Race ;
+.
+:Mechanic
+  a rdfs:Class ;
+  rdfs:subClassOf :TeamMember ;
+.
+:Mechanic_1
+  a rdfs:Class ;
+  rdfs:subClassOf :Mechanic ;
+.
+:MedicalCar
+  a rdfs:Class ;
+  rdfs:subClassOf :Car ;
+.
+:Person
+  a rdfs:Class ;
+  rdfs:subClassOf rdfs:Resource ;
+.
+:PracticeSession
+  a rdfs:Class ;
+  rdfs:subClassOf :Event ;
+.
+:PressMember
+  a rdfs:Class ;
+  rdfs:subClassOf :Person ;
+.
+:Qualifying
+  a rdfs:Class ;
+  rdfs:subClassOf :Event ;
+.
+:Race
+  a rdfs:Class ;
+  rdfs:subClassOf :Event ;
+.
+:RaceDirector
+  a rdfs:Class ;
+  rdfs:subClassOf :RaceOfficial ;
+.
+:RaceEngineer
+  a rdfs:Class ;
+  rdfs:subClassOf :Engineer ;
+.
+:RaceOfficial
+  a rdfs:Class ;
+  rdfs:subClassOf :Person ;
+.
+:RaceQualifying
+  a rdfs:Class ;
+  rdfs:subClassOf :Qualifying ;
+.
+:RaceWeekend
+  a rdfs:Class ;
+  rdfs:subClassOf rdfs:Resource ;
+.
+:RacingCar
+  a rdfs:Class ;
+  rdfs:subClassOf :Car ;
+.
+:RacingDriver
+  a rdfs:Class ;
+  rdfs:subClassOf :TeamMember ;
+.
+:SafetyCar
+  a rdfs:Class ;
+  rdfs:subClassOf :Car ;
+.
+:SprintQualifying
+  a rdfs:Class ;
+  rdfs:subClassOf :Qualifying ;
+.
+:SprintRace
+  a rdfs:Class ;
+  rdfs:subClassOf :Race ;
+.
+:SprintRaceWeekend
+  a rdfs:Class ;
+  rdfs:subClassOf :RaceWeekend ;
+.
+:StandardRaceWeekend
+  a rdfs:Class ;
+  rdfs:subClassOf :RaceWeekend ;
+.
+:Steward
+  a rdfs:Class ;
+  rdfs:subClassOf :RaceOfficial ;
+.
+:Strategist
+  a rdfs:Class ;
+  rdfs:subClassOf :Engineer ;
+.
+:Team
+  a rdfs:Class ;
+  rdfs:subClassOf rdfs:Resource ;
+.
+:TeamMember
+  a rdfs:Class ;
+  rdfs:subClassOf :Person ;
+.
+:TeamPrincipal
+  a rdfs:Class ;
+  rdfs:subClassOf :TeamMember ;
+.
+:cylinders
+  a rdf:Property ;
+  rdfs:domain :Engine ;
+  rdfs:range xsd:integer ;
+.
+:dateOfBirth
+  a rdf:Property ;
+  rdfs:domain :Person ;
+  rdfs:range xsd:date ;
+.
+:ers
+  a rdf:Property ;
+  rdfs:domain :Engine ;
+  rdfs:range xsd:string ;
+.
+:fuelFlowLimit
+  a rdf:Property ;
+  rdfs:domain :Engine ;
+  rdfs:range xsd:decimal ;
+.
+:height
+  a rdf:Property ;
+  rdfs:domain :RacingDriver ;
+  rdfs:range xsd:decimal ;
+.
+:manufacturer
+  a rdf:Property ;
+  rdfs:domain :Engine ;
+  rdfs:range xsd:string ;
+.
+:name
+  a rdf:Property ;
+  rdfs:domain :Car ;
+  rdfs:domain :Channel ;
+  rdfs:domain :Circuit ;
+  rdfs:domain :Person ;
+  rdfs:domain :Team ;
+  rdfs:range xsd:string ;
+.
+:nationality
+  a rdf:Property ;
+  rdfs:domain :Person ;
+  rdfs:range xsd:string ;
+.
+:salary
+  a rdf:Property ;
+  rdfs:domain :RacingDriver ;
+  rdfs:range xsd:decimal ;
+.
+:seat
+  a rdf:Property ;
+  rdfs:domain :Team ;
+  rdfs:range xsd:string ;
+.
+:weight
+  a rdf:Property ;
+  rdfs:domain :RacingDriver ;
+  rdfs:range xsd:decimal ;
+.

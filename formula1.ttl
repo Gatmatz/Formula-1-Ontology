@@ -4,277 +4,1208 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix spin: <http://spinrdf.org/spin#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <http://example.org/formula1>
-  a owl:Ontology ;
+  rdf:type owl:Ontology ;
+  spin:imports <http://topbraid.org/spin/rdfsplus> ;
   owl:versionInfo "Created with TopBraid Composer" ;
 .
+:ANT1
+  rdf:type :Channel ;
+  :broadcaster "Antenna TV" ;
+.
+:AbuDhabi
+  rdf:type :Circuit ;
+  :location "Yas Marina Circuit" ;
+.
+:AbuDhabiFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :AbuDhabiRace ;
+.
+:AbuDhabiGP
+  rdf:type :RaceWeekend ;
+  :takes_place :AbuDhabi ;
+.
+:AbuDhabiRace
+  rdf:type :Race ;
+  :happeningDay "2023-11-26T15:00:00.000"^^xsd:dateTime ;
+  :temperature "27°C" ;
+.
+:AbuDhabiSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :AbuDhabiRace ;
+.
+:Accident
+  rdf:type rdfs:Class ;
+  rdfs:label "An accident happened in Formula 1" ;
+  rdfs:subClassOf rdfs:Resource ;
+.
+:Albon
+  rdf:type :RacingDriver ;
+  :dateOfBirth "1996-03-23"^^xsd:date ;
+  :height 1.86 ;
+  :name "Alexander Albon" ;
+  :nationality "Thailand" ;
+  :raced_in :season2023 ;
+  :salary "3"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "74"^^xsd:decimal ;
+.
+:AlfaRomeo
+  rdf:type :Team ;
+  :team_name "Alfa Romeo F1 Team Stake" ;
+.
+:Alonso
+  rdf:type :RacingDriver ;
+  :dateOfBirth "1981-06-29"^^xsd:date ;
+  :height 1.71 ;
+  :name "Fernando Alonso" ;
+  :nationality "Spain" ;
+  :raced_in :season2023 ;
+  :salary "5"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "68"^^xsd:decimal ;
+.
+:AlphaTauri
+  rdf:type :Team ;
+  :team_name "Scuderia AlphaTauri" ;
+.
+:Alpine
+  rdf:type :Team ;
+  :team_name "BWT Alpine F1 Team" ;
+.
+:AstonMartin
+  rdf:type :Team ;
+  :team_name "Aston Martin Aramco Cognizant F1 Team" ;
+.
+:AustraliaGP
+  rdf:type :RaceWeekend ;
+  :takes_place :Australian ;
+.
+:Australian
+  rdf:type :Circuit ;
+  :location "Albert Park Street Circuit" ;
+.
+:AustralianFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :AustralianRace ;
+.
+:AustralianRace
+  rdf:type :Race ;
+  :happeningDay "2023-04-02T15:00:00.000"^^xsd:dateTime ;
+  :temperature "15°C" ;
+  :weatherCondition "Likely dry and cloudy during the race, although light southerly wind is expected throughout the day." ;
+.
+:AustralianSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :AustralianRace ;
+.
+:Austria
+  rdf:type :Circuit ;
+  :location "Red Bull Ring" ;
+.
+:AustriaFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :AustriaRace ;
+.
+:AustriaGP
+  rdf:type :RaceWeekend ;
+  :takes_place :Austria ;
+.
+:AustriaRace
+  rdf:type :Race ;
+  :happeningDay "2023-06-02T14:00:00.000"^^xsd:dateTime ;
+  :temperature "24°C" ;
+  :weatherCondition "Partly cloudy in the morning with a slight chance of rain hitting the race in the afternoon." ;
+.
+:AustriaSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :AustriaRace ;
+.
+:Azerbaijan
+  rdf:type :Circuit ;
+  :location "Baku City Circuit" ;
+.
+:AzerbaijanFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Perez ;
+  :achieved_in :AzerbaijanRace ;
+.
+:AzerbaijanGP
+  rdf:type :RaceWeekend ;
+  :takes_place :Azerbaijan ;
+.
+:AzerbaijanRace
+  rdf:type :Race ;
+  :happeningDay "2023-04-30T13:00:00.000"^^xsd:dateTime ;
+  :temperature "24°C" ;
+  :weatherCondition "Mostly cloudy throughout the day with a slight chance of rain late in the afternoon." ;
+.
+:AzerbaijanSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :AzerbaijanRace ;
+.
+:Bahrain
+  rdf:type :Circuit ;
+  :location "Sakhir International Circuit" ;
+.
+:BahrainFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :BahrainRace ;
+.
+:BahrainGP
+  rdf:type :RaceWeekend ;
+  :takes_place :Bahrain ;
+.
+:BahrainRace
+  rdf:type :Race ;
+  :happeningDay "2023-03-05T14:01:00.000"^^xsd:dateTime ;
+  :temperature "23" ;
+  :weatherCondition "Sunny all day long. Hotter than the previous days. Light Southeasterly wind for the race." ;
+.
+:BahrainSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :BahrainRace ;
+.
+:BelgianFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :BelgianRace ;
+.
+:BelgianRace
+  rdf:type :Race ;
+  :happeningDay "2023-07-30T14:00:00.000"^^xsd:dateTime ;
+  :temperature "17°C" ;
+  :weatherCondition "A much improved day but there is still a chance of a shower or two in the afternoon." ;
+.
+:BelgianSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :BelgianRace ;
+.
+:Belgium
+  rdf:type :Circuit ;
+  :location "Spa-Francorchamps Circuit" ;
+.
+:BelgiumGP
+  rdf:type :RaceWeekend ;
+  :takes_place :Belgium ;
+.
+:Bottas
+  rdf:type :RacingDriver ;
+  :dateOfBirth "1989-08-28"^^xsd:date ;
+  :height 1.73 ;
+  :name "Valtteri Bottas" ;
+  :nationality "Finland" ;
+  :raced_in :season2023 ;
+  :salary "10"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "69"^^xsd:decimal ;
+.
+:Brazil
+  rdf:type :Circuit ;
+  :location "Jose Carlos Pace Autodrome" ;
+.
+:BrazilianFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :BrazilianRace ;
+.
+:BrazilianGP
+  rdf:type :RaceWeekend ;
+  :takes_place :Brazil ;
+.
+:BrazilianRace
+  rdf:type :Race ;
+  :happeningDay "2023-11-05T15:00:00.000"^^xsd:dateTime ;
+  :temperature "20°C" ;
+  :weatherCondition "Mainly sunny and dry conditions expected all day long. Light to moderate Southeasterly breeze for the Race." ;
+.
+:BrazilianSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :BrazilianRace ;
+.
 :Cameraman
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Cameraman of a broadcast" ;
   rdfs:subClassOf :PressMember ;
 .
+:Canada
+  rdf:type :Circuit ;
+  :location "Gilles Villenueve Circuit" ;
+.
+:CanadaFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :CanadaRace ;
+.
+:CanadaGP
+  rdf:type :RaceWeekend ;
+  :takes_place :Canada ;
+.
+:CanadaRace
+  rdf:type :Race ;
+  :happeningDay "2023-05-18T15:00:00.000"^^xsd:dateTime ;
+  :temperature "23°C" ;
+  :weatherCondition "Sunday is expected to be much improved but expect a mix of showers and some sunny spells throughout the day." ;
+.
+:CanadaSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :CanadaRace ;
+.
 :Car
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Any type of Car" ;
   rdfs:subClassOf rdfs:Resource ;
 .
 :Championship
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Formula 1 Year Championship" ;
   rdfs:subClassOf rdfs:Resource ;
 .
 :Channel
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Formula 1 Broadcast Channel" ;
   rdfs:subClassOf rdfs:Resource ;
 .
 :Circuit
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Circuit that F1 Race takes place" ;
   rdfs:subClassOf rdfs:Resource ;
 .
+:Company
+  rdf:type rdfs:Class ;
+  rdfs:subClassOf rdfs:Resource ;
+.
+:ESPN
+  rdf:type :Channel ;
+  :broadcaster "ESPN F1" ;
+.
+:EmiliaRomagna
+  rdf:type :Circuit ;
+  :location "Dino & Enzo Ferrari Autodrome" ;
+.
 :Engine
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Car Engine" ;
   rdfs:subClassOf rdfs:Resource ;
 .
 :Engineer
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Engineer of a Formula 1 Team" ;
   rdfs:subClassOf :TeamMember ;
 .
 :Event
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Formula 1 Grand Prix Event" ;
   rdfs:subClassOf rdfs:Resource ;
 .
 :FIA
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Federation Internationale de l'Automobile (Organization)" ;
   rdfs:subClassOf rdfs:Resource ;
 .
+:Ferrari
+  rdf:type :Team ;
+  :team_name "Scuderia Ferrari" ;
+.
+:FirstPlace
+  rdf:type rdfs:Class ;
+  rdfs:subClassOf :PodiumPlace ;
+.
+:Gasly
+  rdf:type :RacingDriver ;
+  :dateOfBirth "1994-09-01"^^xsd:date ;
+  :height 1.77 ;
+  :name "Pierre Gasly" ;
+  :nationality "France" ;
+  :raced_in :season2023 ;
+  :salary "5"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "70"^^xsd:decimal ;
+.
+:GreatBritain
+  rdf:type :Circuit ;
+  :location "Silverstone Circuit" ;
+.
+:GreatBritainFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :CanadaRace ;
+.
+:GreatBritainGP
+  rdf:type :RaceWeekend ;
+  :takes_place :GreatBritain ;
+.
+:GreatBritainRace
+  rdf:type :Race ;
+  :happeningDay "2023-07-09T15:00:00.000"^^xsd:dateTime ;
+  :temperature "22°C" ;
+  :weatherCondition "A chance of rain is likely in the morning until midday, but conditions should become drier in the afternoon." ;
+.
+:GreatBritainSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :GreatBritainRace ;
+.
+:Haas
+  rdf:type :Team ;
+  :team_name "MoneyGram Haas F1 Team" ;
+.
+:Hamilton
+  rdf:type :RacingDriver ;
+  :dateOfBirth "1985-01-07"^^xsd:date ;
+  :height 1.74 ;
+  :name "Lewis Hamilton" ;
+  :nationality "United Kingdom" ;
+  :raced_in :season2023 ;
+  :salary "35"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "73"^^xsd:decimal ;
+.
+:Hulkenberg
+  rdf:type :RacingDriver ;
+  :dateOfBirth "1987-09-19"^^xsd:date ;
+  :height 1.84 ;
+  :name "Nico Hulkenberg" ;
+  :nationality "Germany" ;
+  :raced_in :season2023 ;
+  :salary "1"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "78"^^xsd:decimal ;
+.
+:Hungary
+  rdf:type :Circuit ;
+  :location "Hungaroring" ;
+.
+:HungaryFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :HungaryRace ;
+.
+:HungaryGP
+  rdf:type :RaceWeekend ;
+  :takes_place :Hungary ;
+.
+:HungaryRace
+  rdf:type :Race ;
+  :happeningDay "2023-07-23T14:00:00.000"^^xsd:dateTime ;
+  :temperature "29°C" ;
+  :weatherCondition "Mostly sunny and dry all day with light to moderate gusts of up to 35 kph expected in the afternoon." ;
+.
+:HungarySecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :HungaryRace ;
+.
+:ItalianFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :ItalianRace ;
+.
+:ItalianGP
+  rdf:type :RaceWeekend ;
+  :takes_place :Italy ;
+.
+:ItalianRace
+  rdf:type :Race ;
+  :happeningDay "2023-09-03T14:00:00.000"^^xsd:dateTime ;
+  :temperature "29°C" ;
+  :weatherCondition "Mostly sunny and dry conditions but with light southerly winds in the afternoon." ;
+.
+:ItalianSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :ItalianRace ;
+.
+:Italy
+  rdf:type :Circuit ;
+  :location "Monza National Autodrome" ;
+.
+:Japan
+  rdf:type :Circuit ;
+  :location "Suzuka International Racing Course" ;
+.
+:JapanFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :JapanRace ;
+.
+:JapanGP
+  rdf:type :RaceWeekend ;
+  :takes_place :Japan ;
+.
+:JapanRace
+  rdf:type :Race ;
+  :happeningDay "2023-09-24T14:00:00.000"^^xsd:dateTime ;
+  :temperature "28°C" ;
+  :weatherCondition "Fair weather and mostly sunny and dry conditions likely with a light-to-moderate southerly wind in the afternoon." ;
+.
+:JapanSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :JapanRace ;
+.
 :Journalist
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Journalist of a broadcast channel" ;
   rdfs:subClassOf :PressMember ;
 .
-:MainRace
-  a rdfs:Class ;
-  rdfs:subClassOf :Race ;
+:LasVegas
+  rdf:type :Circuit ;
+  :location "Las Vegas Strip Street Circuit" ;
+.
+:LasVegasFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :LasVegasRace ;
+.
+:LasVegasGP
+  rdf:type :RaceWeekend ;
+  :takes_place :LasVegas ;
+.
+:LasVegasRace
+  rdf:type :Race ;
+  :happeningDay "2023-11-18T18:00:00.000"^^xsd:dateTime ;
+  :temperature "13°C" ;
+  :weatherCondition "Partly cloudy with a moderate chance of rain at the end of the day. Chance of the rain will decrease closer to the race." ;
+.
+:LasVegasSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :LasVegasRace ;
+.
+:Leclerc
+  rdf:type :RacingDriver ;
+  :dateOfBirth "1997-10-16"^^xsd:date ;
+  :height 1.80 ;
+  :name "Charles Leclerc" ;
+  :nationality "Monaco" ;
+  :raced_in :season2023 ;
+  :salary "24"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "69"^^xsd:decimal ;
+.
+:Magnussen
+  rdf:type :RacingDriver ;
+  :dateOfBirth "1992-10-05"^^xsd:date ;
+  :height 1.74 ;
+  :name "Kevin Magnussen" ;
+  :nationality "Denmark" ;
+  :raced_in :season2023 ;
+  :salary "5"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "70"^^xsd:decimal ;
+.
+:McLaren
+  rdf:type :Team ;
+  :team_name "McLaren F1 Team" ;
 .
 :Mechanic
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Member of the pit crew" ;
   rdfs:subClassOf :TeamMember ;
 .
 :MedicalCar
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Formula 1 Medical Car" ;
   rdfs:subClassOf :Car ;
 .
+:Mercedes
+  rdf:type :Team ;
+  :team_name "Mercedes-AMG Petronas F1 Team" ;
+.
+:Mexico
+  rdf:type :Circuit ;
+  :location "Autodromo Hermanos Rodriguez" ;
+.
+:MexicoFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :MexicoRace ;
+.
+:MexicoGP
+  rdf:type :RaceWeekend ;
+  :takes_place :Mexico ;
+.
+:MexicoRace
+  rdf:type :Race ;
+  :happeningDay "2023-10-29T14:00:00.000"^^xsd:dateTime ;
+  :temperature "26°C" ;
+  :weatherCondition "Same kind of weather as previous days but with a mix of clouds and sunny spells. A small chance of rain in the afternoon." ;
+.
+:MexicoSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :MexicoRace ;
+.
+:Miami
+  rdf:type :Circuit ;
+  :location "Miami International Autodrome" ;
+.
+:MiamiFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :MiamiRace ;
+.
+:MiamiGP
+  rdf:type :RaceWeekend ;
+  :takes_place :Miami ;
+.
+:MiamiRace
+  rdf:type :Race ;
+  :happeningDay "2023-05-07T18:00:00.000"^^xsd:dateTime ;
+  :temperature "30°C" ;
+  :weatherCondition "High chance of rain and thunderstorms in the Miami area in the afternoon. " ;
+.
+:MiamiSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :MiamiRace ;
+.
+:Monaco
+  rdf:type :Circuit ;
+  :location "Monaco Street Circuit" ;
+.
+:MonacoFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :MonacoRace ;
+.
+:MonacoGP
+  rdf:type :RaceWeekend ;
+  :takes_place :Monaco ;
+.
+:MonacoRace
+  rdf:type :Race ;
+  :happeningDay "2023-05-28T14:00:00.000"^^xsd:dateTime ;
+  :temperature "24°C" ;
+  :weatherCondition "Partly cloudy with a light southerly wind and with a slight chance of rain in the afternoon." ;
+.
+:MonacoSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :MonacoRace ;
+.
+:Netherlands
+  rdf:type :Circuit ;
+  :location "Zandvoort Circuit" ;
+.
+:NetherlandsFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :NetherlandsRace ;
+.
+:NetherlandsGP
+  rdf:type :RaceWeekend ;
+  :takes_place :Netherlands ;
+.
+:NetherlandsRace
+  rdf:type :Race ;
+  :happeningDay "2023-08-27T15:00:00.000"^^xsd:dateTime ;
+  :temperature "18°C" ;
+  :weatherCondition "A mixture of clouds and sunny spells with a moderate chance of light showers in the morning." ;
+.
+:NetherlandsSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :NetherlandsRace ;
+.
+:Norris
+  rdf:type :RacingDriver ;
+  :dateOfBirth "1999-11-13"^^xsd:date ;
+  :height 1.76 ;
+  :name "Lando Norris" ;
+  :nationality "United Kingdom" ;
+  :raced_in :season2023 ;
+  :salary "20"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "68"^^xsd:decimal ;
+.
+:Ocon
+  rdf:type :RacingDriver ;
+  :dateOfBirth "1996-09-17"^^xsd:date ;
+  :height 1.86 ;
+  :name "Esteban Ocon" ;
+  :nationality "France" ;
+  :raced_in :season2023 ;
+  :salary "6"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "66"^^xsd:decimal ;
+.
+:Perez
+  rdf:type :RacingDriver ;
+  :dateOfBirth "1990-01-26"^^xsd:date ;
+  :height 1.73 ;
+  :name "Sergio Perez" ;
+  :nationality "Mexico" ;
+  :raced_in :season2023 ;
+  :salary "10"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "63"^^xsd:decimal ;
+.
 :Person
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Human in Formula 1" ;
+  rdfs:subClassOf rdfs:Resource ;
+.
+:Piastri
+  rdf:type :RacingDriver ;
+  :dateOfBirth "2001-04-06"^^xsd:date ;
+  :height 1.78 ;
+  :name "Oscar Piastri" ;
+  :nationality "Australia" ;
+  :raced_in :season2023 ;
+  :salary "2"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "68"^^xsd:decimal ;
+.
+:PodiumPlace
+  rdf:type rdfs:Class ;
+  rdfs:label "A Podium Finish in a Grand Prix" ;
   rdfs:subClassOf rdfs:Resource ;
 .
 :PracticeSession
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Grand Prix Practice Session" ;
   rdfs:subClassOf :Event ;
 .
 :PressMember
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Member of a broadcast channel" ;
   rdfs:subClassOf :Person ;
 .
+:Qatar
+  rdf:type :Circuit ;
+  :location "Lusail International Circuit" ;
+.
+:QatarFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :QatarRace ;
+.
+:QatarGP
+  rdf:type :RaceWeekend ;
+  :takes_place :Qatar ;
+.
+:QatarRace
+  rdf:type :Race ;
+  :happeningDay "2023-10-08T19:00:00.000"^^xsd:dateTime ;
+  :temperature "32°C" ;
+  :weatherCondition "Fair weather all day, with light wind throughout the day." ;
+.
+:QatarSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :QatarRace ;
+.
 :Qualifying
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Grand Prix Qualifying Event" ;
   rdfs:subClassOf :Event ;
 .
 :Race
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Grand Prix Race" ;
   rdfs:subClassOf :Event ;
 .
 :RaceDirector
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Race Director of a Grand Prix" ;
   rdfs:subClassOf :RaceOfficial ;
 .
 :RaceEngineer
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Engineer of a Formula 1 Team" ;
   rdfs:subClassOf :Engineer ;
 .
 :RaceOfficial
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Member of a Grand Prix or FIA" ;
   rdfs:subClassOf :Person ;
 .
-:RaceQualifying
-  a rdfs:Class ;
-  rdfs:subClassOf :Qualifying ;
-.
 :RaceWeekend
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "A F1 Grand Prix" ;
   rdfs:subClassOf rdfs:Resource ;
 .
 :RacingCar
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Formula 1 Car" ;
   rdfs:subClassOf :Car ;
 .
 :RacingDriver
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Formula 1 Driver" ;
   rdfs:subClassOf :TeamMember ;
 .
+:RedBull
+  rdf:type :Team ;
+  :team_name "Oracle Red Bull Racing" ;
+.
+:Resource_1
+  rdf:type rdfs:Resource ;
+.
+:Ricciardo
+  rdf:type :RacingDriver ;
+  :height 1.79 ;
+  :name "Daniel Ricciardo" ;
+  :nationality "Australia" ;
+  :raced_in :season2023 ;
+  :salary "2"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "58"^^xsd:decimal ;
+.
+:Russell
+  rdf:type :RacingDriver ;
+  :dateOfBirth "1998-02-15"^^xsd:date ;
+  :height 1.85 ;
+  :name "George Russell" ;
+  :nationality "United Kingdom" ;
+  :raced_in :season2023 ;
+  :salary "8"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "70"^^xsd:decimal ;
+.
 :SafetyCar
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Formula 1 Safety Car" ;
   rdfs:subClassOf :Car ;
 .
-:SprintQualifying
-  a rdfs:Class ;
-  rdfs:subClassOf :Qualifying ;
+:Sainz
+  rdf:type :RacingDriver ;
+  :height 1.78 ;
+  :name "Carlos Sainz" ;
+  :nationality "Spain" ;
+  :raced_in :season2023 ;
+  :salary "12"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "64"^^xsd:decimal ;
 .
-:SprintRace
-  a rdfs:Class ;
-  rdfs:subClassOf :Race ;
+:Sargeant
+  rdf:type :RacingDriver ;
+  :dateOfBirth "2000-12-31"^^xsd:date ;
+  :height 1.81 ;
+  :name "Logan Sargeant" ;
+  :nationality "United States" ;
+  :raced_in :season2023 ;
+  :salary "1"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "71"^^xsd:decimal ;
 .
-:SprintRaceWeekend
-  a rdfs:Class ;
-  rdfs:subClassOf :RaceWeekend ;
+:SaudiArabia
+  rdf:type :Circuit ;
+  :location "Jeddah Corniche Circuit" ;
 .
-:StandardRaceWeekend
-  a rdfs:Class ;
-  rdfs:subClassOf :RaceWeekend ;
+:SaudiArabiaFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Perez ;
+  :achieved_in :SaudiArabiaRace ;
+.
+:SaudiArabiaGP
+  rdf:type :RaceWeekend ;
+  :takes_place :SaudiArabia ;
+.
+:SaudiArabiaRace
+  rdf:type :Race ;
+  :happeningDay "2023-03-19T13:00:00.000"^^xsd:dateTime ;
+  :temperature "25°C" ;
+  :weatherCondition "Sunny all day. Light to moderate north-westerly sea breeze with gusts of up to 30kph in the afternoon." ;
+.
+:SaudiArabiaSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :SaudiArabiaRace ;
+.
+:SecondPlace
+  rdf:type rdfs:Class ;
+  rdfs:subClassOf :PodiumPlace ;
+.
+:Singapore
+  rdf:type :Circuit ;
+  :location "Marina Bay Street Circuit" ;
+.
+:SingaporeFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Sainz ;
+  :achieved_in :SingaporeRace ;
+.
+:SingaporeGP
+  rdf:type :RaceWeekend ;
+  :takes_place :Singapore ;
+.
+:SingaporeRace
+  rdf:type :Race ;
+  :happeningDay "2023-09-17T19:00:00.000"^^xsd:dateTime ;
+  :temperature "30°C" ;
+  :weatherCondition "A high chance of thundery and heavy showers during the day and towards the evening." ;
+.
+:SingaporeSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :SingaporeRace ;
+.
+:SkySports
+  rdf:type :Channel ;
+  :broadcaster "Sky Sports F1" ;
+.
+:Spain
+  rdf:type :Circuit ;
+  :location "Barcelona-Catalunya Circuit" ;
+.
+:SpainFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :SpainRace ;
+.
+:SpainGP
+  rdf:type :RaceWeekend ;
+  :takes_place :Spain ;
+.
+:SpainRace
+  rdf:type :Race ;
+  :happeningDay "2023-06-04T13:00:00.000"^^xsd:dateTime ;
+  :temperature "23°C" ;
+  :weatherCondition "The day will be sunny at first then become unsettled on the hills around with a slight chance of a shower during the race. " ;
+.
+:SpainSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :SpainRace ;
 .
 :Steward
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Steward of a Grand Prix" ;
   rdfs:subClassOf :RaceOfficial ;
 .
 :Strategist
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Member of the strategist team" ;
   rdfs:subClassOf :Engineer ;
 .
+:Stroll
+  rdf:type :RacingDriver ;
+  :dateOfBirth "1998-10-29"^^xsd:date ;
+  :height 1.82 ;
+  :name "Lance Stroll" ;
+  :nationality "Canada" ;
+  :raced_in :season2023 ;
+  :salary "2"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "70"^^xsd:decimal ;
+.
 :Team
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Member of the strategist team" ;
   rdfs:subClassOf rdfs:Resource ;
 .
 :TeamMember
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Member of a Formula 1 team" ;
   rdfs:subClassOf :Person ;
 .
 :TeamPrincipal
-  a rdfs:Class ;
+  rdf:type rdfs:Class ;
+  rdfs:label "Head of a Formula 1 Team" ;
   rdfs:subClassOf :TeamMember ;
 .
-:champion
-  a rdf:Property ;
+:ThirdPlace
+  rdf:type rdfs:Class ;
+  rdfs:subClassOf :PodiumPlace ;
+.
+:Tsunoda
+  rdf:type :RacingDriver ;
+  :dateOfBirth "2000-05-11"^^xsd:date ;
+  :height 1.59 ;
+  :name "Yuki Tsunoda" ;
+  :nationality "Japan" ;
+  :raced_in :season2023 ;
+  :salary "1"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "54"^^xsd:decimal ;
+.
+:USA
+  rdf:type :Circuit ;
+  :location "Circuit of the Americas" ;
+.
+:UnitedStatesFirstPlace
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :UnitedStatesRace ;
+.
+:UnitedStatesGP
+  rdf:type :RaceWeekend ;
+  :takes_place :USA ;
+.
+:UnitedStatesRace
+  rdf:type :Race ;
+  :happeningDay "2023-10-22T13:00:00.000"^^xsd:dateTime ;
+  :temperature "32°C" ;
+  :weatherCondition "Still fair and hot weather throughout the day but with southerly winds expected to gradually increase in the afternoon." ;
+.
+:UnitedStatesSecondPlace
+  rdf:type :SecondPlace ;
+  :achieved_in :UnitedStatesRace ;
+.
+:Verstappen
+  rdf:type :RacingDriver ;
+  :dateOfBirth "1997-09-30"^^xsd:date ;
+  :driver_champion :season2023 ;
+  :height 1.81 ;
+  :name "Max Verstappen" ;
+  :nationality "Netherlands" ;
+  :raced_in :season2023 ;
+  :salary "55"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "72"^^xsd:decimal ;
+.
+:Viewer
+  rdf:type rdfs:Class ;
+  rdfs:subClassOf :Person ;
+.
+:Williams
+  rdf:type :Team ;
+  :team_name "Williams Racing" ;
+.
+:Zhou
+  rdf:type :RacingDriver ;
+  :dateOfBirth "1999-05-30"^^xsd:date ;
+  :height 1.75 ;
+  :name "Guanyu Zhou" ;
+  :nationality "China" ;
+  :raced_in :season2023 ;
+  :salary "2"^^xsd:decimal ;
+  :sex "Male" ;
+  :weight "63"^^xsd:decimal ;
+.
+:accidentDescription
+  rdf:type rdf:Property ;
+  rdfs:domain :Accident ;
+  rdfs:range xsd:string ;
+.
+:achieved_by
+  rdf:type rdf:Property ;
+  rdfs:domain :PodiumPlace ;
+  rdfs:range :RacingDriver ;
+.
+:achieved_in
+  rdf:type rdf:Property ;
+  rdfs:domain :PodiumPlace ;
+  rdfs:range :Event ;
+.
+:attends
+  rdf:type rdf:Property ;
+  rdfs:domain :Person ;
+  rdfs:range :RaceWeekend ;
+.
+:broadcaster
+  rdf:type rdf:Property ;
+  rdfs:domain :Channel ;
+  rdfs:range xsd:string ;
+.
+:broadcasts_for
+  rdf:type rdf:Property ;
+  rdfs:domain :PressMember ;
+  rdfs:range :Channel ;
+.
+:calls_for
+  rdf:type rdf:Property ;
+  rdfs:domain :Accident ;
+  rdfs:range :SafetyCar ;
+.
+:caused_by
+  rdf:type rdf:Property ;
+  rdfs:domain :Accident ;
+  rdfs:range :RacingDriver ;
+.
+:communicates_with
+  rdf:type rdf:Property ;
   rdfs:domain :RacingDriver ;
+  rdfs:range :RaceEngineer ;
+.
+:competes_with
+  rdf:type rdf:Property ;
+  rdfs:domain :Team ;
+  rdfs:range :RacingCar ;
+.
+:consists_of
+  rdf:type rdf:Property ;
+  rdfs:domain :Championship ;
+  rdfs:range :RaceWeekend ;
+.
+:constructor_champion
+  rdf:type rdf:Property ;
+  rdfs:domain :Team ;
   rdfs:range :Championship ;
-  rdfs:subPropertyOf :raced-in ;
+  rdfs:subPropertyOf :participated_in ;
 .
 :cylinders
-  a rdf:Property ;
+  rdf:type rdf:Property ;
   rdfs:domain :Engine ;
   rdfs:range xsd:integer ;
 .
 :dateOfBirth
-  a rdf:Property ;
+  rdf:type rdf:Property ;
   rdfs:domain :Person ;
   rdfs:range xsd:date ;
 .
-:ers
-  a rdf:Property ;
+:driver_champion
+  rdf:type rdf:Property ;
+  rdfs:domain :RacingDriver ;
+  rdfs:range :Championship ;
+  rdfs:subPropertyOf :raced_in ;
+.
+:employed_by
+  rdf:type rdf:Property ;
+  rdfs:domain :TeamMember ;
+  rdfs:range :Team ;
+.
+:engineModel
+  rdf:type rdf:Property ;
   rdfs:domain :Engine ;
   rdfs:range xsd:string ;
 .
 :fuelFlowLimit
-  a rdf:Property ;
+  rdf:type rdf:Property ;
   rdfs:domain :Engine ;
   rdfs:range xsd:decimal ;
 .
-:has-car
-  a rdf:Property ;
-  rdfs:domain :Team ;
-  rdfs:range :RacingCar ;
+:happeningDay
+  rdf:type rdf:Property ;
+  rdfs:domain :Event ;
+  rdfs:range xsd:dateTime ;
 .
-:has-engine
-  a rdf:Property ;
+:has_engine
+  rdf:type rdf:Property ;
   rdfs:domain :Car ;
   rdfs:range :Engine ;
 .
+:has_event
+  rdf:type rdf:Property ;
+  rdfs:domain :RaceWeekend ;
+  rdfs:range :Event ;
+.
 :height
-  a rdf:Property ;
+  rdf:type rdf:Property ;
   rdfs:domain :RacingDriver ;
   rdfs:range xsd:decimal ;
 .
+:instance_1
+  rdf:type rdfs:Resource ;
+.
 :location
-  a rdf:Property ;
+  rdf:type rdf:Property ;
   rdfs:domain :Circuit ;
   rdfs:range xsd:string ;
 .
-:manufacturer
-  a rdf:Property ;
-  rdfs:domain :Engine ;
-  rdfs:range xsd:string ;
-.
 :model
-  a rdf:Property ;
+  rdf:type rdf:Property ;
   rdfs:domain :Car ;
   rdfs:range xsd:string ;
 .
 :name
-  a rdf:Property ;
-  rdfs:domain :Channel ;
-  rdfs:domain :Circuit ;
+  rdf:type rdf:Property ;
   rdfs:domain :Person ;
-  rdfs:domain :Team ;
   rdfs:range xsd:string ;
 .
 :nationality
-  a rdf:Property ;
+  rdf:type rdf:Property ;
   rdfs:domain :Person ;
   rdfs:range xsd:string ;
 .
-:number
-  a rdf:Property ;
-  rdfs:domain :RacingDriver ;
-  rdfs:range xsd:integer ;
+:needs_medical
+  rdf:type rdf:Property ;
+  rdfs:domain :Accident ;
+  rdfs:range :MedicalCar ;
+  rdfs:subPropertyOf :calls_for ;
 .
-:participated
-  a rdf:Property ;
+:organises
+  rdf:type rdf:Property ;
+  rdfs:domain :Company ;
+  rdfs:range :RaceWeekend ;
+.
+:organization
+  rdf:type rdf:Property ;
+  rdfs:domain :Company ;
+  rdfs:range xsd:string ;
+.
+:participated_in
+  rdf:type rdf:Property ;
   rdfs:domain :Team ;
   rdfs:range :Championship ;
 .
-:podium-finisher
-  a rdf:Property ;
-  rdfs:domain :RacingDriver ;
-  rdfs:range :Race ;
-  rdfs:subPropertyOf :race-participant ;
-.
-:race-participant
-  a rdf:Property ;
-  rdfs:domain :RacingDriver ;
-  rdfs:range :Race ;
-.
-:raced-in
-  a rdf:Property ;
+:raced_in
+  rdf:type rdf:Property ;
   rdfs:domain :RacingDriver ;
   rdfs:range :Championship ;
 .
 :salary
-  a rdf:Property ;
+  rdf:type rdf:Property ;
   rdfs:domain :RacingDriver ;
   rdfs:range xsd:decimal ;
 .
-:seat
-  a rdf:Property ;
+:season
+  rdf:type rdf:Property ;
+  rdfs:domain :Championship ;
+  rdfs:range xsd:integer ;
+.
+:season2023
+  rdf:type :Championship ;
+  :consists_of :AbuDhabiGP ;
+  :consists_of :AustraliaGP ;
+  :consists_of :AustriaGP ;
+  :consists_of :AzerbaijanGP ;
+  :consists_of :BahrainGP ;
+  :consists_of :BelgiumGP ;
+  :consists_of :BrazilianGP ;
+  :consists_of :CanadaGP ;
+  :consists_of :GreatBritainGP ;
+  :consists_of :HungaryGP ;
+  :consists_of :ItalianGP ;
+  :consists_of :JapanGP ;
+  :consists_of :LasVegasGP ;
+  :consists_of :MexicoGP ;
+  :consists_of :MiamiGP ;
+  :consists_of :MonacoGP ;
+  :consists_of :NetherlandsGP ;
+  :consists_of :QatarGP ;
+  :consists_of :SaudiArabiaGP ;
+  :consists_of :SingaporeGP ;
+  :consists_of :SpainGP ;
+  :consists_of :UnitedStatesGP ;
+  :season 2023 ;
+.
+:seriousAccident
+  rdf:type rdf:Property ;
+  rdfs:domain :Accident ;
+  rdfs:range xsd:string ;
+  rdfs:subPropertyOf :accidentDescription ;
+.
+:sex
+  rdf:type rdf:Property ;
+  rdfs:domain :Person ;
+  rdfs:range xsd:string ;
+.
+:sponsors
+  rdf:type rdf:Property ;
+  rdfs:domain :Company ;
+  rdfs:range :Team ;
+.
+:takes_place
+  rdf:type rdf:Property ;
+  rdfs:domain :RaceWeekend ;
+  rdfs:range :Circuit ;
+.
+:team_name
+  rdf:type rdf:Property ;
   rdfs:domain :Team ;
   rdfs:range xsd:string ;
 .
-:takes-place
-  a rdf:Property ;
+:temperature
+  rdf:type rdf:Property ;
   rdfs:domain :Event ;
-  rdfs:range :Circuit ;
+  rdfs:range xsd:string ;
+  rdfs:subPropertyOf :weatherCondition ;
+.
+:weatherCondition
+  rdf:type rdf:Property ;
+  rdfs:domain :Event ;
+  rdfs:range xsd:string ;
 .
 :weight
-  a rdf:Property ;
+  rdf:type rdf:Property ;
   rdfs:domain :RacingDriver ;
   rdfs:range xsd:decimal ;
-.
-:winner
-  a rdf:Property ;
-  rdfs:domain :RacingDriver ;
-  rdfs:range :Race ;
-  rdfs:subPropertyOf :podium-finisher ;
-.
-:works-for
-  a rdf:Property ;
-  rdfs:domain :Person ;
-  rdfs:range :Channel ;
-  rdfs:range :FIA ;
-  rdfs:range :Team ;
 .

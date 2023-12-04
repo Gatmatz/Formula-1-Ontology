@@ -27,15 +27,32 @@
 .
 :AbuDhabiGP
   rdf:type :RaceWeekend ;
+  :has_event :AbuDhabiQualifying ;
+  :has_event :AbuDhabiRace ;
   :takes_place :AbuDhabi ;
+.
+:AbuDhabiPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :AbuDhabiQualifying ;
+.
+:AbuDhabiQualifying
+  rdf:type :Qualifying ;
 .
 :AbuDhabiRace
   rdf:type :Race ;
   :happeningDay "2023-11-26T15:00:00.000"^^xsd:dateTime ;
   :temperature "27°C" ;
+  :weatherCondition "Mostly sunny with dry conditions expected throughout the day, as well as a light breeze." ;
 .
 :AbuDhabiSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Leclerc ;
+  :achieved_in :AbuDhabiRace ;
+.
+:AbuDhabiThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Russell ;
   :achieved_in :AbuDhabiRace ;
 .
 :Accident
@@ -56,6 +73,7 @@
 .
 :AlfaRomeo
   rdf:type :Team ;
+  :participated_in :season2023 ;
   :team_name "Alfa Romeo F1 Team Stake" ;
 .
 :Alonso
@@ -69,20 +87,47 @@
   :sex "Male" ;
   :weight "68"^^xsd:decimal ;
 .
+:AlphaRomeoCar
+  rdf:type :RacingCar ;
+  :has_engine :FerrariEngine ;
+  :model "C43" ;
+.
 :AlphaTauri
   rdf:type :Team ;
+  :participated_in :season2023 ;
   :team_name "Scuderia AlphaTauri" ;
+.
+:AlphaTauriCar
+  rdf:type :RacingCar ;
+  :has_engine :HondaEngine ;
+  :model "AT04" ;
 .
 :Alpine
   rdf:type :Team ;
+  :competes_with :AlpineCar ;
+  :participated_in :season2023 ;
   :team_name "BWT Alpine F1 Team" ;
+.
+:AlpineCar
+  rdf:type :RacingCar ;
+  :has_engine :RenaultEngine ;
+  :model "A523" ;
 .
 :AstonMartin
   rdf:type :Team ;
+  :competes_with :AstonMartinCar ;
+  :participated_in :season2023 ;
   :team_name "Aston Martin Aramco Cognizant F1 Team" ;
+.
+:AstonMartinCar
+  rdf:type :RacingCar ;
+  :has_engine :MercedesEngine ;
+  :model "AMR23" ;
 .
 :AustraliaGP
   rdf:type :RaceWeekend ;
+  :has_event :AustralianQualifying ;
+  :has_event :AustralianRace ;
   :takes_place :Australian ;
 .
 :Australian
@@ -94,6 +139,14 @@
   :achieved_by :Verstappen ;
   :achieved_in :AustralianRace ;
 .
+:AustralianPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :AustralianQualifying ;
+.
+:AustralianQualifying
+  rdf:type :Qualifying ;
+.
 :AustralianRace
   rdf:type :Race ;
   :happeningDay "2023-04-02T15:00:00.000"^^xsd:dateTime ;
@@ -102,6 +155,12 @@
 .
 :AustralianSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Hamilton ;
+  :achieved_in :AustralianRace ;
+.
+:AustralianThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Alonso ;
   :achieved_in :AustralianRace ;
 .
 :Austria
@@ -115,7 +174,17 @@
 .
 :AustriaGP
   rdf:type :RaceWeekend ;
+  :has_event :AustriaQualifying ;
+  :has_event :AustriaRace ;
   :takes_place :Austria ;
+.
+:AustriaPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :AustriaQualifying ;
+.
+:AustriaQualifying
+  rdf:type :Qualifying ;
 .
 :AustriaRace
   rdf:type :Race ;
@@ -125,6 +194,12 @@
 .
 :AustriaSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Leclerc ;
+  :achieved_in :AustriaRace ;
+.
+:AustriaThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Perez ;
   :achieved_in :AustriaRace ;
 .
 :Azerbaijan
@@ -138,7 +213,17 @@
 .
 :AzerbaijanGP
   rdf:type :RaceWeekend ;
+  :has_event :AzerbaijanQualifying ;
+  :has_event :AzerbaijanRace ;
   :takes_place :Azerbaijan ;
+.
+:AzerbaijanPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Leclerc ;
+  :achieved_in :AzerbaijanQualifying ;
+.
+:AzerbaijanQualifying
+  rdf:type :Qualifying ;
 .
 :AzerbaijanRace
   rdf:type :Race ;
@@ -148,6 +233,12 @@
 .
 :AzerbaijanSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :AzerbaijanRace ;
+.
+:AzerbaijanThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Leclerc ;
   :achieved_in :AzerbaijanRace ;
 .
 :Bahrain
@@ -161,22 +252,46 @@
 .
 :BahrainGP
   rdf:type :RaceWeekend ;
+  :has_event :BahrainQualifying ;
+  :has_event :BahrainRace ;
   :takes_place :Bahrain ;
+.
+:BahrainPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :BahrainQualifying ;
+.
+:BahrainQualifying
+  rdf:type :Qualifying ;
 .
 :BahrainRace
   rdf:type :Race ;
   :happeningDay "2023-03-05T14:01:00.000"^^xsd:dateTime ;
-  :temperature "23" ;
+  :temperature "23°C" ;
   :weatherCondition "Sunny all day long. Hotter than the previous days. Light Southeasterly wind for the race." ;
 .
 :BahrainSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Perez ;
+  :achieved_in :BahrainRace ;
+.
+:BahrainThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Alonso ;
   :achieved_in :BahrainRace ;
 .
 :BelgianFirstPlace
   rdf:type :FirstPlace ;
   :achieved_by :Verstappen ;
   :achieved_in :BelgianRace ;
+.
+:BelgianPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :BelgianQualifying ;
+.
+:BelgianQualifying
+  rdf:type :Qualifying ;
 .
 :BelgianRace
   rdf:type :Race ;
@@ -186,6 +301,12 @@
 .
 :BelgianSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Perez ;
+  :achieved_in :BelgianRace ;
+.
+:BelgianThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Leclerc ;
   :achieved_in :BelgianRace ;
 .
 :Belgium
@@ -194,6 +315,8 @@
 .
 :BelgiumGP
   rdf:type :RaceWeekend ;
+  :has_event :BahrainQualifying ;
+  :has_event :BahrainRace ;
   :takes_place :Belgium ;
 .
 :Bottas
@@ -218,7 +341,17 @@
 .
 :BrazilianGP
   rdf:type :RaceWeekend ;
+  :has_event :BrazilianQualifying ;
+  :has_event :BrazilianRace ;
   :takes_place :Brazil ;
+.
+:BrazilianPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :BrazilianQualifying ;
+.
+:BrazilianQualifying
+  rdf:type :Qualifying ;
 .
 :BrazilianRace
   rdf:type :Race ;
@@ -228,6 +361,12 @@
 .
 :BrazilianSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Norris ;
+  :achieved_in :BrazilianRace ;
+.
+:BrazilianThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Alonso ;
   :achieved_in :BrazilianRace ;
 .
 :Cameraman
@@ -246,7 +385,17 @@
 .
 :CanadaGP
   rdf:type :RaceWeekend ;
+  :has_event :CanadaQualifying ;
+  :has_event :CanadaRace ;
   :takes_place :Canada ;
+.
+:CanadaPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :CanadaQualifying ;
+.
+:CanadaQualifying
+  rdf:type :Qualifying ;
 .
 :CanadaRace
   rdf:type :Race ;
@@ -256,6 +405,12 @@
 .
 :CanadaSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Alonso ;
+  :achieved_in :CanadaRace ;
+.
+:CanadaThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Hamilton ;
   :achieved_in :CanadaRace ;
 .
 :Car
@@ -312,7 +467,17 @@
 .
 :Ferrari
   rdf:type :Team ;
+  :competes_with :FerrariCar ;
+  :participated_in :season2023 ;
   :team_name "Scuderia Ferrari" ;
+.
+:FerrariCar
+  rdf:type :RacingCar ;
+  :has_engine :FerrariEngine ;
+  :model "SF-23" ;
+.
+:FerrariEngine
+  rdf:type :Engine ;
 .
 :FirstPlace
   rdf:type rdfs:Class ;
@@ -340,7 +505,17 @@
 .
 :GreatBritainGP
   rdf:type :RaceWeekend ;
+  :has_event :GreatBritainQualifying ;
+  :has_event :GreatBritainRace ;
   :takes_place :GreatBritain ;
+.
+:GreatBritainPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :GreatBritainQualifying ;
+.
+:GreatBritainQualifying
+  rdf:type :Qualifying ;
 .
 :GreatBritainRace
   rdf:type :Race ;
@@ -350,11 +525,24 @@
 .
 :GreatBritainSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Norris ;
+  :achieved_in :GreatBritainRace ;
+.
+:GreatBritainThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Hamilton ;
   :achieved_in :GreatBritainRace ;
 .
 :Haas
   rdf:type :Team ;
+  :competes_with :HaasCar ;
+  :participated_in :season2023 ;
   :team_name "MoneyGram Haas F1 Team" ;
+.
+:HaasCar
+  rdf:type :RacingCar ;
+  :has_engine :FerrariEngine ;
+  :model "VF-23" ;
 .
 :Hamilton
   rdf:type :RacingDriver ;
@@ -366,6 +554,9 @@
   :salary "35"^^xsd:decimal ;
   :sex "Male" ;
   :weight "73"^^xsd:decimal ;
+.
+:HondaEngine
+  rdf:type :Engine ;
 .
 :Hulkenberg
   rdf:type :RacingDriver ;
@@ -389,7 +580,17 @@
 .
 :HungaryGP
   rdf:type :RaceWeekend ;
+  :has_event :HungaryQualifying ;
+  :has_event :HungaryRace ;
   :takes_place :Hungary ;
+.
+:HungaryPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Hamilton ;
+  :achieved_in :HungaryQualifying ;
+.
+:HungaryQualifying
+  rdf:type :Qualifying ;
 .
 :HungaryRace
   rdf:type :Race ;
@@ -399,6 +600,12 @@
 .
 :HungarySecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Norris ;
+  :achieved_in :HungaryRace ;
+.
+:HungaryThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Perez ;
   :achieved_in :HungaryRace ;
 .
 :ItalianFirstPlace
@@ -408,7 +615,17 @@
 .
 :ItalianGP
   rdf:type :RaceWeekend ;
+  :has_event :ItalianQualifying ;
+  :has_event :ItalianRace ;
   :takes_place :Italy ;
+.
+:ItalianPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Sainz ;
+  :achieved_in :ItalianQualifying ;
+.
+:ItalianQualifying
+  rdf:type :Qualifying ;
 .
 :ItalianRace
   rdf:type :Race ;
@@ -418,6 +635,12 @@
 .
 :ItalianSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Perez ;
+  :achieved_in :ItalianRace ;
+.
+:ItalianThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Sainz ;
   :achieved_in :ItalianRace ;
 .
 :Italy
@@ -435,7 +658,17 @@
 .
 :JapanGP
   rdf:type :RaceWeekend ;
+  :has_event :JapanQualifying ;
+  :has_event :JapanRace ;
   :takes_place :Japan ;
+.
+:JapanPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :JapanQualifying ;
+.
+:JapanQualifying
+  rdf:type :Qualifying ;
 .
 :JapanRace
   rdf:type :Race ;
@@ -445,6 +678,12 @@
 .
 :JapanSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Norris ;
+  :achieved_in :JapanRace ;
+.
+:JapanThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Piastri ;
   :achieved_in :JapanRace ;
 .
 :Journalist
@@ -463,7 +702,17 @@
 .
 :LasVegasGP
   rdf:type :RaceWeekend ;
+  :has_event :LasVegasQualifying ;
+  :has_event :LasVegasRace ;
   :takes_place :LasVegas ;
+.
+:LasVegasPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Leclerc ;
+  :achieved_in :LasVegasQualifying ;
+.
+:LasVegasQualifying
+  rdf:type :Qualifying ;
 .
 :LasVegasRace
   rdf:type :Race ;
@@ -473,6 +722,12 @@
 .
 :LasVegasSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Leclerc ;
+  :achieved_in :LasVegasRace ;
+.
+:LasVegasThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Perez ;
   :achieved_in :LasVegasRace ;
 .
 :Leclerc
@@ -499,7 +754,14 @@
 .
 :McLaren
   rdf:type :Team ;
+  :competes_with :McLarenCar ;
+  :participated_in :season2023 ;
   :team_name "McLaren F1 Team" ;
+.
+:McLarenCar
+  rdf:type :RacingCar ;
+  :has_engine :MercedesEngine ;
+  :model "MCL60" ;
 .
 :Mechanic
   rdf:type rdfs:Class ;
@@ -513,7 +775,17 @@
 .
 :Mercedes
   rdf:type :Team ;
+  :competes_with :MercedesCar ;
+  :participated_in :season2023 ;
   :team_name "Mercedes-AMG Petronas F1 Team" ;
+.
+:MercedesCar
+  rdf:type :RacingCar ;
+  :has_engine :MercedesEngine ;
+  :model "W14" ;
+.
+:MercedesEngine
+  rdf:type :Engine ;
 .
 :Mexico
   rdf:type :Circuit ;
@@ -526,7 +798,17 @@
 .
 :MexicoGP
   rdf:type :RaceWeekend ;
+  :has_event :MexicoQualifying ;
+  :has_event :MexicoRace ;
   :takes_place :Mexico ;
+.
+:MexicoPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Leclerc ;
+  :achieved_in :MexicoQualifying ;
+.
+:MexicoQualifying
+  rdf:type :Qualifying ;
 .
 :MexicoRace
   rdf:type :Race ;
@@ -536,6 +818,12 @@
 .
 :MexicoSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Hamilton ;
+  :achieved_in :MexicoRace ;
+.
+:MexicoThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Leclerc ;
   :achieved_in :MexicoRace ;
 .
 :Miami
@@ -549,7 +837,17 @@
 .
 :MiamiGP
   rdf:type :RaceWeekend ;
+  :has_event :MiamiQualifying ;
+  :has_event :MiamiRace ;
   :takes_place :Miami ;
+.
+:MiamiPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :MiamiQualifying ;
+.
+:MiamiQualifying
+  rdf:type :Qualifying ;
 .
 :MiamiRace
   rdf:type :Race ;
@@ -559,6 +857,12 @@
 .
 :MiamiSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Perez ;
+  :achieved_in :MiamiRace ;
+.
+:MiamiThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Alonso ;
   :achieved_in :MiamiRace ;
 .
 :Monaco
@@ -572,7 +876,17 @@
 .
 :MonacoGP
   rdf:type :RaceWeekend ;
+  :has_event :MonacoQualifying ;
+  :has_event :MonacoRace ;
   :takes_place :Monaco ;
+.
+:MonacoPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :MonacoQualifying ;
+.
+:MonacoQualifying
+  rdf:type :Qualifying ;
 .
 :MonacoRace
   rdf:type :Race ;
@@ -582,6 +896,12 @@
 .
 :MonacoSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Alonso ;
+  :achieved_in :MonacoRace ;
+.
+:MonacoThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Ocon ;
   :achieved_in :MonacoRace ;
 .
 :Netherlands
@@ -595,7 +915,17 @@
 .
 :NetherlandsGP
   rdf:type :RaceWeekend ;
+  :has_event :NetherlandsQualifying ;
+  :has_event :NetherlandsRace ;
   :takes_place :Netherlands ;
+.
+:NetherlandsPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :NetherlandsQualifying ;
+.
+:NetherlandsQualifying
+  rdf:type :Qualifying ;
 .
 :NetherlandsRace
   rdf:type :Race ;
@@ -605,6 +935,12 @@
 .
 :NetherlandsSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Alonso ;
+  :achieved_in :NetherlandsRace ;
+.
+:NetherlandsThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Gasly ;
   :achieved_in :NetherlandsRace ;
 .
 :Norris
@@ -682,7 +1018,17 @@
 .
 :QatarGP
   rdf:type :RaceWeekend ;
+  :has_event :QatarQualifying ;
+  :has_event :QatarRace ;
   :takes_place :Qatar ;
+.
+:QatarPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :QatarQualifying ;
+.
+:QatarQualifying
+  rdf:type :Qualifying ;
 .
 :QatarRace
   rdf:type :Race ;
@@ -692,6 +1038,12 @@
 .
 :QatarSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Piastri ;
+  :achieved_in :QatarRace ;
+.
+:QatarThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Norris ;
   :achieved_in :QatarRace ;
 .
 :Qualifying
@@ -736,7 +1088,18 @@
 .
 :RedBull
   rdf:type :Team ;
+  :competes_with :RedBullCar ;
+  :constructor_champion :season2023 ;
+  :participated_in :season2023 ;
   :team_name "Oracle Red Bull Racing" ;
+.
+:RedBullCar
+  rdf:type :RacingCar ;
+  :has_engine :HondaEngine ;
+  :model "RB-19" ;
+.
+:RenaultEngine
+  rdf:type :Engine ;
 .
 :Resource_1
   rdf:type rdfs:Resource ;
@@ -799,7 +1162,17 @@
 .
 :SaudiArabiaGP
   rdf:type :RaceWeekend ;
+  :has_event :SaudiArabiaQualifying ;
+  :has_event :SaudiArabiaRace ;
   :takes_place :SaudiArabia ;
+.
+:SaudiArabiaPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Perez ;
+  :achieved_in :SaudiArabiaQualifying ;
+.
+:SaudiArabiaQualifying
+  rdf:type :Qualifying ;
 .
 :SaudiArabiaRace
   rdf:type :Race ;
@@ -809,6 +1182,12 @@
 .
 :SaudiArabiaSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :SaudiArabiaRace ;
+.
+:SaudiArabiaThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Alonso ;
   :achieved_in :SaudiArabiaRace ;
 .
 :SecondPlace
@@ -826,7 +1205,17 @@
 .
 :SingaporeGP
   rdf:type :RaceWeekend ;
+  :has_event :SingaporeQualifying ;
+  :has_event :SingaporeRace ;
   :takes_place :Singapore ;
+.
+:SingaporePole
+  rdf:type :FirstPlace ;
+  :achieved_by :Sainz ;
+  :achieved_in :SingaporeQualifying ;
+.
+:SingaporeQualifying
+  rdf:type :Qualifying ;
 .
 :SingaporeRace
   rdf:type :Race ;
@@ -836,6 +1225,12 @@
 .
 :SingaporeSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Norris ;
+  :achieved_in :SingaporeRace ;
+.
+:SingaporeThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Hamilton ;
   :achieved_in :SingaporeRace ;
 .
 :SkySports
@@ -853,7 +1248,17 @@
 .
 :SpainGP
   rdf:type :RaceWeekend ;
+  :has_event :SpainQualifying ;
+  :has_event :SpainRace ;
   :takes_place :Spain ;
+.
+:SpainPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Verstappen ;
+  :achieved_in :SpainQualifying ;
+.
+:SpainQualifying
+  rdf:type :Qualifying ;
 .
 :SpainRace
   rdf:type :Race ;
@@ -863,6 +1268,12 @@
 .
 :SpainSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Hamilton ;
+  :achieved_in :SpainRace ;
+.
+:SpainThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Russell ;
   :achieved_in :SpainRace ;
 .
 :Steward
@@ -927,7 +1338,17 @@
 .
 :UnitedStatesGP
   rdf:type :RaceWeekend ;
+  :has_event :UnitedStatesQualifying ;
+  :has_event :UnitedStatesRace ;
   :takes_place :USA ;
+.
+:UnitedStatesPole
+  rdf:type :FirstPlace ;
+  :achieved_by :Leclerc ;
+  :achieved_in :UnitedStatesQualifying ;
+.
+:UnitedStatesQualifying
+  rdf:type :Qualifying ;
 .
 :UnitedStatesRace
   rdf:type :Race ;
@@ -937,6 +1358,12 @@
 .
 :UnitedStatesSecondPlace
   rdf:type :SecondPlace ;
+  :achieved_by :Norris ;
+  :achieved_in :UnitedStatesRace ;
+.
+:UnitedStatesThirdPlace
+  rdf:type :ThirdPlace ;
+  :achieved_by :Alonso ;
   :achieved_in :UnitedStatesRace ;
 .
 :Verstappen
@@ -957,7 +1384,14 @@
 .
 :Williams
   rdf:type :Team ;
+  :competes_with :WilliamsCar ;
+  :participated_in :season2023 ;
   :team_name "Williams Racing" ;
+.
+:WilliamsCar
+  rdf:type :RacingCar ;
+  :has_engine :MercedesEngine ;
+  :model "FW45" ;
 .
 :Zhou
   rdf:type :RacingDriver ;

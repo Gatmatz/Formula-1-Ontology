@@ -1,0 +1,12 @@
+driverName	Wins	SecondPlaces	ThirdPlaces
+Max Verstappen	19	0	0
+Sergio Perez	2	0	0
+Carlos Sainz	1	0	0
+Lando Norris	0	6	0
+Charles Leclerc	0	3	0
+Fernando Alonso	0	3	0
+Lewis Hamilton	0	3	0
+Oscar Piastri	0	1	0
+George Russell	0	0	2
+Esteban Ocon	0	0	1
+Pierre Gasly	0	0	1

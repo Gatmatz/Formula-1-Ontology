@@ -1,0 +1,6 @@
+driverName	Poles	Wins	PoleWinRatio
+Sergio Perez	1	2	2.0
+Max Verstappen	14	19	1.357142857142857142857142
+Carlos Sainz	2	1	0.5
+Lewis Hamilton	1	0	0.0
+Charles Leclerc	4	0	0.0

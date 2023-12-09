@@ -1,0 +1,27 @@
+SELECT ?driverName
+       (COUNT(DISTINCT ?pole) AS ?Poles)
+       (COUNT(DISTINCT ?win) AS ?Wins)
+       (IF(?Poles = 0, 0, ?Wins/?Poles) AS ?PoleWinRatio)
+WHERE {
+  ?driver rdf:type :RacingDriver ;
+          :name ?driverName .
+
+  OPTIONAL {
+    ?pole rdf:type :FirstPlace ;
+               :achieved_in ?quali .
+    ?quali rdf:type :Qualifying .
+    ?pole :achieved_by ?polesitter .
+    FILTER (?polesitter = ?driver)
+  }
+
+  OPTIONAL {
+    ?win rdf:type :FirstPlace ;
+             :achieved_in ?race .
+    ?race rdf:type :Race .
+    ?win :achieved_by ?winner .
+    FILTER (?winner = ?driver)
+  }
+}
+GROUP BY ?driverName
+HAVING (?Wins >0 || ?Poles > 0)
+ORDER BY DESC (?PoleWinRatio)

@@ -1,0 +1,6 @@
+circuit	averageTemperature
+Las Vegas Strip Street Circuit	12.5
+Albert Park Street Circuit	15.0
+Zandvoort Circuit	18.0
+Gilles Villenueve Circuit	21.0
+Red Bull Ring	21.5

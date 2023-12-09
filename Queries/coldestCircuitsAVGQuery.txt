@@ -1,0 +1,32 @@
+SELECT ?circuit (AVG(xsd:float(?avgTemperature)) AS ?averageTemperature)
+WHERE {
+  ?gp :takes_place ?location .
+  ?location :location ?circuit .
+
+  {
+    SELECT ?location (AVG(xsd:float(?temperature)) AS ?avgTemperature)
+    WHERE {
+      ?quali a :Qualifying .
+      ?gp :has_event ?quali .
+      ?gp :takes_place ?location .
+      ?quali :temperature ?temperature .
+    }
+    GROUP BY ?location
+  }
+
+  UNION
+
+  {
+    SELECT ?location (AVG(xsd:float(?temperature)) AS ?avgTemperature)
+    WHERE {
+      ?race a :Race .
+      ?gp :has_event ?race .
+      ?gp :takes_place ?location .
+      ?race :temperature ?temperature .
+    }
+    GROUP BY ?location
+  }
+}
+GROUP BY ?circuit
+ORDER BY (?averageTemperature)
+LIMIT 5

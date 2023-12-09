@@ -1,0 +1,41 @@
+SELECT ?driverName
+	(COUNT(?firstPlace) AS ?Wins)
+       (COUNT( ?secondPlace) AS ?SecondPlaces)
+       (COUNT(?thirdPlace) AS ?ThirdPlaces)
+WHERE {
+	?driver rdf:type :RacingDriver ;
+		 :name  ?driverName .
+
+	OPTIONAL 
+	{
+    ?event rdf:type :Race .
+	?win rdf:type :FirstPlace .
+	?win :achieved_in ?event.
+	?win :achieved_by ?winner
+    FILTER (?winner = ?driver)
+    BIND(1 AS ?firstPlace)
+ 	}
+
+  OPTIONAL 
+  {
+    ?event rdf:type :Race .
+	?win rdf:type :SecondPlace .
+	?win :achieved_in ?event.
+	?win :achieved_by ?winner
+    FILTER (?winner = ?driver)
+    BIND(1 AS ?secondPlace)
+  }
+
+  OPTIONAL 
+{
+    ?event rdf:type :Race .
+	?win rdf:type :ThirdPlace .
+	?win :achieved_in ?event.
+	?win :achieved_by ?winner
+    FILTER (?winner = ?driver)
+    BIND(1 AS ?thirdPlace)
+  }
+}
+GROUP BY ?driverName
+HAVING (?Wins > 0 || ?SecondPlaces > 0 || ?ThirdPlaces > 0)
+ORDER BY DESC (?Wins) DESC (?SecondPlaces) DESC (?ThirdPlaces)

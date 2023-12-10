@@ -402,8 +402,8 @@
 .
 :BelgiumGP
   rdf:type :RaceWeekend ;
-  :has_event :BahrainQualifying ;
-  :has_event :BahrainRace ;
+  :has_event :BelgianQualifying ;
+  :has_event :BelgianRace ;
   :takes_place :Belgium ;
 .
 :Bird
@@ -1023,6 +1023,14 @@
   :sex "Male" ;
   :weight "69"^^xsd:decimal ;
 .
+:LeclercCrash
+  rdf:type :Accident ;
+  :accidentDescription "Ferrari driver Charles Leclerc crashes on the formation lap for the Sao Paulo Grand Prix." ;
+  :calls_for :MercedesSafetyCar ;
+  :caused_by :Leclerc ;
+  :caused_in :BrazilianRace ;
+  :needs_medical :MercedesMedicalCar ;
+.
 :Loos
   rdf:type :RaceEngineer ;
   :dateOfBirth "1988-07-19"^^xsd:date ;
@@ -1604,6 +1612,15 @@
   :sex "Male" ;
   :weight "70"^^xsd:decimal ;
 .
+:RussellCrash
+  rdf:type :Accident ;
+  :accidentDescription "A final lap mistake from George Russell after he clipped the wall while hunting down the race leaders and speared into the barriers" ;
+  :calls_for :AstonMartinSafetyCar ;
+  :caused_by :Russell ;
+  :caused_in :SingaporeRace ;
+  :needs_medical :AstonMartinMedicalCar ;
+  :seriousAccident "Dizziness and concussion" ;
+.
 :SafetyCar
   rdf:type rdfs:Class ;
   rdfs:label "Formula 1 Safety Car" ;
@@ -2011,13 +2028,19 @@
   rdf:type rdf:Property ;
   rdfs:domain :Accident ;
   rdfs:label "Indicates the use of a specific SafetyCar in an accident" ;
-  rdfs:range :SafetyCar ;
+  rdfs:range :Car ;
 .
 :caused_by
   rdf:type rdf:Property ;
   rdfs:domain :Accident ;
   rdfs:label "Indicates the Drivers involves in a F1 Crash" ;
   rdfs:range :RacingDriver ;
+.
+:caused_in
+  rdf:type rdf:Property ;
+  rdfs:domain :Accident ;
+  rdfs:label "Indicates the event that a crash/accident has occured." ;
+  rdfs:range :Event ;
 .
 :communicates_with
   rdf:type rdf:Property ;

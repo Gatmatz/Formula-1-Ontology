@@ -1,0 +1,3113 @@
+@prefix : <http://example.org/formula1#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@base <http://example.org/formula1#> .
+
+<http://example.org/formula1> rdf:type owl:Ontology ;
+                               spin:imports <http://topbraid.org/spin/rdfsplus> ;
+                               owl:versionInfo "Created with TopBraid Composer" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://spinrdf.org/spin#imports
+spin:imports rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://example.org/formula1#achieved_by
+:achieved_by rdf:type owl:ObjectProperty ;
+             owl:inverseOf :achievesPodium ;
+             rdfs:domain :PodiumPlace ;
+             rdfs:range :RacingDriver ;
+             rdfs:label "Indicates the Driver that achieved a specific podium" .
+
+
+###  http://example.org/formula1#achieved_in
+:achieved_in rdf:type owl:ObjectProperty ;
+             rdfs:domain :PodiumPlace ;
+             rdfs:range :Event ;
+             rdfs:label "Indicates the location of a specific Podium" .
+
+
+###  http://example.org/formula1#achievesPodium
+:achievesPodium rdf:type owl:ObjectProperty .
+
+
+###  http://example.org/formula1#attends
+:attends rdf:type owl:ObjectProperty ;
+         rdfs:domain :Viewer ;
+         rdfs:range :RaceWeekend ;
+         rdfs:label "Indicates the watching of a Grand Prix from a viewer" .
+
+
+###  http://example.org/formula1#board_member
+:board_member rdf:type owl:ObjectProperty ;
+              rdfs:domain :Steward ;
+              rdfs:range :RaceWeekend ;
+              rdfs:label "Indicates the board members of stewards in a GP" .
+
+
+###  http://example.org/formula1#broadcasts_for
+:broadcasts_for rdf:type owl:ObjectProperty ;
+                owl:inverseOf :hasJournalist ;
+                rdfs:domain :PressMember ;
+                rdfs:range :Channel ;
+                rdfs:label "Indicates the work of a PressMember to a specific Broadcast Channel" .
+
+
+###  http://example.org/formula1#calls_for
+:calls_for rdf:type owl:ObjectProperty ;
+           rdfs:domain :Accident ;
+           rdfs:range :Car ;
+           rdfs:label "Indicates the use of a specific SafetyCar in an accident" .
+
+
+###  http://example.org/formula1#caused_by
+:caused_by rdf:type owl:ObjectProperty ;
+           rdfs:domain :Accident ;
+           rdfs:range :RacingDriver ;
+           rdfs:label "Indicates the Drivers involves in a F1 Crash" .
+
+
+###  http://example.org/formula1#caused_in
+:caused_in rdf:type owl:ObjectProperty ;
+           rdfs:domain :Accident ;
+           rdfs:range :Event ;
+           rdfs:label "Indicates the event that a crash/accident has occured." .
+
+
+###  http://example.org/formula1#communicates_with
+:communicates_with rdf:type owl:ObjectProperty ;
+                   rdfs:domain :RacingDriver ;
+                   rdfs:range :RaceEngineer ;
+                   rdfs:label "Indicates the relationship between a racing Driver and his race enginner" .
+
+
+###  http://example.org/formula1#competes_with
+:competes_with rdf:type owl:ObjectProperty ;
+               owl:inverseOf :developedBy ;
+               rdfs:domain :Team ;
+               rdfs:range :RacingCar ;
+               rdfs:label "Indicates the racing car a team is using" .
+
+
+###  http://example.org/formula1#consists_of
+:consists_of rdf:type owl:ObjectProperty ;
+             rdfs:domain :Championship ;
+             rdfs:range :RaceWeekend ;
+             rdfs:label "Indicates the schedule of a F1 World Championship" .
+
+
+###  http://example.org/formula1#constructor_champion
+:constructor_champion rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :participated_in ;
+                      rdfs:domain :Team ;
+                      rdfs:range :Championship ;
+                      rdfs:label "Indicates that a F1 Team won a specific World Constructors Championship" .
+
+
+###  http://example.org/formula1#developedBy
+:developedBy rdf:type owl:ObjectProperty .
+
+
+###  http://example.org/formula1#driver_champion
+:driver_champion rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :raced_in ;
+                 rdfs:domain :RacingDriver ;
+                 rdfs:range :Championship ;
+                 rdfs:label "Indicates that a Racing Driver won a specific World Drivers Championship" .
+
+
+###  http://example.org/formula1#employed_by
+:employed_by rdf:type owl:ObjectProperty ;
+             rdfs:domain :TeamMember ;
+             rdfs:range :Team ;
+             rdfs:label "Indicates the work of a TeamMember to a specific Team" .
+
+
+###  http://example.org/formula1#hasCommonEngineSupplier
+:hasCommonEngineSupplier rdf:type owl:ObjectProperty ,
+                                  owl:SymmetricProperty ,
+                                  owl:TransitiveProperty ;
+                         rdfs:domain :Team ;
+                         rdfs:range :Team .
+
+
+###  http://example.org/formula1#hasJournalist
+:hasJournalist rdf:type owl:ObjectProperty .
+
+
+###  http://example.org/formula1#has_engine
+:has_engine rdf:type owl:ObjectProperty ,
+                     owl:FunctionalProperty ;
+            rdfs:domain :Car ;
+            rdfs:range :Engine ;
+            rdfs:label "Indicates the engine of a car" .
+
+
+###  http://example.org/formula1#has_event
+:has_event rdf:type owl:ObjectProperty ;
+           rdfs:domain :RaceWeekend ;
+           rdfs:range :Event ;
+           rdfs:label "Indicates the specific events of a Grand Prix" .
+
+
+###  http://example.org/formula1#isOrganizedBy
+:isOrganizedBy rdf:type owl:ObjectProperty ;
+               owl:inverseOf :organises .
+
+
+###  http://example.org/formula1#isSponsoredBy
+:isSponsoredBy rdf:type owl:ObjectProperty ;
+               owl:inverseOf :sponsors .
+
+
+###  http://example.org/formula1#isTeamMateWith
+:isTeamMateWith rdf:type owl:ObjectProperty ,
+                         owl:SymmetricProperty ;
+                rdfs:domain :RacingDriver ;
+                rdfs:range :RacingDriver .
+
+
+###  http://example.org/formula1#is_official
+:is_official rdf:type owl:ObjectProperty ;
+             rdfs:domain :RaceOfficial ;
+             rdfs:range :FIA ;
+             rdfs:label "Indicates that a RaceOfficial works for FIA in a specific year" .
+
+
+###  http://example.org/formula1#needs_medical
+:needs_medical rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :calls_for ;
+               rdfs:domain :Accident ;
+               rdfs:range :MedicalCar ;
+               rdfs:label "Indicates the use of a MedicalCar in an F1 accident" .
+
+
+###  http://example.org/formula1#organises
+:organises rdf:type owl:ObjectProperty ;
+           rdfs:domain :Company ;
+           rdfs:range :RaceWeekend ;
+           rdfs:label "Indicates the sponsorship of a company for a F1 Grand Prix" .
+
+
+###  http://example.org/formula1#participated_in
+:participated_in rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Team ;
+                 rdfs:range :Championship ;
+                 rdfs:label "Indicates that a F1 Team participated in a specific F1 World Championship" .
+
+
+###  http://example.org/formula1#raced_in
+:raced_in rdf:type owl:ObjectProperty ;
+          rdfs:domain :RacingDriver ;
+          rdfs:range :Championship ;
+          rdfs:label "Indicates the participation of a Driver in a F1 World Championship" .
+
+
+###  http://example.org/formula1#sponsors
+:sponsors rdf:type owl:ObjectProperty ;
+          rdfs:domain :Company ;
+          rdfs:range :Team ;
+          rdfs:label "Indicates the sponsorship of a commercial company to a F1 Team" .
+
+
+###  http://example.org/formula1#takes_place
+:takes_place rdf:type owl:ObjectProperty ;
+             rdfs:domain :RaceWeekend ;
+             rdfs:range :Circuit ;
+             rdfs:label "Determines the location of a F1 GP" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://example.org/formula1#accidentDescription
+:accidentDescription rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :Accident ;
+                     rdfs:range xsd:string ;
+                     rdfs:label "A small description of a racing accident" .
+
+
+###  http://example.org/formula1#board_year
+:board_year rdf:type owl:DatatypeProperty ;
+            rdfs:domain :FIA ;
+            rdfs:range xsd:integer ;
+            rdfs:label "Indicates the year of the FIA board" .
+
+
+###  http://example.org/formula1#broadcaster
+:broadcaster rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Channel ;
+             rdfs:range xsd:string ;
+             rdfs:label "The name of a F1 broadcast channel" .
+
+
+###  http://example.org/formula1#cylinders
+:cylinders rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Engine ;
+           rdfs:range xsd:integer ;
+           rdfs:label "The number of cylinders of an Engine" .
+
+
+###  http://example.org/formula1#dateOfBirth
+:dateOfBirth rdf:type owl:DatatypeProperty ,
+                      owl:FunctionalProperty ;
+             rdfs:domain :Person ;
+             rdfs:range xsd:date ;
+             rdfs:label "The date of brith of a Driver" .
+
+
+###  http://example.org/formula1#engineModel
+:engineModel rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Engine ;
+             rdfs:range xsd:string ;
+             rdfs:label "The model of a specific engine" .
+
+
+###  http://example.org/formula1#fuelFlowLimit
+:fuelFlowLimit rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Engine ;
+               rdfs:range xsd:decimal ;
+               rdfs:label "Flow rate limit of the fuel, expressed in cubic metres per second at standard temperature and pressure" .
+
+
+###  http://example.org/formula1#happeningDay
+:happeningDay rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Event ;
+              rdfs:range xsd:dateTime ;
+              rdfs:label "The date and time of a specific Event" .
+
+
+###  http://example.org/formula1#height
+:height rdf:type owl:DatatypeProperty ;
+        rdfs:domain :RacingDriver ;
+        rdfs:range xsd:decimal ;
+        rdfs:label "The height in metres of a Driver" .
+
+
+###  http://example.org/formula1#location
+:location rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Circuit ;
+          rdfs:range xsd:string ;
+          rdfs:label "The name of a racing circuit" .
+
+
+###  http://example.org/formula1#model
+:model rdf:type owl:DatatypeProperty ;
+       rdfs:domain :Car ;
+       rdfs:range xsd:string ;
+       rdfs:label "The specific model of a Car" .
+
+
+###  http://example.org/formula1#name
+:name rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Person ;
+      rdfs:range xsd:string ;
+      rdfs:label "The name of a Person" .
+
+
+###  http://example.org/formula1#nationality
+:nationality rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Person ;
+             rdfs:range xsd:string ;
+             rdfs:label "Indicates the nationality of a person" .
+
+
+###  http://example.org/formula1#organization
+:organization rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Company ;
+              rdfs:range xsd:string ;
+              rdfs:label "The corporate name of a company" .
+
+
+###  http://example.org/formula1#salary
+:salary rdf:type owl:DatatypeProperty ;
+        rdfs:domain :RacingDriver ;
+        rdfs:range xsd:decimal ;
+        rdfs:label "The salary of a Racing Driver in millions of euros" .
+
+
+###  http://example.org/formula1#season
+:season rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Championship ;
+        rdfs:range xsd:integer ;
+        rdfs:label "Indicates the year of the F1 World Championship" .
+
+
+###  http://example.org/formula1#seriousAccident
+:seriousAccident rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf :accidentDescription ;
+                 rdfs:domain :Accident ;
+                 rdfs:range xsd:string ;
+                 rdfs:label "Indicates if a racing accident is serious" .
+
+
+###  http://example.org/formula1#sex
+:sex rdf:type owl:DatatypeProperty ;
+     rdfs:domain :Person ;
+     rdfs:range xsd:string ;
+     rdfs:label "The sex of a Person" .
+
+
+###  http://example.org/formula1#team_name
+:team_name rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Team ;
+           rdfs:range xsd:string ;
+           rdfs:label "The full name of a F1 Team" .
+
+
+###  http://example.org/formula1#temperature
+:temperature rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf :weatherCondition ;
+             rdfs:domain :Event ;
+             rdfs:range xsd:string ;
+             rdfs:label "The temperature in Celcius for a F1 Event" .
+
+
+###  http://example.org/formula1#weatherCondition
+:weatherCondition rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :Event ;
+                  rdfs:range xsd:string ;
+                  rdfs:label "A description of the weather of a F1 Event" .
+
+
+###  http://example.org/formula1#weight
+:weight rdf:type owl:DatatypeProperty ;
+        rdfs:domain :RacingDriver ;
+        rdfs:range xsd:decimal ;
+        rdfs:label "The weight of an F1 Driver in kilos" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://example.org/formula1#Accident
+:Accident rdf:type owl:Class ;
+          rdfs:subClassOf rdfs:Resource ;
+          rdfs:label "An accident happened in Formula 1" .
+
+
+###  http://example.org/formula1#Cameraman
+:Cameraman rdf:type owl:Class ;
+           rdfs:subClassOf :PressMember ;
+           rdfs:label "Cameraman of a broadcast channel" .
+
+
+###  http://example.org/formula1#Car
+:Car rdf:type owl:Class ;
+     rdfs:subClassOf rdfs:Resource ;
+     rdfs:label "Any type of Car in F1" .
+
+
+###  http://example.org/formula1#Championship
+:Championship rdf:type owl:Class ;
+              rdfs:subClassOf rdfs:Resource ;
+              rdfs:label "Formula 1 Year Championship" .
+
+
+###  http://example.org/formula1#Channel
+:Channel rdf:type owl:Class ;
+         rdfs:subClassOf rdfs:Resource ;
+         rdfs:label "Formula 1 Broadcast Channel" .
+
+
+###  http://example.org/formula1#Circuit
+:Circuit rdf:type owl:Class ;
+         rdfs:subClassOf rdfs:Resource ;
+         rdfs:label "Circuit that F1 Race takes place" .
+
+
+###  http://example.org/formula1#Company
+:Company rdf:type owl:Class ;
+         rdfs:subClassOf rdfs:Resource .
+
+
+###  http://example.org/formula1#ConstructorWorldChampion
+:ConstructorWorldChampion rdf:type owl:Class ;
+                          owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                owl:onProperty :constructor_champion ;
+                                                owl:someValuesFrom :Championship
+                                              ] ;
+                          rdfs:subClassOf :Team .
+
+
+###  http://example.org/formula1#Current
+:Current rdf:type owl:Class ;
+         owl:equivalentClass [ owl:intersectionOf ( :RacingDriver
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :raced_in ;
+                                                      owl:hasValue :season2023
+                                                    ]
+                                                  ) ;
+                               rdf:type owl:Class
+                             ] ;
+         rdfs:subClassOf :RacingDriver ;
+         owl:disjointWith :Retired .
+
+
+###  http://example.org/formula1#Engine
+:Engine rdf:type owl:Class ;
+        rdfs:subClassOf rdfs:Resource ;
+        rdfs:label "Car Engine" .
+
+
+###  http://example.org/formula1#Engineer
+:Engineer rdf:type owl:Class ;
+          rdfs:subClassOf :TeamMember ;
+          rdfs:label "Engineer of a Formula 1 Team" .
+
+
+###  http://example.org/formula1#Event
+:Event rdf:type owl:Class ;
+       rdfs:subClassOf rdfs:Resource ;
+       rdfs:label "Formula 1 Grand Prix Event" .
+
+
+###  http://example.org/formula1#FIA
+:FIA rdf:type owl:Class ;
+     rdfs:subClassOf rdfs:Resource ;
+     rdfs:comment "An object of FIA represents the FIA board of one Formula 1 Season." ;
+     rdfs:label "Federation Internationale de l'Automobile (Organization) Board" .
+
+
+###  http://example.org/formula1#FirstPlace
+:FirstPlace rdf:type owl:Class ;
+            rdfs:subClassOf :PodiumPlace ;
+            rdfs:label "First Place in an F1 Event" .
+
+
+###  http://example.org/formula1#Journalist
+:Journalist rdf:type owl:Class ;
+            rdfs:subClassOf :PressMember ;
+            rdfs:label "Journalist of a broadcast channel" .
+
+
+###  http://example.org/formula1#Mechanic
+:Mechanic rdf:type owl:Class ;
+          rdfs:subClassOf :TeamMember ;
+          rdfs:label "Member of the pit crew" .
+
+
+###  http://example.org/formula1#MedicalCar
+:MedicalCar rdf:type owl:Class ;
+            rdfs:subClassOf :Car ;
+            rdfs:label "Formula 1 Medical Car" .
+
+
+###  http://example.org/formula1#Person
+:Person rdf:type owl:Class ;
+        rdfs:subClassOf rdfs:Resource ;
+        rdfs:label "Human in Formula 1" .
+
+
+###  http://example.org/formula1#PodiumAchievers
+:PodiumAchievers rdf:type owl:Class ;
+                 owl:equivalentClass [ owl:intersectionOf ( :RacingDriver
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :achievesPodium ;
+                                                              owl:someValuesFrom :PodiumPlace
+                                                            ]
+                                                          ) ;
+                                       rdf:type owl:Class
+                                     ] ;
+                 rdfs:subClassOf :RacingDriver .
+
+
+###  http://example.org/formula1#PodiumPlace
+:PodiumPlace rdf:type owl:Class ;
+             rdfs:subClassOf rdfs:Resource ;
+             rdfs:label "A Podium Finish in a Grand Prix" .
+
+
+###  http://example.org/formula1#PracticeSession
+:PracticeSession rdf:type owl:Class ;
+                 rdfs:subClassOf :Event ;
+                 rdfs:label "Grand Prix Practice Session" .
+
+
+###  http://example.org/formula1#PressMember
+:PressMember rdf:type owl:Class ;
+             rdfs:subClassOf :Person ;
+             rdfs:label "Member of a broadcast channel" .
+
+
+###  http://example.org/formula1#Qualifying
+:Qualifying rdf:type owl:Class ;
+            rdfs:subClassOf :Event ;
+            rdfs:label "Grand Prix Qualifying Session" .
+
+
+###  http://example.org/formula1#Race
+:Race rdf:type owl:Class ;
+      rdfs:subClassOf :Event ;
+      rdfs:label "Grand Prix Race" .
+
+
+###  http://example.org/formula1#RaceDirector
+:RaceDirector rdf:type owl:Class ;
+              rdfs:subClassOf :RaceOfficial ;
+              rdfs:label "Race Director of FIA" .
+
+
+###  http://example.org/formula1#RaceEngineer
+:RaceEngineer rdf:type owl:Class ;
+              rdfs:subClassOf :Engineer ;
+              rdfs:label "Engineer of a Formula 1 Team" .
+
+
+###  http://example.org/formula1#RaceOfficial
+:RaceOfficial rdf:type owl:Class ;
+              rdfs:subClassOf :Person ;
+              rdfs:label "Member of a Grand Prix or FIA" .
+
+
+###  http://example.org/formula1#RaceWeekend
+:RaceWeekend rdf:type owl:Class ;
+             rdfs:subClassOf rdfs:Resource ;
+             rdfs:label "A F1 Grand Prix" .
+
+
+###  http://example.org/formula1#RacingCar
+:RacingCar rdf:type owl:Class ;
+           rdfs:subClassOf :Car ;
+           rdfs:label "Formula 1 Car" .
+
+
+###  http://example.org/formula1#RacingDriver
+:RacingDriver rdf:type owl:Class ;
+              rdfs:subClassOf :TeamMember ;
+              rdfs:label "Formula 1 Driver" .
+
+
+###  http://example.org/formula1#Retired
+:Retired rdf:type owl:Class ;
+         owl:equivalentClass [ owl:intersectionOf ( :RacingDriver
+                                                    [ rdf:type owl:Class ;
+                                                      owl:complementOf [ rdf:type owl:Restriction ;
+                                                                         owl:onProperty :raced_in ;
+                                                                         owl:hasValue :season2023
+                                                                       ]
+                                                    ]
+                                                  ) ;
+                               rdf:type owl:Class
+                             ] ;
+         rdfs:subClassOf :RacingDriver .
+
+
+###  http://example.org/formula1#SafetyCar
+:SafetyCar rdf:type owl:Class ;
+           rdfs:subClassOf :Car ;
+           rdfs:label "Formula 1 Safety Car" .
+
+
+###  http://example.org/formula1#SecondPlace
+:SecondPlace rdf:type owl:Class ;
+             rdfs:subClassOf :PodiumPlace ;
+             rdfs:label "Second Place in an F1 Event" .
+
+
+###  http://example.org/formula1#Steward
+:Steward rdf:type owl:Class ;
+         rdfs:subClassOf :RaceOfficial ;
+         rdfs:label "Steward of a Grand Prix" .
+
+
+###  http://example.org/formula1#Strategist
+:Strategist rdf:type owl:Class ;
+            rdfs:subClassOf :Engineer ;
+            rdfs:label "Member of the strategist team" .
+
+
+###  http://example.org/formula1#Team
+:Team rdf:type owl:Class ;
+      rdfs:subClassOf rdfs:Resource ;
+      rdfs:label "Formula 1 Team" .
+
+
+###  http://example.org/formula1#TeamMember
+:TeamMember rdf:type owl:Class ;
+            rdfs:subClassOf :Person ;
+            rdfs:label "Member of a Formula 1 team" .
+
+
+###  http://example.org/formula1#TeamPrincipal
+:TeamPrincipal rdf:type owl:Class ;
+               rdfs:subClassOf :TeamMember ;
+               rdfs:label "Head of a Formula 1 Team" .
+
+
+###  http://example.org/formula1#ThirdPlace
+:ThirdPlace rdf:type owl:Class ;
+            rdfs:subClassOf :PodiumPlace ;
+            rdfs:label "Third Place in an F1 Event" .
+
+
+###  http://example.org/formula1#Viewer
+:Viewer rdf:type owl:Class ;
+        rdfs:subClassOf :Person ;
+        rdfs:label "Formula 1 Fan" .
+
+
+###  http://example.org/formula1#WorldChampion
+:WorldChampion rdf:type owl:Class ;
+               owl:equivalentClass [ rdf:type owl:Restriction ;
+                                     owl:onProperty :driver_champion ;
+                                     owl:someValuesFrom :Championship
+                                   ] ;
+               rdfs:subClassOf :RacingDriver .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#Resource
+rdfs:Resource rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://example.org/formula1#ANT1
+:ANT1 rdf:type owl:NamedIndividual ,
+               :Channel ;
+      :broadcaster "Antenna TV" .
+
+
+###  http://example.org/formula1#AbuDhabi
+:AbuDhabi rdf:type owl:NamedIndividual ,
+                   :Circuit ;
+          :location "Yas Marina Circuit" .
+
+
+###  http://example.org/formula1#AbuDhabiFirstPlace
+:AbuDhabiFirstPlace rdf:type owl:NamedIndividual ,
+                             :FirstPlace ;
+                    :achieved_by :Verstappen ;
+                    :achieved_in :AbuDhabiRace .
+
+
+###  http://example.org/formula1#AbuDhabiGP
+:AbuDhabiGP rdf:type owl:NamedIndividual ,
+                     :RaceWeekend ;
+            :has_event :AbuDhabiQualifying ,
+                       :AbuDhabiRace ;
+            :takes_place :AbuDhabi .
+
+
+###  http://example.org/formula1#AbuDhabiPole
+:AbuDhabiPole rdf:type owl:NamedIndividual ,
+                       :FirstPlace ;
+              :achieved_by :Verstappen ;
+              :achieved_in :AbuDhabiQualifying .
+
+
+###  http://example.org/formula1#AbuDhabiQualifying
+:AbuDhabiQualifying rdf:type owl:NamedIndividual ,
+                             :Qualifying ;
+                    :happeningDay "2023-11-25T16:00:00.000"^^xsd:dateTime ;
+                    :temperature "26" ;
+                    :weatherCondition "Mostly cloudy and misty in the morning and partly cloudy in the afternoon. There is a slight chance of rain in the morning as well as a light breeze throughout the day." .
+
+
+###  http://example.org/formula1#AbuDhabiRace
+:AbuDhabiRace rdf:type owl:NamedIndividual ,
+                       :Race ;
+              :happeningDay "2023-11-26T15:00:00.000"^^xsd:dateTime ;
+              :temperature "27" ;
+              :weatherCondition "Mostly sunny with dry conditions expected throughout the day, as well as a light breeze." .
+
+
+###  http://example.org/formula1#AbuDhabiSecondPlace
+:AbuDhabiSecondPlace rdf:type owl:NamedIndividual ,
+                              :SecondPlace ;
+                     :achieved_by :Leclerc ;
+                     :achieved_in :AbuDhabiRace .
+
+
+###  http://example.org/formula1#AbuDhabiThirdPlace
+:AbuDhabiThirdPlace rdf:type owl:NamedIndividual ,
+                             :ThirdPlace ;
+                    :achieved_by :Russell ;
+                    :achieved_in :AbuDhabiRace .
+
+
+###  http://example.org/formula1#Albon
+:Albon rdf:type owl:NamedIndividual ,
+                :RacingDriver ;
+       :communicates_with :Urwin ;
+       :employed_by :Williams ;
+       :isTeamMateWith :Sargeant ;
+       :raced_in :season2023 ;
+       :dateOfBirth "1996-03-23"^^xsd:date ;
+       :height 1.86 ;
+       :name "Alexander Albon" ;
+       :nationality "Thailand" ;
+       :salary 3 ;
+       :sex "Male" ;
+       :weight 74 .
+
+
+###  http://example.org/formula1#AlessandroAlunniBravi
+:AlessandroAlunniBravi rdf:type owl:NamedIndividual ,
+                                :TeamPrincipal ;
+                       :employed_by :AlfaRomeo ;
+                       :dateOfBirth "1974-11-23"^^xsd:date ;
+                       :name "Alessandro Alunni Bravi" ;
+                       :nationality "Italy" ;
+                       :sex "Male" .
+
+
+###  http://example.org/formula1#AlfaRomeo
+:AlfaRomeo rdf:type owl:NamedIndividual ,
+                    :Team ;
+           :competes_with :AlphaRomeoCar ;
+           :hasCommonEngineSupplier :Ferrari ;
+           :participated_in :season2023 ;
+           :team_name "Alfa Romeo F1 Team Stake" .
+
+
+###  http://example.org/formula1#Alonso
+:Alonso rdf:type owl:NamedIndividual ,
+                 :RacingDriver ;
+        :communicates_with :Cronin ;
+        :employed_by :AstonMartin ;
+        :isTeamMateWith :Stroll ;
+        :raced_in :season2023 ;
+        :dateOfBirth "1981-06-29"^^xsd:date ;
+        :height 1.71 ;
+        :name "Fernando Alonso" ;
+        :nationality "Spain" ;
+        :salary 5 ;
+        :sex "Male" ;
+        :weight 68 .
+
+
+###  http://example.org/formula1#AlphaRomeoCar
+:AlphaRomeoCar rdf:type owl:NamedIndividual ,
+                        :RacingCar ;
+               :has_engine :FerrariEngine ;
+               :model "C43" .
+
+
+###  http://example.org/formula1#AlphaTauri
+:AlphaTauri rdf:type owl:NamedIndividual ,
+                     :Team ;
+            :competes_with :AlphaTauriCar ;
+            :hasCommonEngineSupplier :RedBull ;
+            :participated_in :season2023 ;
+            :team_name "Scuderia AlphaTauri" .
+
+
+###  http://example.org/formula1#AlphaTauriCar
+:AlphaTauriCar rdf:type owl:NamedIndividual ,
+                        :RacingCar ;
+               :has_engine :HondaEngine ;
+               :model "AT04" .
+
+
+###  http://example.org/formula1#Alpine
+:Alpine rdf:type owl:NamedIndividual ,
+                 :Team ;
+        :competes_with :AlpineCar ;
+        :participated_in :season2023 ;
+        :team_name "BWT Alpine F1 Team" .
+
+
+###  http://example.org/formula1#AlpineCar
+:AlpineCar rdf:type owl:NamedIndividual ,
+                    :RacingCar ;
+           :has_engine :RenaultEngine ;
+           :model "A523" .
+
+
+###  http://example.org/formula1#AndreaStella
+:AndreaStella rdf:type owl:NamedIndividual ,
+                       :TeamPrincipal ;
+              :employed_by :McLaren ;
+              :dateOfBirth "1971-02-22"^^xsd:date ;
+              :name "Andra Stella" ;
+              :nationality "Italy" ;
+              :sex "Male" .
+
+
+###  http://example.org/formula1#AriaBennett
+:AriaBennett rdf:type owl:NamedIndividual ,
+                      :Steward ;
+             :board_member :BrazilianGP ,
+                           :CanadaGP ,
+                           :GreatBritainGP ,
+                           :HungaryGP ,
+                           :ItalianGP ,
+                           :JapanGP ,
+                           :LasVegasGP ,
+                           :MexicoGP ,
+                           :MiamiGP ;
+             :is_official :FIA2023 ;
+             :dateOfBirth "1985-06-15"^^xsd:date ;
+             :name "Aria Bennett" ;
+             :nationality "USA" ;
+             :sex "Female" .
+
+
+###  http://example.org/formula1#AstonMartin
+:AstonMartin rdf:type owl:NamedIndividual ,
+                      :Team ;
+             :competes_with :AstonMartinCar ;
+             :participated_in :season2023 ;
+             :team_name "Aston Martin Aramco Cognizant F1 Team" .
+
+
+###  http://example.org/formula1#AstonMartinCar
+:AstonMartinCar rdf:type owl:NamedIndividual ,
+                         :RacingCar ;
+                :has_engine :MercedesEngine ;
+                :model "AMR23" .
+
+
+###  http://example.org/formula1#AstonMartinMedicalCar
+:AstonMartinMedicalCar rdf:type owl:NamedIndividual ,
+                                :MedicalCar ;
+                       :has_engine :AstonMedical ;
+                       :model "DBX707" .
+
+
+###  http://example.org/formula1#AstonMartinSafetyCar
+:AstonMartinSafetyCar rdf:type owl:NamedIndividual ,
+                               :SafetyCar ;
+                      :has_engine :AstonSafety ;
+                      :model "Vantage" .
+
+
+###  http://example.org/formula1#AstonMedical
+:AstonMedical rdf:type owl:NamedIndividual ,
+                       :Engine ;
+              :cylinders 8 ;
+              :engineModel "twin-turbo 4.0-liter" ;
+              :fuelFlowLimit 3.3 .
+
+
+###  http://example.org/formula1#AstonSafety
+:AstonSafety rdf:type owl:NamedIndividual ,
+                      :Engine ;
+             :cylinders 12 ;
+             :engineModel "5.2L Aston Martin AE31 twin-turbocharged" ;
+             :fuelFlowLimit 6.3 .
+
+
+###  http://example.org/formula1#AustraliaGP
+:AustraliaGP rdf:type owl:NamedIndividual ,
+                      :RaceWeekend ;
+             :has_event :AustralianQualifying ,
+                        :AustralianRace ;
+             :takes_place :Australian .
+
+
+###  http://example.org/formula1#Australian
+:Australian rdf:type owl:NamedIndividual ,
+                     :Circuit ;
+            :location "Albert Park Street Circuit" .
+
+
+###  http://example.org/formula1#AustralianFirstPlace
+:AustralianFirstPlace rdf:type owl:NamedIndividual ,
+                               :FirstPlace ;
+                      :achieved_by :Verstappen ;
+                      :achieved_in :AustralianRace .
+
+
+###  http://example.org/formula1#AustralianPole
+:AustralianPole rdf:type owl:NamedIndividual ,
+                         :FirstPlace ;
+                :achieved_by :Verstappen ;
+                :achieved_in :AustralianQualifying .
+
+
+###  http://example.org/formula1#AustralianQualifying
+:AustralianQualifying rdf:type owl:NamedIndividual ,
+                               :Qualifying ;
+                      :happeningDay "2023-04-01T16:00:00.000"^^xsd:dateTime ;
+                      :temperature "15" ;
+                      :weatherCondition "Variable weather conditions throughout the day with sunny spells transition to showers in the morning. However, it is expected to improve in the afternoon." .
+
+
+###  http://example.org/formula1#AustralianRace
+:AustralianRace rdf:type owl:NamedIndividual ,
+                         :Race ;
+                :happeningDay "2023-04-02T15:00:00.000"^^xsd:dateTime ;
+                :temperature "15" ;
+                :weatherCondition "Likely dry and cloudy during the race, although light southerly wind is expected throughout the day." .
+
+
+###  http://example.org/formula1#AustralianSecondPlace
+:AustralianSecondPlace rdf:type owl:NamedIndividual ,
+                                :SecondPlace ;
+                       :achieved_by :Hamilton ;
+                       :achieved_in :AustralianRace .
+
+
+###  http://example.org/formula1#AustralianThirdPlace
+:AustralianThirdPlace rdf:type owl:NamedIndividual ,
+                               :ThirdPlace ;
+                      :achieved_by :Alonso ;
+                      :achieved_in :AustralianRace .
+
+
+###  http://example.org/formula1#Austria
+:Austria rdf:type owl:NamedIndividual ,
+                  :Circuit ;
+         :location "Red Bull Ring" .
+
+
+###  http://example.org/formula1#AustriaFirstPlace
+:AustriaFirstPlace rdf:type owl:NamedIndividual ,
+                            :FirstPlace ;
+                   :achieved_by :Verstappen ;
+                   :achieved_in :AustriaRace .
+
+
+###  http://example.org/formula1#AustriaGP
+:AustriaGP rdf:type owl:NamedIndividual ,
+                    :RaceWeekend ;
+           :has_event :AustriaQualifying ,
+                      :AustriaRace ;
+           :takes_place :Austria .
+
+
+###  http://example.org/formula1#AustriaPole
+:AustriaPole rdf:type owl:NamedIndividual ,
+                      :FirstPlace ;
+             :achieved_by :Verstappen ;
+             :achieved_in :AustriaQualifying .
+
+
+###  http://example.org/formula1#AustriaQualifying
+:AustriaQualifying rdf:type owl:NamedIndividual ,
+                            :Qualifying ;
+                   :happeningDay "2023-06-30T16:00:00.000"^^xsd:dateTime ;
+                   :temperature "19" ;
+                   :weatherCondition "High chance of showers in the afternoon with possible thunderstorms." .
+
+
+###  http://example.org/formula1#AustriaRace
+:AustriaRace rdf:type owl:NamedIndividual ,
+                      :Race ;
+             :happeningDay "2023-06-02T14:00:00.000"^^xsd:dateTime ;
+             :temperature "24" ;
+             :weatherCondition "Partly cloudy in the morning with a slight chance of rain hitting the race in the afternoon." .
+
+
+###  http://example.org/formula1#AustriaSecondPlace
+:AustriaSecondPlace rdf:type owl:NamedIndividual ,
+                             :SecondPlace ;
+                    :achieved_by :Leclerc ;
+                    :achieved_in :AustriaRace .
+
+
+###  http://example.org/formula1#AustriaThirdPlace
+:AustriaThirdPlace rdf:type owl:NamedIndividual ,
+                            :ThirdPlace ;
+                   :achieved_by :Perez ;
+                   :achieved_in :AustriaRace .
+
+
+###  http://example.org/formula1#Azerbaijan
+:Azerbaijan rdf:type owl:NamedIndividual ,
+                     :Circuit ;
+            :location "Baku City Circuit" .
+
+
+###  http://example.org/formula1#AzerbaijanFirstPlace
+:AzerbaijanFirstPlace rdf:type owl:NamedIndividual ,
+                               :FirstPlace ;
+                      :achieved_by :Perez ;
+                      :achieved_in :AzerbaijanRace .
+
+
+###  http://example.org/formula1#AzerbaijanGP
+:AzerbaijanGP rdf:type owl:NamedIndividual ,
+                       :RaceWeekend ;
+              :has_event :AzerbaijanQualifying ,
+                         :AzerbaijanRace ;
+              :takes_place :Azerbaijan .
+
+
+###  http://example.org/formula1#AzerbaijanPole
+:AzerbaijanPole rdf:type owl:NamedIndividual ,
+                         :FirstPlace ;
+                :achieved_by :Leclerc ;
+                :achieved_in :AzerbaijanQualifying .
+
+
+###  http://example.org/formula1#AzerbaijanQualifying
+:AzerbaijanQualifying rdf:type owl:NamedIndividual ,
+                               :Qualifying ;
+                      :happeningDay "2023-04-28T16:00:00.000"^^xsd:dateTime ;
+                      :temperature "21" ;
+                      :weatherCondition "It will be mostly cloudy early in the day and with a very slight chance of rain showers late in the afternoon." .
+
+
+###  http://example.org/formula1#AzerbaijanRace
+:AzerbaijanRace rdf:type owl:NamedIndividual ,
+                         :Race ;
+                :happeningDay "2023-04-30T13:00:00.000"^^xsd:dateTime ;
+                :temperature "24" ;
+                :weatherCondition "Mostly cloudy throughout the day with a slight chance of rain late in the afternoon." .
+
+
+###  http://example.org/formula1#AzerbaijanSecondPlace
+:AzerbaijanSecondPlace rdf:type owl:NamedIndividual ,
+                                :SecondPlace ;
+                       :achieved_by :Verstappen ;
+                       :achieved_in :AzerbaijanRace .
+
+
+###  http://example.org/formula1#AzerbaijanThirdPlace
+:AzerbaijanThirdPlace rdf:type owl:NamedIndividual ,
+                               :ThirdPlace ;
+                      :achieved_by :Leclerc ;
+                      :achieved_in :AzerbaijanRace .
+
+
+###  http://example.org/formula1#Bahrain
+:Bahrain rdf:type owl:NamedIndividual ,
+                  :Circuit ;
+         :location "Sakhir International Circuit" .
+
+
+###  http://example.org/formula1#BahrainFirstPlace
+:BahrainFirstPlace rdf:type owl:NamedIndividual ,
+                            :FirstPlace ;
+                   :achieved_by :Verstappen ;
+                   :achieved_in :BahrainRace .
+
+
+###  http://example.org/formula1#BahrainGP
+:BahrainGP rdf:type owl:NamedIndividual ,
+                    :RaceWeekend ;
+           :has_event :BahrainQualifying ,
+                      :BahrainRace ;
+           :takes_place :Bahrain .
+
+
+###  http://example.org/formula1#BahrainPole
+:BahrainPole rdf:type owl:NamedIndividual ,
+                      :FirstPlace ;
+             :achieved_by :Verstappen ;
+             :achieved_in :BahrainQualifying .
+
+
+###  http://example.org/formula1#BahrainQualifying
+:BahrainQualifying rdf:type owl:NamedIndividual ,
+                            :Qualifying ;
+                   :happeningDay "2023-03-04T16:00:00.000"^^xsd:dateTime ;
+                   :temperature "23" ;
+                   :weatherCondition "Fair weather. Light Easterly wind." .
+
+
+###  http://example.org/formula1#BahrainRace
+:BahrainRace rdf:type owl:NamedIndividual ,
+                      :Race ;
+             :happeningDay "2023-03-05T14:01:00.000"^^xsd:dateTime ;
+             :temperature "23" ;
+             :weatherCondition "Sunny all day long. Hotter than the previous days. Light Southeasterly wind for the race." .
+
+
+###  http://example.org/formula1#BahrainSecondPlace
+:BahrainSecondPlace rdf:type owl:NamedIndividual ,
+                             :SecondPlace ;
+                    :achieved_by :Perez ;
+                    :achieved_in :BahrainRace .
+
+
+###  http://example.org/formula1#BahrainThirdPlace
+:BahrainThirdPlace rdf:type owl:NamedIndividual ,
+                            :ThirdPlace ;
+                   :achieved_by :Alonso ;
+                   :achieved_in :BahrainRace .
+
+
+###  http://example.org/formula1#Becker
+:Becker rdf:type owl:NamedIndividual ,
+                 :RaceEngineer ;
+        :employed_by :AlfaRomeo ;
+        :dateOfBirth "1979-07-29"^^xsd:date ;
+        :name "Jorn Becker" ;
+        :nationality "Finland" ;
+        :sex "Male" .
+
+
+###  http://example.org/formula1#BelgianFirstPlace
+:BelgianFirstPlace rdf:type owl:NamedIndividual ,
+                            :FirstPlace ;
+                   :achieved_by :Verstappen ;
+                   :achieved_in :BelgianRace .
+
+
+###  http://example.org/formula1#BelgianPole
+:BelgianPole rdf:type owl:NamedIndividual ,
+                      :FirstPlace ;
+             :achieved_by :Leclerc ;
+             :achieved_in :BelgianQualifying .
+
+
+###  http://example.org/formula1#BelgianQualifying
+:BelgianQualifying rdf:type owl:NamedIndividual ,
+                            :Qualifying ;
+                   :happeningDay "2023-06-28T16:00:00.000"^^xsd:dateTime ;
+                   :temperature "19" ;
+                   :weatherCondition "Mostly cloudy and overcast throughout the day with a high chance of showers and possible thunder in the afternoon" .
+
+
+###  http://example.org/formula1#BelgianRace
+:BelgianRace rdf:type owl:NamedIndividual ,
+                      :Race ;
+             :happeningDay "2023-07-30T14:00:00.000"^^xsd:dateTime ;
+             :temperature "17" ;
+             :weatherCondition "A much improved day but there is still a chance of a shower or two in the afternoon." .
+
+
+###  http://example.org/formula1#BelgianSecondPlace
+:BelgianSecondPlace rdf:type owl:NamedIndividual ,
+                             :SecondPlace ;
+                    :achieved_by :Perez ;
+                    :achieved_in :BelgianRace .
+
+
+###  http://example.org/formula1#BelgianThirdPlace
+:BelgianThirdPlace rdf:type owl:NamedIndividual ,
+                            :ThirdPlace ;
+                   :achieved_by :Leclerc ;
+                   :achieved_in :BelgianRace .
+
+
+###  http://example.org/formula1#Belgium
+:Belgium rdf:type owl:NamedIndividual ,
+                  :Circuit ;
+         :location "Spa-Francorchamps Circuit" .
+
+
+###  http://example.org/formula1#BelgiumGP
+:BelgiumGP rdf:type owl:NamedIndividual ,
+                    :RaceWeekend ;
+           :has_event :BelgianQualifying ,
+                      :BelgianRace ;
+           :takes_place :Belgium .
+
+
+###  http://example.org/formula1#Bird
+:Bird rdf:type owl:NamedIndividual ,
+               :RaceEngineer ;
+      :employed_by :RedBull ;
+      :dateOfBirth "1991-11-03"^^xsd:date ;
+      :name "Hugh Bird" ;
+      :nationality "Great Britain" ;
+      :sex "Male" .
+
+
+###  http://example.org/formula1#Bonnington
+:Bonnington rdf:type owl:NamedIndividual ,
+                     :RaceEngineer ;
+            :employed_by :Mercedes ;
+            :dateOfBirth "1975-02-12"^^xsd:date ;
+            :name "Peter Bonnington" ;
+            :nationality "Great Britain" ;
+            :sex "Male" .
+
+
+###  http://example.org/formula1#Bottas
+:Bottas rdf:type owl:NamedIndividual ,
+                 :RacingDriver ;
+        :communicates_with :Chan ;
+        :employed_by :AlfaRomeo ;
+        :isTeamMateWith :Zhou ;
+        :raced_in :season2023 ;
+        :dateOfBirth "1989-08-28"^^xsd:date ;
+        :height 1.73 ;
+        :name "Valtteri Bottas" ;
+        :nationality "Finland" ;
+        :salary 10 ;
+        :sex "Male" ;
+        :weight 69 .
+
+
+###  http://example.org/formula1#Brazil
+:Brazil rdf:type owl:NamedIndividual ,
+                 :Circuit ;
+        :location "Jose Carlos Pace Autodrome" .
+
+
+###  http://example.org/formula1#BrazilianFirstPlace
+:BrazilianFirstPlace rdf:type owl:NamedIndividual ,
+                              :FirstPlace ;
+                     :achieved_by :Verstappen ;
+                     :achieved_in :BrazilianRace .
+
+
+###  http://example.org/formula1#BrazilianGP
+:BrazilianGP rdf:type owl:NamedIndividual ,
+                      :RaceWeekend ;
+             :has_event :BrazilianQualifying ,
+                        :BrazilianRace ;
+             :takes_place :Brazil .
+
+
+###  http://example.org/formula1#BrazilianPole
+:BrazilianPole rdf:type owl:NamedIndividual ,
+                        :FirstPlace ;
+               :achieved_by :Verstappen ;
+               :achieved_in :BrazilianQualifying .
+
+
+###  http://example.org/formula1#BrazilianQualifying
+:BrazilianQualifying rdf:type owl:NamedIndividual ,
+                              :Qualifying ;
+                     :happeningDay "2023-11-03T16:00:00.000"^^xsd:dateTime ;
+                     :temperature "26" ;
+                     :weatherCondition "Sunny at first in the morning. Unsettled with threatening cumulus clouds developing in the afternoon. Moderate chance of showers, possibly thunderstorms, in the afternoon and evening" .
+
+
+###  http://example.org/formula1#BrazilianRace
+:BrazilianRace rdf:type owl:NamedIndividual ,
+                        :Race ;
+               :happeningDay "2023-11-05T15:00:00.000"^^xsd:dateTime ;
+               :temperature "20" ;
+               :weatherCondition "Mainly sunny and dry conditions expected all day long. Light to moderate Southeasterly breeze for the Race." .
+
+
+###  http://example.org/formula1#BrazilianSecondPlace
+:BrazilianSecondPlace rdf:type owl:NamedIndividual ,
+                               :SecondPlace ;
+                      :achieved_by :Norris ;
+                      :achieved_in :BrazilianRace .
+
+
+###  http://example.org/formula1#BrazilianThirdPlace
+:BrazilianThirdPlace rdf:type owl:NamedIndividual ,
+                              :ThirdPlace ;
+                     :achieved_by :Alonso ;
+                     :achieved_in :BrazilianRace .
+
+
+###  http://example.org/formula1#CalumNicholas
+:CalumNicholas rdf:type owl:NamedIndividual ,
+                        :Mechanic ;
+               :employed_by :RedBull ;
+               :dateOfBirth "1981-10-22"^^xsd:date ;
+               :name "Calum Nicholas" ;
+               :nationality "Great Britain" ;
+               :sex "Male" .
+
+
+###  http://example.org/formula1#Canada
+:Canada rdf:type owl:NamedIndividual ,
+                 :Circuit ;
+        :location "Gilles Villenueve Circuit" .
+
+
+###  http://example.org/formula1#CanadaFirstPlace
+:CanadaFirstPlace rdf:type owl:NamedIndividual ,
+                           :FirstPlace ;
+                  :achieved_by :Verstappen ;
+                  :achieved_in :CanadaRace .
+
+
+###  http://example.org/formula1#CanadaGP
+:CanadaGP rdf:type owl:NamedIndividual ,
+                   :RaceWeekend ;
+          :has_event :CanadaQualifying ,
+                     :CanadaRace ;
+          :takes_place :Canada .
+
+
+###  http://example.org/formula1#CanadaPole
+:CanadaPole rdf:type owl:NamedIndividual ,
+                     :FirstPlace ;
+            :achieved_by :Verstappen ;
+            :achieved_in :CanadaQualifying .
+
+
+###  http://example.org/formula1#CanadaQualifying
+:CanadaQualifying rdf:type owl:NamedIndividual ,
+                           :Qualifying ;
+                  :happeningDay "2023-06-17T16:00:00.000"^^xsd:dateTime ;
+                  :temperature "19" ;
+                  :weatherCondition "A cloudy and rainy day expected with a chance of intense showers along with light winds at various times." .
+
+
+###  http://example.org/formula1#CanadaRace
+:CanadaRace rdf:type owl:NamedIndividual ,
+                     :Race ;
+            :happeningDay "2023-05-18T15:00:00.000"^^xsd:dateTime ;
+            :temperature "23" ;
+            :weatherCondition "Sunday is expected to be much improved but expect a mix of showers and some sunny spells throughout the day." .
+
+
+###  http://example.org/formula1#CanadaSecondPlace
+:CanadaSecondPlace rdf:type owl:NamedIndividual ,
+                            :SecondPlace ;
+                   :achieved_by :Alonso ;
+                   :achieved_in :CanadaRace .
+
+
+###  http://example.org/formula1#CanadaThirdPlace
+:CanadaThirdPlace rdf:type owl:NamedIndividual ,
+                           :ThirdPlace ;
+                  :achieved_by :Hamilton ;
+                  :achieved_in :CanadaRace .
+
+
+###  http://example.org/formula1#Chan
+:Chan rdf:type owl:NamedIndividual ,
+               :RaceEngineer ;
+      :employed_by :AlfaRomeo ;
+      :dateOfBirth "1986-07-12"^^xsd:date ;
+      :name "Alex Chan" ;
+      :nationality "China" ;
+      :sex "Male" .
+
+
+###  http://example.org/formula1#ChristianHorner
+:ChristianHorner rdf:type owl:NamedIndividual ,
+                          :TeamPrincipal ;
+                 :employed_by :RedBull ;
+                 :dateOfBirth "1973-11-16"^^xsd:date ;
+                 :name "Christian Edward Johnston Horner" ;
+                 :nationality "Great Britain" ;
+                 :sex "Male" .
+
+
+###  http://example.org/formula1#Cronin
+:Cronin rdf:type owl:NamedIndividual ,
+                 :RaceEngineer ;
+        :employed_by :AstonMartin ;
+        :dateOfBirth "1983-12-22"^^xsd:date ;
+        :name "Chris Cronin" ;
+        :nationality "Great Britain" ;
+        :sex "Male" .
+
+
+###  http://example.org/formula1#ESPN
+:ESPN rdf:type owl:NamedIndividual ,
+               :Channel ;
+      :broadcaster "ESPN F1" .
+
+
+###  http://example.org/formula1#ElenaRodriguez
+:ElenaRodriguez rdf:type owl:NamedIndividual ,
+                         :Steward ;
+                :board_member :MexicoGP ,
+                              :MiamiGP ,
+                              :MonacoGP ,
+                              :NetherlandsGP ,
+                              :QatarGP ,
+                              :SaudiArabiaGP ,
+                              :SingaporeGP ,
+                              :SpainGP ,
+                              :UnitedStatesGP ;
+                :is_official :FIA2023 ;
+                :dateOfBirth "1993-10-07"^^xsd:date ;
+                :name "Elena Rodriguez" ;
+                :nationality "Spain" ;
+                :sex "Female" .
+
+
+###  http://example.org/formula1#EmiliaRomagna
+:EmiliaRomagna rdf:type owl:NamedIndividual ,
+                        :Circuit ;
+               :location "Dino & Enzo Ferrari Autodrome" .
+
+
+###  http://example.org/formula1#FIA2023
+:FIA2023 rdf:type owl:NamedIndividual ,
+                  :FIA ;
+         :board_year 2023 .
+
+
+###  http://example.org/formula1#Ferrari
+:Ferrari rdf:type owl:NamedIndividual ,
+                  :Team ;
+         :competes_with :FerrariCar ;
+         :hasCommonEngineSupplier :Haas ;
+         :participated_in :season2023 ;
+         :team_name "Scuderia Ferrari" .
+
+
+###  http://example.org/formula1#FerrariCar
+:FerrariCar rdf:type owl:NamedIndividual ,
+                     :RacingCar ;
+            :has_engine :FerrariEngine ;
+            :model "SF-23" .
+
+
+###  http://example.org/formula1#FerrariEngine
+:FerrariEngine rdf:type owl:NamedIndividual ,
+                        :Engine ;
+               :cylinders 6 ;
+               :engineModel "1.6-litre turbocharged hybrid" ;
+               :fuelFlowLimit 5.5 .
+
+
+###  http://example.org/formula1#FranzTost
+:FranzTost rdf:type owl:NamedIndividual ,
+                    :TeamPrincipal ;
+           :employed_by :AlphaTauri ;
+           :dateOfBirth "1956-01-20"^^xsd:date ;
+           :name "Franz Tost" ;
+           :nationality "Austria" ;
+           :sex "Male" .
+
+
+###  http://example.org/formula1#FredericVasseur
+:FredericVasseur rdf:type owl:NamedIndividual ,
+                          :TeamPrincipal ;
+                 :employed_by :Ferrari ;
+                 :dateOfBirth "1968-05-28"^^xsd:date ;
+                 :name "Frederic Vasseur" ;
+                 :nationality "France" ;
+                 :sex "Male" .
+
+
+###  http://example.org/formula1#Gannon
+:Gannon rdf:type owl:NamedIndividual ,
+                 :RaceEngineer ;
+        :employed_by :Haas ;
+        :dateOfBirth "1971-06-07"^^xsd:date ;
+        :name "Gary Gannon" ;
+        :nationality "Netherlands" ;
+        :sex "Male" .
+
+
+###  http://example.org/formula1#Gasly
+:Gasly rdf:type owl:NamedIndividual ,
+                :RacingDriver ;
+       :communicates_with :Loos ;
+       :employed_by :Alpine ;
+       :isTeamMateWith :Ocon ;
+       :raced_in :season2023 ;
+       :dateOfBirth "1994-09-01"^^xsd:date ;
+       :height 1.77 ;
+       :name "Pierre Gasly" ;
+       :nationality "France" ;
+       :salary 5 ;
+       :sex "Male" ;
+       :weight 70 .
+
+
+###  http://example.org/formula1#GiorgosAtmatzidis
+:GiorgosAtmatzidis rdf:type owl:NamedIndividual ,
+                            :Viewer ;
+                   :attends :JapanGP ;
+                   :dateOfBirth "2002-12-05"^^xsd:date ;
+                   :name "Giorgos Atmatzidis" ;
+                   :nationality "Greece" ;
+                   :sex "Male" .
+
+
+###  http://example.org/formula1#GreatBritain
+:GreatBritain rdf:type owl:NamedIndividual ,
+                       :Circuit ;
+              :location "Silverstone Circuit" .
+
+
+###  http://example.org/formula1#GreatBritainFirstPlace
+:GreatBritainFirstPlace rdf:type owl:NamedIndividual ,
+                                 :FirstPlace ;
+                        :achieved_by :Verstappen ;
+                        :achieved_in :CanadaRace .
+
+
+###  http://example.org/formula1#GreatBritainGP
+:GreatBritainGP rdf:type owl:NamedIndividual ,
+                         :RaceWeekend ;
+                :has_event :GreatBritainQualifying ,
+                           :GreatBritainRace ;
+                :takes_place :GreatBritain .
+
+
+###  http://example.org/formula1#GreatBritainPole
+:GreatBritainPole rdf:type owl:NamedIndividual ,
+                           :FirstPlace ;
+                  :achieved_by :Verstappen ;
+                  :achieved_in :GreatBritainQualifying .
+
+
+###  http://example.org/formula1#GreatBritainQualifying
+:GreatBritainQualifying rdf:type owl:NamedIndividual ,
+                                 :Qualifying ;
+                        :happeningDay "2023-07-08T16:00:00.000"^^xsd:dateTime ;
+                        :temperature "25" ;
+                        :weatherCondition "It is set to be partly sunny around sunrise, with a band of rain building up over Wales and crossing the Silverstone area for FP3. It should become drier behind this rain band, increasing air temperature up to 25°C, but the wind remains with gusts up to 50kph in the afternoon." .
+
+
+###  http://example.org/formula1#GreatBritainRace
+:GreatBritainRace rdf:type owl:NamedIndividual ,
+                           :Race ;
+                  :happeningDay "2023-07-09T15:00:00.000"^^xsd:dateTime ;
+                  :temperature "22" ;
+                  :weatherCondition "A chance of rain is likely in the morning until midday, but conditions should become drier in the afternoon." .
+
+
+###  http://example.org/formula1#GreatBritainSecondPlace
+:GreatBritainSecondPlace rdf:type owl:NamedIndividual ,
+                                  :SecondPlace ;
+                         :achieved_by :Norris ;
+                         :achieved_in :GreatBritainRace .
+
+
+###  http://example.org/formula1#GreatBritainThirdPlace
+:GreatBritainThirdPlace rdf:type owl:NamedIndividual ,
+                                 :ThirdPlace ;
+                        :achieved_by :Hamilton ;
+                        :achieved_in :GreatBritainRace .
+
+
+###  http://example.org/formula1#GuentherSteiner
+:GuentherSteiner rdf:type owl:NamedIndividual ,
+                          :TeamPrincipal ;
+                 :employed_by :Haas ;
+                 :dateOfBirth "1965-04-07"^^xsd:date ;
+                 :name "Guenther Steiner" ;
+                 :nationality "Italy" ;
+                 :sex "Male" .
+
+
+###  http://example.org/formula1#Haas
+:Haas rdf:type owl:NamedIndividual ,
+               :Team ;
+      :competes_with :HaasCar ;
+      :participated_in :season2023 ;
+      :team_name "MoneyGram Haas F1 Team" .
+
+
+###  http://example.org/formula1#HaasCar
+:HaasCar rdf:type owl:NamedIndividual ,
+                  :RacingCar ;
+         :has_engine :FerrariEngine ;
+         :model "VF-23" .
+
+
+###  http://example.org/formula1#Hamelin
+:Hamelin rdf:type owl:NamedIndividual ,
+                  :RaceEngineer ;
+         :employed_by :AlphaTauri ;
+         :dateOfBirth "1989-07-12"^^xsd:date ;
+         :name "Pierre Hamelin" ;
+         :nationality "France" ;
+         :sex "Male" .
+
+
+###  http://example.org/formula1#Hamilton
+:Hamilton rdf:type owl:NamedIndividual ,
+                   :RacingDriver ;
+          :communicates_with :Bonnington ;
+          :employed_by :Mercedes ;
+          :isTeamMateWith :Russell ;
+          :raced_in :season2023 ;
+          :dateOfBirth "1985-01-07"^^xsd:date ;
+          :height 1.74 ;
+          :name "Lewis Hamilton" ;
+          :nationality "United Kingdom" ;
+          :salary 35 ;
+          :sex "Male" ;
+          :weight 73 .
+
+
+###  http://example.org/formula1#HondaEngine
+:HondaEngine rdf:type owl:NamedIndividual ,
+                      :Engine ;
+             :cylinders 6 ;
+             :engineModel "1.6-litre turbocharged hybrid" ;
+             :fuelFlowLimit 5.5 .
+
+
+###  http://example.org/formula1#Hulkenberg
+:Hulkenberg rdf:type owl:NamedIndividual ,
+                     :RacingDriver ;
+            :communicates_with :Gannon ;
+            :employed_by :Haas ;
+            :isTeamMateWith :Magnussen ;
+            :raced_in :season2023 ;
+            :dateOfBirth "1987-09-19"^^xsd:date ;
+            :height 1.84 ;
+            :name "Nico Hulkenberg" ;
+            :nationality "Germany" ;
+            :salary 1 ;
+            :sex "Male" ;
+            :weight 78 .
+
+
+###  http://example.org/formula1#Hungary
+:Hungary rdf:type owl:NamedIndividual ,
+                  :Circuit ;
+         :location "Hungaroring" .
+
+
+###  http://example.org/formula1#HungaryFirstPlace
+:HungaryFirstPlace rdf:type owl:NamedIndividual ,
+                            :FirstPlace ;
+                   :achieved_by :Verstappen ;
+                   :achieved_in :HungaryRace .
+
+
+###  http://example.org/formula1#HungaryGP
+:HungaryGP rdf:type owl:NamedIndividual ,
+                    :RaceWeekend ;
+           :has_event :HungaryQualifying ,
+                      :HungaryRace ;
+           :takes_place :Hungary .
+
+
+###  http://example.org/formula1#HungaryPole
+:HungaryPole rdf:type owl:NamedIndividual ,
+                      :FirstPlace ;
+             :achieved_by :Hamilton ;
+             :achieved_in :HungaryQualifying .
+
+
+###  http://example.org/formula1#HungaryQualifying
+:HungaryQualifying rdf:type owl:NamedIndividual ,
+                            :Qualifying ;
+                   :happeningDay "2023-07-22T16:00:00.000"^^xsd:dateTime ;
+                   :temperature "28" ;
+                   :weatherCondition "Cloudy in the morning before the sun breaks through in the afternoon. However, there is a chance of a shower or two in the afternoon." .
+
+
+###  http://example.org/formula1#HungaryRace
+:HungaryRace rdf:type owl:NamedIndividual ,
+                      :Race ;
+             :happeningDay "2023-07-23T14:00:00.000"^^xsd:dateTime ;
+             :temperature "29" ;
+             :weatherCondition "Mostly sunny and dry all day with light to moderate gusts of up to 35 kph expected in the afternoon." .
+
+
+###  http://example.org/formula1#HungarySecondPlace
+:HungarySecondPlace rdf:type owl:NamedIndividual ,
+                             :SecondPlace ;
+                    :achieved_by :Norris ;
+                    :achieved_in :HungaryRace .
+
+
+###  http://example.org/formula1#HungaryThirdPlace
+:HungaryThirdPlace rdf:type owl:NamedIndividual ,
+                            :ThirdPlace ;
+                   :achieved_by :Perez ;
+                   :achieved_in :HungaryRace .
+
+
+###  http://example.org/formula1#ItalianFirstPlace
+:ItalianFirstPlace rdf:type owl:NamedIndividual ,
+                            :FirstPlace ;
+                   :achieved_by :Verstappen ;
+                   :achieved_in :ItalianRace .
+
+
+###  http://example.org/formula1#ItalianGP
+:ItalianGP rdf:type owl:NamedIndividual ,
+                    :RaceWeekend ;
+           :has_event :ItalianQualifying ,
+                      :ItalianRace ;
+           :takes_place :Italy .
+
+
+###  http://example.org/formula1#ItalianPole
+:ItalianPole rdf:type owl:NamedIndividual ,
+                      :FirstPlace ;
+             :achieved_by :Sainz ;
+             :achieved_in :ItalianQualifying .
+
+
+###  http://example.org/formula1#ItalianQualifying
+:ItalianQualifying rdf:type owl:NamedIndividual ,
+                            :Qualifying ;
+                   :happeningDay "2023-09-02T16:00:00.000"^^xsd:dateTime ;
+                   :temperature "27" ;
+                   :weatherCondition "Dry and mostly sunny conditions expected." .
+
+
+###  http://example.org/formula1#ItalianRace
+:ItalianRace rdf:type owl:NamedIndividual ,
+                      :Race ;
+             :happeningDay "2023-09-03T14:00:00.000"^^xsd:dateTime ;
+             :temperature "29" ;
+             :weatherCondition "Mostly sunny and dry conditions but with light southerly winds in the afternoon." .
+
+
+###  http://example.org/formula1#ItalianSecondPlace
+:ItalianSecondPlace rdf:type owl:NamedIndividual ,
+                             :SecondPlace ;
+                    :achieved_by :Perez ;
+                    :achieved_in :ItalianRace .
+
+
+###  http://example.org/formula1#ItalianThirdPlace
+:ItalianThirdPlace rdf:type owl:NamedIndividual ,
+                            :ThirdPlace ;
+                   :achieved_by :Sainz ;
+                   :achieved_in :ItalianRace .
+
+
+###  http://example.org/formula1#Italy
+:Italy rdf:type owl:NamedIndividual ,
+                :Circuit ;
+       :location "Monza National Autodrome" .
+
+
+###  http://example.org/formula1#JamesVowles
+:JamesVowles rdf:type owl:NamedIndividual ,
+                      :TeamPrincipal ;
+             :employed_by :Williams ;
+             :dateOfBirth "1979-06-20"^^xsd:date ;
+             :name "James Patrick Vowles" ;
+             :nationality "Great Britain" ;
+             :sex "Male" .
+
+
+###  http://example.org/formula1#Japan
+:Japan rdf:type owl:NamedIndividual ,
+                :Circuit ;
+       :location "Suzuka International Racing Course" .
+
+
+###  http://example.org/formula1#JapanFirstPlace
+:JapanFirstPlace rdf:type owl:NamedIndividual ,
+                          :FirstPlace ;
+                 :achieved_by :Verstappen ;
+                 :achieved_in :JapanRace .
+
+
+###  http://example.org/formula1#JapanGP
+:JapanGP rdf:type owl:NamedIndividual ,
+                  :RaceWeekend ;
+         :has_event :JapanQualifying ,
+                    :JapanRace ;
+         :takes_place :Japan .
+
+
+###  http://example.org/formula1#JapanPole
+:JapanPole rdf:type owl:NamedIndividual ,
+                    :FirstPlace ;
+           :achieved_by :Verstappen ;
+           :achieved_in :JapanQualifying .
+
+
+###  http://example.org/formula1#JapanQualifying
+:JapanQualifying rdf:type owl:NamedIndividual ,
+                          :Qualifying ;
+                 :happeningDay "2023-09-23T16:00:00.000"^^xsd:dateTime ;
+                 :temperature "28" ;
+                 :weatherCondition "Dry and sunny conditions expected all day with a light-to-moderate northwesterly wind." .
+
+
+###  http://example.org/formula1#JapanRace
+:JapanRace rdf:type owl:NamedIndividual ,
+                    :Race ;
+           :happeningDay "2023-09-24T14:00:00.000"^^xsd:dateTime ;
+           :temperature "28" ;
+           :weatherCondition "Fair weather and mostly sunny and dry conditions likely with a light-to-moderate southerly wind in the afternoon." .
+
+
+###  http://example.org/formula1#JapanSecondPlace
+:JapanSecondPlace rdf:type owl:NamedIndividual ,
+                           :SecondPlace ;
+                  :achieved_by :Norris ;
+                  :achieved_in :JapanRace .
+
+
+###  http://example.org/formula1#JapanThirdPlace
+:JapanThirdPlace rdf:type owl:NamedIndividual ,
+                          :ThirdPlace ;
+                 :achieved_by :Piastri ;
+                 :achieved_in :JapanRace .
+
+
+###  http://example.org/formula1#Jego
+:Jego rdf:type owl:NamedIndividual ,
+               :RaceEngineer ;
+      :employed_by :Williams ;
+      :dateOfBirth "1972-09-09"^^xsd:date ;
+      :name "Gaetan Jego" ;
+      :nationality "France" ;
+      :sex "Male" .
+
+
+###  http://example.org/formula1#Joseph
+:Joseph rdf:type owl:NamedIndividual ,
+                 :RaceEngineer ;
+        :employed_by :McLaren ;
+        :dateOfBirth "1985-03-25"^^xsd:date ;
+        :name "William Joseph" ;
+        :nationality "Great Britain" ;
+        :sex "Male" .
+
+
+###  http://example.org/formula1#KarunChandhok
+:KarunChandhok rdf:type owl:NamedIndividual ,
+                        :Journalist ;
+               :broadcasts_for :ESPN ;
+               :dateOfBirth "1978-01-06"^^xsd:date ;
+               :name "Karun Chandhok" ;
+               :nationality "India" ;
+               :sex "Male" .
+
+
+###  http://example.org/formula1#Lambiase
+:Lambiase rdf:type owl:NamedIndividual ,
+                   :RaceEngineer ;
+          :employed_by :RedBull ;
+          :dateOfBirth "1980-10-14"^^xsd:date ;
+          :name "Gianpiero Lambiase" ;
+          :nationality "Italy" ;
+          :sex "Male" .
+
+
+###  http://example.org/formula1#LasVegas
+:LasVegas rdf:type owl:NamedIndividual ,
+                   :Circuit ;
+          :location "Las Vegas Strip Street Circuit" .
+
+
+###  http://example.org/formula1#LasVegasFirstPlace
+:LasVegasFirstPlace rdf:type owl:NamedIndividual ,
+                             :FirstPlace ;
+                    :achieved_by :Verstappen ;
+                    :achieved_in :LasVegasRace .
+
+
+###  http://example.org/formula1#LasVegasGP
+:LasVegasGP rdf:type owl:NamedIndividual ,
+                     :RaceWeekend ;
+            :has_event :LasVegasQualifying ,
+                       :LasVegasRace ;
+            :takes_place :LasVegas .
+
+
+###  http://example.org/formula1#LasVegasPole
+:LasVegasPole rdf:type owl:NamedIndividual ,
+                       :FirstPlace ;
+              :achieved_by :Leclerc ;
+              :achieved_in :LasVegasQualifying .
+
+
+###  http://example.org/formula1#LasVegasQualifying
+:LasVegasQualifying rdf:type owl:NamedIndividual ,
+                             :Qualifying ;
+                    :happeningDay "2023-11-18T18:00:00.000"^^xsd:dateTime ;
+                    :temperature "12" ;
+                    :weatherCondition "Partly cloudy at first before becoming cloudier in the evening with the chance of showers not ruled out." .
+
+
+###  http://example.org/formula1#LasVegasRace
+:LasVegasRace rdf:type owl:NamedIndividual ,
+                       :Race ;
+              :happeningDay "2023-11-18T18:00:00.000"^^xsd:dateTime ;
+              :temperature "13" ;
+              :weatherCondition "Partly cloudy with a moderate chance of rain at the end of the day. Chance of the rain will decrease closer to the race." .
+
+
+###  http://example.org/formula1#LasVegasSecondPlace
+:LasVegasSecondPlace rdf:type owl:NamedIndividual ,
+                              :SecondPlace ;
+                     :achieved_by :Leclerc ;
+                     :achieved_in :LasVegasRace .
+
+
+###  http://example.org/formula1#LasVegasThirdPlace
+:LasVegasThirdPlace rdf:type owl:NamedIndividual ,
+                             :ThirdPlace ;
+                    :achieved_by :Perez ;
+                    :achieved_in :LasVegasRace .
+
+
+###  http://example.org/formula1#Leclerc
+:Leclerc rdf:type owl:NamedIndividual ,
+                  :RacingDriver ;
+         :communicates_with :Xavi ;
+         :employed_by :Ferrari ;
+         :isTeamMateWith :Sainz ;
+         :raced_in :season2023 ;
+         :dateOfBirth "1997-10-16"^^xsd:date ;
+         :height 1.80 ;
+         :name "Charles Leclerc" ;
+         :nationality "Monaco" ;
+         :salary 24 ;
+         :sex "Male" ;
+         :weight 69 .
+
+
+###  http://example.org/formula1#LeclercCrash
+:LeclercCrash rdf:type owl:NamedIndividual ,
+                       :Accident ;
+              :calls_for :MercedesSafetyCar ;
+              :caused_by :Leclerc ;
+              :caused_in :BrazilianRace ;
+              :needs_medical :MercedesMedicalCar ;
+              :accidentDescription "Ferrari driver Charles Leclerc crashes on the formation lap for the Sao Paulo Grand Prix." .
+
+
+###  http://example.org/formula1#Loos
+:Loos rdf:type owl:NamedIndividual ,
+               :RaceEngineer ;
+      :employed_by :Alpine ;
+      :dateOfBirth "1988-07-19"^^xsd:date ;
+      :name "Karel Loos" ;
+      :nationality "Germany" ;
+      :sex "Male" .
+
+
+###  http://example.org/formula1#Magnussen
+:Magnussen rdf:type owl:NamedIndividual ,
+                    :RacingDriver ;
+           :communicates_with :Slade ;
+           :employed_by :Haas ;
+           :raced_in :season2023 ;
+           :dateOfBirth "1992-10-05"^^xsd:date ;
+           :height 1.74 ;
+           :name "Kevin Magnussen" ;
+           :nationality "Denmark" ;
+           :salary 5 ;
+           :sex "Male" ;
+           :weight 70 .
+
+
+###  http://example.org/formula1#MartinBrundle
+:MartinBrundle rdf:type owl:NamedIndividual ,
+                        :Journalist ;
+               :broadcasts_for :SkySports ;
+               :dateOfBirth "1959-06-01"^^xsd:date ;
+               :name "Martin Brundle" ;
+               :nationality "Great Britain" ;
+               :sex "Male" .
+
+
+###  http://example.org/formula1#McCullough
+:McCullough rdf:type owl:NamedIndividual ,
+                     :Strategist ;
+            :employed_by :AstonMartin ;
+            :dateOfBirth "1978-02-10"^^xsd:date ;
+            :name "Tom McCullough" ;
+            :nationality "USA" ;
+            :sex "Male" .
+
+
+###  http://example.org/formula1#McLaren
+:McLaren rdf:type owl:NamedIndividual ,
+                  :Team ;
+         :competes_with :McLarenCar ;
+         :hasCommonEngineSupplier :Williams ;
+         :participated_in :season2023 ;
+         :team_name "McLaren F1 Team" .
+
+
+###  http://example.org/formula1#McLarenCar
+:McLarenCar rdf:type owl:NamedIndividual ,
+                     :RacingCar ;
+            :has_engine :MercedesEngine ;
+            :model "MCL60" .
+
+
+###  http://example.org/formula1#Mercedes
+:Mercedes rdf:type owl:NamedIndividual ,
+                   :Team ;
+          :competes_with :MercedesCar ;
+          :hasCommonEngineSupplier :McLaren ;
+          :participated_in :season2023 ;
+          :team_name "Mercedes-AMG Petronas F1 Team" .
+
+
+###  http://example.org/formula1#MercedesCar
+:MercedesCar rdf:type owl:NamedIndividual ,
+                      :RacingCar ;
+             :has_engine :MercedesEngine ;
+             :model "W14" .
+
+
+###  http://example.org/formula1#MercedesEngine
+:MercedesEngine rdf:type owl:NamedIndividual ,
+                         :Engine ;
+                :cylinders 6 ;
+                :engineModel "1.6-litre turbocharged hybrid" ;
+                :fuelFlowLimit 5.4 .
+
+
+###  http://example.org/formula1#MercedesMedical
+:MercedesMedical rdf:type owl:NamedIndividual ,
+                          :Engine ;
+                 :cylinders 8 ;
+                 :engineModel "4.0-litre direct injection  twin-turbo" ;
+                 :fuelFlowLimit 5.5 .
+
+
+###  http://example.org/formula1#MercedesMedicalCar
+:MercedesMedicalCar rdf:type owl:NamedIndividual ,
+                             :MedicalCar ;
+                    :has_engine :MercedesMedical ;
+                    :model "MERCEDES-AMG GT 63 S 4MATIC+" .
+
+
+###  http://example.org/formula1#MercedesSafety
+:MercedesSafety rdf:type owl:NamedIndividual ,
+                         :Engine ;
+                :cylinders 8 ;
+                :engineModel "4.0L Twin-turbo direct-injected " ;
+                :fuelFlowLimit 4.3 .
+
+
+###  http://example.org/formula1#MercedesSafetyCar
+:MercedesSafetyCar rdf:type owl:NamedIndividual ,
+                            :SafetyCar ;
+                   :has_engine :MercedesSafety ;
+                   :model "MERCEDES-AMG GT BLACK SERIES" .
+
+
+###  http://example.org/formula1#Mexico
+:Mexico rdf:type owl:NamedIndividual ,
+                 :Circuit ;
+        :location "Autodromo Hermanos Rodriguez" .
+
+
+###  http://example.org/formula1#MexicoFirstPlace
+:MexicoFirstPlace rdf:type owl:NamedIndividual ,
+                           :FirstPlace ;
+                  :achieved_by :Verstappen ;
+                  :achieved_in :MexicoRace .
+
+
+###  http://example.org/formula1#MexicoGP
+:MexicoGP rdf:type owl:NamedIndividual ,
+                   :RaceWeekend ;
+          :has_event :MexicoQualifying ,
+                     :MexicoRace ;
+          :takes_place :Mexico .
+
+
+###  http://example.org/formula1#MexicoPole
+:MexicoPole rdf:type owl:NamedIndividual ,
+                     :FirstPlace ;
+            :achieved_by :Leclerc ;
+            :achieved_in :MexicoQualifying .
+
+
+###  http://example.org/formula1#MexicoQualifying
+:MexicoQualifying rdf:type owl:NamedIndividual ,
+                           :Qualifying ;
+                  :happeningDay "2023-10-28T16:00:00.000"^^xsd:dateTime ;
+                  :temperature "26" ;
+                  :weatherCondition "Sunny at first then becoming partly cloudy with a small chance of rain at the end of the day." .
+
+
+###  http://example.org/formula1#MexicoRace
+:MexicoRace rdf:type owl:NamedIndividual ,
+                     :Race ;
+            :happeningDay "2023-10-29T14:00:00.000"^^xsd:dateTime ;
+            :temperature "26" ;
+            :weatherCondition "Same kind of weather as previous days but with a mix of clouds and sunny spells. A small chance of rain in the afternoon." .
+
+
+###  http://example.org/formula1#MexicoSecondPlace
+:MexicoSecondPlace rdf:type owl:NamedIndividual ,
+                            :SecondPlace ;
+                   :achieved_by :Hamilton ;
+                   :achieved_in :MexicoRace .
+
+
+###  http://example.org/formula1#MexicoThirdPlace
+:MexicoThirdPlace rdf:type owl:NamedIndividual ,
+                           :ThirdPlace ;
+                  :achieved_by :Leclerc ;
+                  :achieved_in :MexicoRace .
+
+
+###  http://example.org/formula1#Miami
+:Miami rdf:type owl:NamedIndividual ,
+                :Circuit ;
+       :location "Miami International Autodrome" .
+
+
+###  http://example.org/formula1#MiamiFirstPlace
+:MiamiFirstPlace rdf:type owl:NamedIndividual ,
+                          :FirstPlace ;
+                 :achieved_by :Verstappen ;
+                 :achieved_in :MiamiRace .
+
+
+###  http://example.org/formula1#MiamiGP
+:MiamiGP rdf:type owl:NamedIndividual ,
+                  :RaceWeekend ;
+         :has_event :MiamiQualifying ,
+                    :MiamiRace ;
+         :takes_place :Miami .
+
+
+###  http://example.org/formula1#MiamiPole
+:MiamiPole rdf:type owl:NamedIndividual ,
+                    :FirstPlace ;
+           :achieved_by :Perez ;
+           :achieved_in :MiamiQualifying .
+
+
+###  http://example.org/formula1#MiamiQualifying
+:MiamiQualifying rdf:type owl:NamedIndividual ,
+                          :Qualifying ;
+                 :happeningDay "2023-05-06T16:00:00.000"^^xsd:dateTime ;
+                 :temperature "30" ;
+                 :weatherCondition "A gentle breeze throughout the day but there is a slight chance of rain and thunderstorms around the circuit." .
+
+
+###  http://example.org/formula1#MiamiRace
+:MiamiRace rdf:type owl:NamedIndividual ,
+                    :Race ;
+           :happeningDay "2023-05-07T18:00:00.000"^^xsd:dateTime ;
+           :temperature "30" ;
+           :weatherCondition "High chance of rain and thunderstorms in the Miami area in the afternoon. " .
+
+
+###  http://example.org/formula1#MiamiSecondPlace
+:MiamiSecondPlace rdf:type owl:NamedIndividual ,
+                           :SecondPlace ;
+                  :achieved_by :Perez ;
+                  :achieved_in :MiamiRace .
+
+
+###  http://example.org/formula1#MiamiThirdPlace
+:MiamiThirdPlace rdf:type owl:NamedIndividual ,
+                          :ThirdPlace ;
+                 :achieved_by :Alonso ;
+                 :achieved_in :MiamiRace .
+
+
+###  http://example.org/formula1#Michell
+:Michell rdf:type owl:NamedIndividual ,
+                  :RaceEngineer ;
+         :employed_by :AstonMartin ;
+         :dateOfBirth "1981-06-04"^^xsd:date ;
+         :name "Ben Michell" ;
+         :nationality "Great Britain" ;
+         :sex "Male" .
+
+
+###  http://example.org/formula1#MikeKrack
+:MikeKrack rdf:type owl:NamedIndividual ,
+                    :TeamPrincipal ;
+           :employed_by :AstonMartin ;
+           :dateOfBirth "1972-03-18"^^xsd:date ;
+           :name "Mike Krack" ;
+           :nationality "Luxembourgh" ;
+           :sex "Male" .
+
+
+###  http://example.org/formula1#MikePapadopoulos
+:MikePapadopoulos rdf:type owl:NamedIndividual ,
+                           :Steward ;
+                  :board_member :AbuDhabiGP ,
+                                :AustraliaGP ,
+                                :AustriaGP ,
+                                :AzerbaijanGP ,
+                                :BahrainGP ,
+                                :BelgiumGP ,
+                                :BrazilianGP ,
+                                :CanadaGP ,
+                                :GreatBritainGP ,
+                                :HungaryGP ;
+                  :is_official :FIA2023 ;
+                  :dateOfBirth "1969-10-23"^^xsd:date ;
+                  :name "Mike Papadopoulos" ;
+                  :nationality "Greece" ;
+                  :sex "Male" .
+
+
+###  http://example.org/formula1#Monaco
+:Monaco rdf:type owl:NamedIndividual ,
+                 :Circuit ;
+        :location "Monaco Street Circuit" .
+
+
+###  http://example.org/formula1#MonacoFirstPlace
+:MonacoFirstPlace rdf:type owl:NamedIndividual ,
+                           :FirstPlace ;
+                  :achieved_by :Verstappen ;
+                  :achieved_in :MonacoRace .
+
+
+###  http://example.org/formula1#MonacoGP
+:MonacoGP rdf:type owl:NamedIndividual ,
+                   :RaceWeekend ;
+          :has_event :MonacoQualifying ,
+                     :MonacoRace ;
+          :takes_place :Monaco .
+
+
+###  http://example.org/formula1#MonacoPole
+:MonacoPole rdf:type owl:NamedIndividual ,
+                     :FirstPlace ;
+            :achieved_by :Verstappen ;
+            :achieved_in :MonacoQualifying .
+
+
+###  http://example.org/formula1#MonacoQualifying
+:MonacoQualifying rdf:type owl:NamedIndividual ,
+                           :Qualifying ;
+                  :happeningDay "2023-05-27T16:00:00.000"^^xsd:dateTime ;
+                  :temperature "25" ;
+                  :weatherCondition "Mostly sunny with a slight chance of a shower or two reaching the track in the afternoon." .
+
+
+###  http://example.org/formula1#MonacoRace
+:MonacoRace rdf:type owl:NamedIndividual ,
+                     :Race ;
+            :happeningDay "2023-05-28T14:00:00.000"^^xsd:dateTime ;
+            :temperature "24" ;
+            :weatherCondition "Partly cloudy with a light southerly wind and with a slight chance of rain in the afternoon." .
+
+
+###  http://example.org/formula1#MonacoSecondPlace
+:MonacoSecondPlace rdf:type owl:NamedIndividual ,
+                            :SecondPlace ;
+                   :achieved_by :Alonso ;
+                   :achieved_in :MonacoRace .
+
+
+###  http://example.org/formula1#MonacoThirdPlace
+:MonacoThirdPlace rdf:type owl:NamedIndividual ,
+                           :ThirdPlace ;
+                  :achieved_by :Ocon ;
+                  :achieved_in :MonacoRace .
+
+
+###  http://example.org/formula1#MonsterEnergy
+:MonsterEnergy rdf:type owl:NamedIndividual ,
+                        :Company ;
+               :sponsors :Mercedes ;
+               :organization "Monster Energy" .
+
+
+###  http://example.org/formula1#Musconi
+:Musconi rdf:type owl:NamedIndividual ,
+                  :RaceEngineer ;
+         :employed_by :Mercedes ;
+         :dateOfBirth "1973-01-25"^^xsd:date ;
+         :name "Riccardo Musconi" ;
+         :nationality "Italy" ;
+         :sex "Male" .
+
+
+###  http://example.org/formula1#NefeliParaskeuopoulou
+:NefeliParaskeuopoulou rdf:type owl:NamedIndividual ,
+                                :Viewer ;
+                       :attends :ItalianGP ;
+                       :dateOfBirth "2002-01-26"^^xsd:date ;
+                       :name "Nefeli Maria Paraskeuopoulou" ;
+                       :nationality "Greece" ;
+                       :sex "Female" .
+
+
+###  http://example.org/formula1#Netherlands
+:Netherlands rdf:type owl:NamedIndividual ,
+                      :Circuit ;
+             :location "Zandvoort Circuit" .
+
+
+###  http://example.org/formula1#NetherlandsFirstPlace
+:NetherlandsFirstPlace rdf:type owl:NamedIndividual ,
+                                :FirstPlace ;
+                       :achieved_by :Verstappen ;
+                       :achieved_in :NetherlandsRace .
+
+
+###  http://example.org/formula1#NetherlandsGP
+:NetherlandsGP rdf:type owl:NamedIndividual ,
+                        :RaceWeekend ;
+               :has_event :NetherlandsQualifying ,
+                          :NetherlandsRace ;
+               :takes_place :Netherlands .
+
+
+###  http://example.org/formula1#NetherlandsPole
+:NetherlandsPole rdf:type owl:NamedIndividual ,
+                          :FirstPlace ;
+                 :achieved_by :Verstappen ;
+                 :achieved_in :NetherlandsQualifying .
+
+
+###  http://example.org/formula1#NetherlandsQualifying
+:NetherlandsQualifying rdf:type owl:NamedIndividual ,
+                                :Qualifying ;
+                       :happeningDay "2023-08-26T18:00:00.000"^^xsd:dateTime ;
+                       :temperature "18" ;
+                       :weatherCondition "Mostly cloudy to overcast in the morning with a moderate chance of light showers. Although things will become clearer in the afternoon with large sunny spells." .
+
+
+###  http://example.org/formula1#NetherlandsRace
+:NetherlandsRace rdf:type owl:NamedIndividual ,
+                          :Race ;
+                 :happeningDay "2023-08-27T15:00:00.000"^^xsd:dateTime ;
+                 :temperature "18" ;
+                 :weatherCondition "A mixture of clouds and sunny spells with a moderate chance of light showers in the morning." .
+
+
+###  http://example.org/formula1#NetherlandsSecondPlace
+:NetherlandsSecondPlace rdf:type owl:NamedIndividual ,
+                                 :SecondPlace ;
+                        :achieved_by :Alonso ;
+                        :achieved_in :NetherlandsRace .
+
+
+###  http://example.org/formula1#NetherlandsThirdPlace
+:NetherlandsThirdPlace rdf:type owl:NamedIndividual ,
+                                :ThirdPlace ;
+                       :achieved_by :Gasly ;
+                       :achieved_in :NetherlandsRace .
+
+
+###  http://example.org/formula1#NielsWittich
+:NielsWittich rdf:type owl:NamedIndividual ,
+                       :RaceDirector ;
+              :is_official :FIA2023 ;
+              :dateOfBirth "1972-08-05"^^xsd:date ;
+              :name "Niels Wittich" ;
+              :nationality "Germany" ;
+              :sex "Male" .
+
+
+###  http://example.org/formula1#Norris
+:Norris rdf:type owl:NamedIndividual ,
+                 :RacingDriver ;
+        :communicates_with :Joseph ;
+        :employed_by :McLaren ;
+        :isTeamMateWith :Piastri ;
+        :raced_in :season2023 ;
+        :dateOfBirth "1999-11-13"^^xsd:date ;
+        :height 1.76 ;
+        :name "Lando Norris" ;
+        :nationality "United Kingdom" ;
+        :salary 20 ;
+        :sex "Male" ;
+        :weight 68 .
+
+
+###  http://example.org/formula1#Ocon
+:Ocon rdf:type owl:NamedIndividual ,
+               :RacingDriver ;
+      :communicates_with :Peckett ;
+      :employed_by :Alpine ;
+      :raced_in :season2023 ;
+      :dateOfBirth "1996-09-17"^^xsd:date ;
+      :height 1.86 ;
+      :name "Esteban Ocon" ;
+      :nationality "France" ;
+      :salary 6 ;
+      :sex "Male" ;
+      :weight 66 .
+
+
+###  http://example.org/formula1#OtmarSzafnauer
+:OtmarSzafnauer rdf:type owl:NamedIndividual ,
+                         :TeamPrincipal ;
+                :employed_by :Alpine ;
+                :dateOfBirth "1964-08-13"^^xsd:date ;
+                :name "Otmar Marin Szafnauer" ;
+                :nationality "Romania" ;
+                :sex "Male" .
+
+
+###  http://example.org/formula1#PanagiotisSeitanidis
+:PanagiotisSeitanidis rdf:type owl:NamedIndividual ,
+                               :Journalist ;
+                      :broadcasts_for :ANT1 ;
+                      :dateOfBirth "1969-04-28"^^xsd:date ;
+                      :name "Panagiotis Seitanidis" ;
+                      :nationality "Greece" ;
+                      :sex "Male" .
+
+
+###  http://example.org/formula1#Peckett
+:Peckett rdf:type owl:NamedIndividual ,
+                  :RaceEngineer ;
+         :employed_by :Alpine ;
+         :dateOfBirth "1986-12-06"^^xsd:date ;
+         :name "Josh Peckett" ;
+         :nationality "Great Britain" ;
+         :sex "Male" .
+
+
+###  http://example.org/formula1#Perez
+:Perez rdf:type owl:NamedIndividual ,
+                :RacingDriver ;
+       :communicates_with :Bird ;
+       :employed_by :RedBull ;
+       :raced_in :season2023 ;
+       :dateOfBirth "1990-01-26"^^xsd:date ;
+       :height 1.73 ;
+       :name "Sergio Perez" ;
+       :nationality "Mexico" ;
+       :salary 10 ;
+       :sex "Male" ;
+       :weight 63 .
+
+
+###  http://example.org/formula1#PerezAccident
+:PerezAccident rdf:type owl:NamedIndividual ,
+                        :Accident ;
+               :calls_for :MercedesSafetyCar ;
+               :caused_by :Perez ;
+               :caused_in :MexicoRace ;
+               :needs_medical :MercedesMedicalCar ;
+               :accidentDescription "Sergio Perez has retired on the opening lap of the Mexico City Grand Prix, after making contact with Charles Leclerc at the first corner." ;
+               :seriousAccident "Dizziness" .
+
+
+###  http://example.org/formula1#PerezAccident2
+:PerezAccident2 rdf:type owl:NamedIndividual ,
+                         :Accident ;
+                :calls_for :AstonMartinSafetyCar ;
+                :caused_by :Perez ;
+                :caused_in :JapanRace ;
+                :accidentDescription "The Mexican was involved in a shunt with Kevin Magnussen." .
+
+
+###  http://example.org/formula1#Pete
+:Pete rdf:type owl:NamedIndividual ,
+               :Cameraman ;
+      :broadcasts_for :SkySports ;
+      :dateOfBirth "1981-10-07"^^xsd:date ;
+      :name "Pete" ;
+      :nationality "Great Britain" ;
+      :sex "Male" .
+
+
+###  http://example.org/formula1#Piastri
+:Piastri rdf:type owl:NamedIndividual ,
+                  :RacingDriver ;
+         :communicates_with :Stallard ;
+         :employed_by :McLaren ;
+         :raced_in :season2023 ;
+         :dateOfBirth "2001-04-06"^^xsd:date ;
+         :height 1.78 ;
+         :name "Oscar Piastri" ;
+         :nationality "Australia" ;
+         :salary 2 ;
+         :sex "Male" ;
+         :weight 68 .
+
+
+###  http://example.org/formula1#Qatar
+:Qatar rdf:type owl:NamedIndividual ,
+                :Circuit ;
+       :location "Lusail International Circuit" .
+
+
+###  http://example.org/formula1#QatarFirstPlace
+:QatarFirstPlace rdf:type owl:NamedIndividual ,
+                          :FirstPlace ;
+                 :achieved_by :Verstappen ;
+                 :achieved_in :QatarRace .
+
+
+###  http://example.org/formula1#QatarGP
+:QatarGP rdf:type owl:NamedIndividual ,
+                  :RaceWeekend ;
+         :has_event :QatarQualifying ,
+                    :QatarRace ;
+         :takes_place :Qatar .
+
+
+###  http://example.org/formula1#QatarPole
+:QatarPole rdf:type owl:NamedIndividual ,
+                    :FirstPlace ;
+           :achieved_by :Verstappen ;
+           :achieved_in :QatarQualifying .
+
+
+###  http://example.org/formula1#QatarQualifying
+:QatarQualifying rdf:type owl:NamedIndividual ,
+                          :Qualifying ;
+                 :happeningDay "2023-10-06T18:00:00.000"^^xsd:dateTime ;
+                 :temperature "32" ;
+                 :weatherCondition "A sunny and dry day with gusts of wind up to 55kph in the afternoon. Rising sand in places." .
+
+
+###  http://example.org/formula1#QatarRace
+:QatarRace rdf:type owl:NamedIndividual ,
+                    :Race ;
+           :happeningDay "2023-10-08T19:00:00.000"^^xsd:dateTime ;
+           :temperature "32" ;
+           :weatherCondition "Fair weather all day, with light wind throughout the day." .
+
+
+###  http://example.org/formula1#QatarSecondPlace
+:QatarSecondPlace rdf:type owl:NamedIndividual ,
+                           :SecondPlace ;
+                  :achieved_by :Piastri ;
+                  :achieved_in :QatarRace .
+
+
+###  http://example.org/formula1#QatarThirdPlace
+:QatarThirdPlace rdf:type owl:NamedIndividual ,
+                          :ThirdPlace ;
+                 :achieved_by :Norris ;
+                 :achieved_in :QatarRace .
+
+
+###  http://example.org/formula1#RedBull
+:RedBull rdf:type owl:NamedIndividual ,
+                  :Team ;
+         :competes_with :RedBullCar ;
+         :constructor_champion :season2023 ;
+         :participated_in :season2023 ;
+         :team_name "Oracle Red Bull Racing" .
+
+
+###  http://example.org/formula1#RedBullCar
+:RedBullCar rdf:type owl:NamedIndividual ,
+                     :RacingCar ;
+            :has_engine :HondaEngine ;
+            :model "RB-19" .
+
+
+###  http://example.org/formula1#RenaultEngine
+:RenaultEngine rdf:type owl:NamedIndividual ,
+                        :Engine ;
+               :cylinders 6 ;
+               :engineModel "1.6-litre turbocharged hybrid" ;
+               :fuelFlowLimit 5.3 .
+
+
+###  http://example.org/formula1#Resource_1
+:Resource_1 rdf:type owl:NamedIndividual ,
+                     rdfs:Resource .
+
+
+###  http://example.org/formula1#Riccardo
+:Riccardo rdf:type owl:NamedIndividual ,
+                   :RaceEngineer ;
+          :employed_by :Ferrari ;
+          :dateOfBirth "1973-11-27"^^xsd:date ;
+          :name "Riccardo Adami" ;
+          :nationality "Italy" ;
+          :sex "Male" .
+
+
+###  http://example.org/formula1#Ricciardo
+:Ricciardo rdf:type owl:NamedIndividual ,
+                    :RacingDriver ;
+           :communicates_with :Hamelin ;
+           :employed_by :AlphaTauri ;
+           :raced_in :season2023 ;
+           :dateOfBirth "1989-07-01"^^xsd:date ;
+           :height 1.79 ;
+           :name "Daniel Ricciardo" ;
+           :nationality "Australia" ;
+           :salary 2 ;
+           :sex "Male" ;
+           :weight 58 .
+
+
+###  http://example.org/formula1#Rolex
+:Rolex rdf:type owl:NamedIndividual ,
+                :Company ;
+       :organises :AustraliaGP ,
+                  :AzerbaijanGP ,
+                  :BelgiumGP ,
+                  :CanadaGP ,
+                  :GreatBritainGP ,
+                  :HungaryGP ,
+                  :MonacoGP ,
+                  :QatarGP ;
+       :organization "Rolex SA" .
+
+
+###  http://example.org/formula1#Russell
+:Russell rdf:type owl:NamedIndividual ,
+                  :RacingDriver ;
+         :communicates_with :Musconi ;
+         :employed_by :Mercedes ;
+         :raced_in :season2023 ;
+         :dateOfBirth "1998-02-15"^^xsd:date ;
+         :height 1.85 ;
+         :name "George Russell" ;
+         :nationality "United Kingdom" ;
+         :salary 8 ;
+         :sex "Male" ;
+         :weight 70 .
+
+
+###  http://example.org/formula1#RussellCrash
+:RussellCrash rdf:type owl:NamedIndividual ,
+                       :Accident ;
+              :calls_for :AstonMartinSafetyCar ;
+              :caused_by :Russell ;
+              :caused_in :SingaporeRace ;
+              :needs_medical :AstonMartinMedicalCar ;
+              :accidentDescription "A final lap mistake from George Russell after he clipped the wall while hunting down the race leaders and speared into the barriers" ;
+              :seriousAccident "Dizziness and concussion" .
+
+
+###  http://example.org/formula1#Sainz
+:Sainz rdf:type owl:NamedIndividual ,
+                :RacingDriver ;
+       :communicates_with :Riccardo ;
+       :employed_by :Ferrari ;
+       :raced_in :season2023 ;
+       :dateOfBirth "1994-09-01"^^xsd:date ;
+       :height 1.78 ;
+       :name "Carlos Sainz" ;
+       :nationality "Spain" ;
+       :salary 12 ;
+       :sex "Male" ;
+       :weight 64 .
+
+
+###  http://example.org/formula1#Sargeant
+:Sargeant rdf:type owl:NamedIndividual ,
+                   :RacingDriver ;
+          :communicates_with :Jego ;
+          :employed_by :Williams ;
+          :raced_in :season2023 ;
+          :dateOfBirth "2000-12-31"^^xsd:date ;
+          :height 1.81 ;
+          :name "Logan Sargeant" ;
+          :nationality "United States" ;
+          :salary 1 ;
+          :sex "Male" ;
+          :weight 71 .
+
+
+###  http://example.org/formula1#SaudiArabia
+:SaudiArabia rdf:type owl:NamedIndividual ,
+                      :Circuit ;
+             :location "Jeddah Corniche Circuit" .
+
+
+###  http://example.org/formula1#SaudiArabiaFirstPlace
+:SaudiArabiaFirstPlace rdf:type owl:NamedIndividual ,
+                                :FirstPlace ;
+                       :achieved_by :Perez ;
+                       :achieved_in :SaudiArabiaRace .
+
+
+###  http://example.org/formula1#SaudiArabiaGP
+:SaudiArabiaGP rdf:type owl:NamedIndividual ,
+                        :RaceWeekend ;
+               :has_event :SaudiArabiaQualifying ,
+                          :SaudiArabiaRace ;
+               :takes_place :SaudiArabia .
+
+
+###  http://example.org/formula1#SaudiArabiaPole
+:SaudiArabiaPole rdf:type owl:NamedIndividual ,
+                          :FirstPlace ;
+                 :achieved_by :Perez ;
+                 :achieved_in :SaudiArabiaQualifying .
+
+
+###  http://example.org/formula1#SaudiArabiaQualifying
+:SaudiArabiaQualifying rdf:type owl:NamedIndividual ,
+                                :Qualifying ;
+                       :happeningDay "2023-03-18T18:00:00.000"^^xsd:dateTime ;
+                       :temperature "25" ;
+                       :weatherCondition "Sunny and dry all day. Light to moderate north-westerly sea breeze with gusts of up to 30kph in the afternoon." .
+
+
+###  http://example.org/formula1#SaudiArabiaRace
+:SaudiArabiaRace rdf:type owl:NamedIndividual ,
+                          :Race ;
+                 :happeningDay "2023-03-19T13:00:00.000"^^xsd:dateTime ;
+                 :temperature "25" ;
+                 :weatherCondition "Sunny all day. Light to moderate north-westerly sea breeze with gusts of up to 30kph in the afternoon." .
+
+
+###  http://example.org/formula1#SaudiArabiaSecondPlace
+:SaudiArabiaSecondPlace rdf:type owl:NamedIndividual ,
+                                 :SecondPlace ;
+                        :achieved_by :Verstappen ;
+                        :achieved_in :SaudiArabiaRace .
+
+
+###  http://example.org/formula1#SaudiArabiaThirdPlace
+:SaudiArabiaThirdPlace rdf:type owl:NamedIndividual ,
+                                :ThirdPlace ;
+                       :achieved_by :Alonso ;
+                       :achieved_in :SaudiArabiaRace .
+
+
+###  http://example.org/formula1#Singapore
+:Singapore rdf:type owl:NamedIndividual ,
+                    :Circuit ;
+           :location "Marina Bay Street Circuit" .
+
+
+###  http://example.org/formula1#SingaporeFirstPlace
+:SingaporeFirstPlace rdf:type owl:NamedIndividual ,
+                              :FirstPlace ;
+                     :achieved_by :Sainz ;
+                     :achieved_in :SingaporeRace .
+
+
+###  http://example.org/formula1#SingaporeGP
+:SingaporeGP rdf:type owl:NamedIndividual ,
+                      :RaceWeekend ;
+             :has_event :SingaporeQualifying ,
+                        :SingaporeRace ;
+             :takes_place :Singapore .
+
+
+###  http://example.org/formula1#SingaporePole
+:SingaporePole rdf:type owl:NamedIndividual ,
+                        :FirstPlace ;
+               :achieved_by :Sainz ;
+               :achieved_in :SingaporeQualifying .
+
+
+###  http://example.org/formula1#SingaporeQualifying
+:SingaporeQualifying rdf:type owl:NamedIndividual ,
+                              :Qualifying ;
+                     :happeningDay "2023-09-16T18:00:00.000"^^xsd:dateTime ;
+                     :temperature "29" ;
+                     :weatherCondition "Partly cloudy with a moderate chance of thundery showers during the day." .
+
+
+###  http://example.org/formula1#SingaporeRace
+:SingaporeRace rdf:type owl:NamedIndividual ,
+                        :Race ;
+               :happeningDay "2023-09-17T19:00:00.000"^^xsd:dateTime ;
+               :temperature "30" ;
+               :weatherCondition "A high chance of thundery and heavy showers during the day and towards the evening." .
+
+
+###  http://example.org/formula1#SingaporeSecondPlace
+:SingaporeSecondPlace rdf:type owl:NamedIndividual ,
+                               :SecondPlace ;
+                      :achieved_by :Norris ;
+                      :achieved_in :SingaporeRace .
+
+
+###  http://example.org/formula1#SingaporeThirdPlace
+:SingaporeThirdPlace rdf:type owl:NamedIndividual ,
+                              :ThirdPlace ;
+                     :achieved_by :Hamilton ;
+                     :achieved_in :SingaporeRace .
+
+
+###  http://example.org/formula1#SkySports
+:SkySports rdf:type owl:NamedIndividual ,
+                    :Channel ;
+           :broadcaster "Sky Sports F1" .
+
+
+###  http://example.org/formula1#Slade
+:Slade rdf:type owl:NamedIndividual ,
+                :RaceEngineer ;
+       :employed_by :Haas ;
+       :dateOfBirth "1969-12-03"^^xsd:date ;
+       :name "Mark Slade" ;
+       :nationality "Great Britain" ;
+       :sex "Male" .
+
+
+###  http://example.org/formula1#Spain
+:Spain rdf:type owl:NamedIndividual ,
+                :Circuit ;
+       :location "Barcelona-Catalunya Circuit" .
+
+
+###  http://example.org/formula1#SpainFirstPlace
+:SpainFirstPlace rdf:type owl:NamedIndividual ,
+                          :FirstPlace ;
+                 :achieved_by :Verstappen ;
+                 :achieved_in :SpainRace .
+
+
+###  http://example.org/formula1#SpainGP
+:SpainGP rdf:type owl:NamedIndividual ,
+                  :RaceWeekend ;
+         :has_event :SpainQualifying ,
+                    :SpainRace ;
+         :takes_place :Spain .
+
+
+###  http://example.org/formula1#SpainPole
+:SpainPole rdf:type owl:NamedIndividual ,
+                    :FirstPlace ;
+           :achieved_by :Verstappen ;
+           :achieved_in :SpainQualifying .
+
+
+###  http://example.org/formula1#SpainQualifying
+:SpainQualifying rdf:type owl:NamedIndividual ,
+                          :Qualifying ;
+                 :happeningDay "2023-06-03T16:00:00.000"^^xsd:dateTime ;
+                 :temperature "23" ;
+                 :weatherCondition "Unsettled air mass in the afternoon, developing showers and a slight chance of them spreading over the track." .
+
+
+###  http://example.org/formula1#SpainRace
+:SpainRace rdf:type owl:NamedIndividual ,
+                    :Race ;
+           :happeningDay "2023-06-04T13:00:00.000"^^xsd:dateTime ;
+           :temperature "23" ;
+           :weatherCondition "The day will be sunny at first then become unsettled on the hills around with a slight chance of a shower during the race. " .
+
+
+###  http://example.org/formula1#SpainSecondPlace
+:SpainSecondPlace rdf:type owl:NamedIndividual ,
+                           :SecondPlace ;
+                  :achieved_by :Hamilton ;
+                  :achieved_in :SpainRace .
+
+
+###  http://example.org/formula1#SpainThirdPlace
+:SpainThirdPlace rdf:type owl:NamedIndividual ,
+                          :ThirdPlace ;
+                 :achieved_by :Russell ;
+                 :achieved_in :SpainRace .
+
+
+###  http://example.org/formula1#Spini
+:Spini rdf:type owl:NamedIndividual ,
+                :RaceEngineer ;
+       :employed_by :AlphaTauri ;
+       :dateOfBirth "1978-02-24"^^xsd:date ;
+       :name "Mattia Spini" ;
+       :nationality "Italy" ;
+       :sex "Male" .
+
+
+###  http://example.org/formula1#Stallard
+:Stallard rdf:type owl:NamedIndividual ,
+                   :RaceEngineer ;
+          :employed_by :McLaren ;
+          :dateOfBirth "1978-09-11"^^xsd:date ;
+          :name "Tom Stallard" ;
+          :nationality "Great Britain" ;
+          :sex "Male" .
+
+
+###  http://example.org/formula1#Stroll
+:Stroll rdf:type owl:NamedIndividual ,
+                 :RacingDriver ;
+        :communicates_with :Michell ;
+        :employed_by :AstonMartin ;
+        :raced_in :season2023 ;
+        :dateOfBirth "1998-10-29"^^xsd:date ;
+        :height 1.82 ;
+        :name "Lance Stroll" ;
+        :nationality "Canada" ;
+        :salary 2 ;
+        :sex "Male" ;
+        :weight 70 .
+
+
+###  http://example.org/formula1#TotoWolff
+:TotoWolff rdf:type owl:NamedIndividual ,
+                    :TeamPrincipal ;
+           :employed_by :Mercedes ;
+           :dateOfBirth "1972-01-12"^^xsd:date ;
+           :name "Toto Wolff" ;
+           :nationality "Austria" ;
+           :sex "Male" .
+
+
+###  http://example.org/formula1#Tsunoda
+:Tsunoda rdf:type owl:NamedIndividual ,
+                  :RacingDriver ;
+         :communicates_with :Spini ;
+         :employed_by :AlphaTauri ;
+         :isTeamMateWith :Ricciardo ;
+         :raced_in :season2023 ;
+         :dateOfBirth "2000-05-11"^^xsd:date ;
+         :height 1.59 ;
+         :name "Yuki Tsunoda" ;
+         :nationality "Japan" ;
+         :salary 1 ;
+         :sex "Male" ;
+         :weight 54 .
+
+
+###  http://example.org/formula1#USA
+:USA rdf:type owl:NamedIndividual ,
+              :Circuit ;
+     :location "Circuit of the Americas" .
+
+
+###  http://example.org/formula1#UnitedStatesFirstPlace
+:UnitedStatesFirstPlace rdf:type owl:NamedIndividual ,
+                                 :FirstPlace ;
+                        :achieved_by :Verstappen ;
+                        :achieved_in :UnitedStatesRace .
+
+
+###  http://example.org/formula1#UnitedStatesGP
+:UnitedStatesGP rdf:type owl:NamedIndividual ,
+                         :RaceWeekend ;
+                :has_event :UnitedStatesQualifying ,
+                           :UnitedStatesRace ;
+                :takes_place :USA .
+
+
+###  http://example.org/formula1#UnitedStatesPole
+:UnitedStatesPole rdf:type owl:NamedIndividual ,
+                           :FirstPlace ;
+                  :achieved_by :Leclerc ;
+                  :achieved_in :UnitedStatesQualifying .
+
+
+###  http://example.org/formula1#UnitedStatesQualifying
+:UnitedStatesQualifying rdf:type owl:NamedIndividual ,
+                                 :Qualifying ;
+                        :happeningDay "2023-10-20T16:00:00.000"^^xsd:dateTime ;
+                        :temperature "35" ;
+                        :weatherCondition "Extremely hot day with temperatures largely above normal and approaching record highs." .
+
+
+###  http://example.org/formula1#UnitedStatesRace
+:UnitedStatesRace rdf:type owl:NamedIndividual ,
+                           :Race ;
+                  :happeningDay "2023-10-22T13:00:00.000"^^xsd:dateTime ;
+                  :temperature "32" ;
+                  :weatherCondition "Still fair and hot weather throughout the day but with southerly winds expected to gradually increase in the afternoon." .
+
+
+###  http://example.org/formula1#UnitedStatesSecondPlace
+:UnitedStatesSecondPlace rdf:type owl:NamedIndividual ,
+                                  :SecondPlace ;
+                         :achieved_by :Norris ;
+                         :achieved_in :UnitedStatesRace .
+
+
+###  http://example.org/formula1#UnitedStatesThirdPlace
+:UnitedStatesThirdPlace rdf:type owl:NamedIndividual ,
+                                 :ThirdPlace ;
+                        :achieved_by :Alonso ;
+                        :achieved_in :UnitedStatesRace .
+
+
+###  http://example.org/formula1#Urwin
+:Urwin rdf:type owl:NamedIndividual ,
+                :RaceEngineer ;
+       :employed_by :Williams ;
+       :dateOfBirth "1977-04-06"^^xsd:date ;
+       :name "James Urwin" ;
+       :nationality "France" ;
+       :sex "Male" .
+
+
+###  http://example.org/formula1#Verstappen
+:Verstappen rdf:type owl:NamedIndividual ,
+                     :RacingDriver ;
+            :communicates_with :Lambiase ;
+            :driver_champion :season2023 ;
+            :employed_by :RedBull ;
+            :isTeamMateWith :Perez ;
+            :raced_in :season2023 ;
+            :dateOfBirth "1997-09-30"^^xsd:date ;
+            :height 1.81 ;
+            :name "Max Verstappen" ;
+            :nationality "Netherlands" ;
+            :salary 55 ;
+            :sex "Male" ;
+            :weight 72 .
+
+
+###  http://example.org/formula1#Vettel
+:Vettel rdf:type owl:NamedIndividual ,
+                 :RacingDriver ;
+        :dateOfBirth "1987-07-03"^^xsd:date ;
+        :height 1.75 ;
+        :name "Sebastian Vettel" ;
+        :nationality "Germany" ;
+        :sex "Male" ;
+        :weight 62 .
+
+
+###  http://example.org/formula1#Williams
+:Williams rdf:type owl:NamedIndividual ,
+                   :Team ;
+          :competes_with :WilliamsCar ;
+          :hasCommonEngineSupplier :AstonMartin ;
+          :participated_in :season2023 ;
+          :team_name "Williams Racing" .
+
+
+###  http://example.org/formula1#WilliamsCar
+:WilliamsCar rdf:type owl:NamedIndividual ,
+                      :RacingCar ;
+             :has_engine :MercedesEngine ;
+             :model "FW45" .
+
+
+###  http://example.org/formula1#Xavi
+:Xavi rdf:type owl:NamedIndividual ,
+               :RaceEngineer ;
+      :employed_by :Ferrari ;
+      :dateOfBirth "1987-07-12"^^xsd:date ;
+      :name "Xavier Marcos Padros" ;
+      :nationality "Spain" ;
+      :sex "Male" .
+
+
+###  http://example.org/formula1#Zhou
+:Zhou rdf:type owl:NamedIndividual ,
+               :RacingDriver ;
+      :communicates_with :Becker ;
+      :employed_by :AlfaRomeo ;
+      :raced_in :season2023 ;
+      :dateOfBirth "1999-05-30"^^xsd:date ;
+      :height 1.75 ;
+      :name "Guanyu Zhou" ;
+      :nationality "China" ;
+      :salary 2 ;
+      :sex "Male" ;
+      :weight 63 .
+
+
+###  http://example.org/formula1#instance_1
+:instance_1 rdf:type owl:NamedIndividual ,
+                     rdfs:Resource .
+
+
+###  http://example.org/formula1#season2023
+:season2023 rdf:type owl:NamedIndividual ,
+                     :Championship ;
+            :consists_of :AbuDhabiGP ,
+                         :AustraliaGP ,
+                         :AustriaGP ,
+                         :AzerbaijanGP ,
+                         :BahrainGP ,
+                         :BelgiumGP ,
+                         :BrazilianGP ,
+                         :CanadaGP ,
+                         :GreatBritainGP ,
+                         :HungaryGP ,
+                         :ItalianGP ,
+                         :JapanGP ,
+                         :LasVegasGP ,
+                         :MexicoGP ,
+                         :MiamiGP ,
+                         :MonacoGP ,
+                         :NetherlandsGP ,
+                         :QatarGP ,
+                         :SaudiArabiaGP ,
+                         :SingaporeGP ,
+                         :SpainGP ,
+                         :UnitedStatesGP ;
+            :season 2023 .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi

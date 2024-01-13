@@ -186,6 +186,14 @@ xsd:date rdf:type rdfs:Datatype .
                 rdfs:range :RacingDriver .
 
 
+###  http://example.org/formula1#is_managing
+:is_managing rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdf:type owl:InverseFunctionalProperty ;
+             rdfs:domain :TeamPrincipal ;
+             rdfs:range :Team .
+
+
 ###  http://example.org/formula1#is_official
 :is_official rdf:type owl:ObjectProperty ;
              rdfs:domain :RaceOfficial ;
@@ -419,6 +427,16 @@ xsd:date rdf:type rdfs:Datatype .
      rdfs:label "Any type of Car in F1" .
 
 
+###  http://example.org/formula1#ChampionTeamPrincipal
+:ChampionTeamPrincipal rdf:type owl:Class ;
+                       owl:equivalentClass [ rdf:type owl:Restriction ;
+                                             owl:onProperty :is_managing ;
+                                             owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :ConstructorWorldChampion
+                                           ] ;
+                       rdfs:subClassOf :TeamPrincipal .
+
+
 ###  http://example.org/formula1#Championship
 :Championship rdf:type owl:Class ;
               rdfs:subClassOf rdfs:Resource ;
@@ -462,7 +480,16 @@ xsd:date rdf:type rdfs:Datatype .
                                rdf:type owl:Class
                              ] ;
          rdfs:subClassOf :RacingDriver ;
-         owl:disjointWith :Retired .
+         rdfs:label "Racing Drivers that race in the current season of Formula 1." .
+
+
+###  http://example.org/formula1#CurrentBoard
+:CurrentBoard rdf:type owl:Class ;
+              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                    owl:onProperty :board_year ;
+                                    owl:hasValue 2023
+                                  ] ;
+              rdfs:subClassOf :FIA .
 
 
 ###  http://example.org/formula1#Engine
@@ -490,9 +517,22 @@ xsd:date rdf:type rdfs:Datatype .
      rdfs:label "Federation Internationale de l'Automobile (Organization) Board" .
 
 
+###  http://example.org/formula1#FIACars
+:FIACars rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Class ;
+                               owl:unionOf ( :MedicalCar
+                                             :SafetyCar
+                                           )
+                             ] ;
+         rdfs:subClassOf :Car ;
+         owl:disjointWith :RacingCar .
+
+
 ###  http://example.org/formula1#FirstPlace
 :FirstPlace rdf:type owl:Class ;
             rdfs:subClassOf :PodiumPlace ;
+            owl:disjointWith :SecondPlace ,
+                             :ThirdPlace ;
             rdfs:label "First Place in an F1 Event" .
 
 
@@ -510,7 +550,7 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#MedicalCar
 :MedicalCar rdf:type owl:Class ;
-            rdfs:subClassOf :Car ;
+            rdfs:subClassOf :FIACars ;
             rdfs:label "Formula 1 Medical Car" .
 
 
@@ -530,7 +570,8 @@ xsd:date rdf:type rdfs:Datatype .
                                                           ) ;
                                        rdf:type owl:Class
                                      ] ;
-                 rdfs:subClassOf :RacingDriver .
+                 rdfs:subClassOf :RacingDriver ;
+                 rdfs:label "Racing Drivers that have achieved at least one Podium (either Qualifying or Race) in their carreer." .
 
 
 ###  http://example.org/formula1#PodiumPlace
@@ -539,21 +580,53 @@ xsd:date rdf:type rdfs:Datatype .
              rdfs:label "A Podium Finish in a Grand Prix" .
 
 
+###  http://example.org/formula1#Pole
+:Pole rdf:type owl:Class ;
+      owl:equivalentClass [ owl:intersectionOf ( :FirstPlace
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :achieved_in ;
+                                                   owl:someValuesFrom :Qualifying
+                                                 ]
+                                               ) ;
+                            rdf:type owl:Class
+                          ] ;
+      rdfs:subClassOf :FirstPlace .
+
+
+###  http://example.org/formula1#PoleSitters
+:PoleSitters rdf:type owl:Class ;
+             owl:equivalentClass [ owl:intersectionOf ( :PodiumAchievers
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :achievesPodium ;
+                                                          owl:someValuesFrom :Pole
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] ;
+             rdfs:subClassOf :PodiumAchievers .
+
+
 ###  http://example.org/formula1#PracticeSession
 :PracticeSession rdf:type owl:Class ;
                  rdfs:subClassOf :Event ;
+                 owl:disjointWith :Qualifying ,
+                                  :Race ;
                  rdfs:label "Grand Prix Practice Session" .
 
 
 ###  http://example.org/formula1#PressMember
 :PressMember rdf:type owl:Class ;
              rdfs:subClassOf :Person ;
+             owl:disjointWith :RaceOfficial ,
+                              :TeamMember ,
+                              :Viewer ;
              rdfs:label "Member of a broadcast channel" .
 
 
 ###  http://example.org/formula1#Qualifying
 :Qualifying rdf:type owl:Class ;
             rdfs:subClassOf :Event ;
+            owl:disjointWith :Race ;
             rdfs:label "Grand Prix Qualifying Session" .
 
 
@@ -578,6 +651,8 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://example.org/formula1#RaceOfficial
 :RaceOfficial rdf:type owl:Class ;
               rdfs:subClassOf :Person ;
+              owl:disjointWith :TeamMember ,
+                               :Viewer ;
               rdfs:label "Member of a Grand Prix or FIA" .
 
 
@@ -599,24 +674,9 @@ xsd:date rdf:type rdfs:Datatype .
               rdfs:label "Formula 1 Driver" .
 
 
-###  http://example.org/formula1#Retired
-:Retired rdf:type owl:Class ;
-         owl:equivalentClass [ owl:intersectionOf ( :RacingDriver
-                                                    [ rdf:type owl:Class ;
-                                                      owl:complementOf [ rdf:type owl:Restriction ;
-                                                                         owl:onProperty :raced_in ;
-                                                                         owl:hasValue :season2023
-                                                                       ]
-                                                    ]
-                                                  ) ;
-                               rdf:type owl:Class
-                             ] ;
-         rdfs:subClassOf :RacingDriver .
-
-
 ###  http://example.org/formula1#SafetyCar
 :SafetyCar rdf:type owl:Class ;
-           rdfs:subClassOf :Car ;
+           rdfs:subClassOf :FIACars ;
            rdfs:label "Formula 1 Safety Car" .
 
 
@@ -647,11 +707,24 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://example.org/formula1#TeamMember
 :TeamMember rdf:type owl:Class ;
             rdfs:subClassOf :Person ;
+            owl:disjointWith :Viewer ;
             rdfs:label "Member of a Formula 1 team" .
 
 
 ###  http://example.org/formula1#TeamPrincipal
 :TeamPrincipal rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :is_managing ;
+                                                            owl:allValuesFrom :Team
+                                                          ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :is_managing ;
+                                                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass :Team
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] ;
                rdfs:subClassOf :TeamMember ;
                rdfs:label "Head of a Formula 1 Team" .
 
@@ -668,13 +741,40 @@ xsd:date rdf:type rdfs:Datatype .
         rdfs:label "Formula 1 Fan" .
 
 
+###  http://example.org/formula1#Win
+:Win rdf:type owl:Class ;
+     owl:equivalentClass [ owl:intersectionOf ( :FirstPlace
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty :achieved_in ;
+                                                  owl:someValuesFrom :Race
+                                                ]
+                                              ) ;
+                           rdf:type owl:Class
+                         ] ;
+     rdfs:subClassOf :FirstPlace .
+
+
+###  http://example.org/formula1#Winners
+:Winners rdf:type owl:Class ;
+         owl:equivalentClass [ owl:intersectionOf ( :PodiumAchievers
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :achievesPodium ;
+                                                      owl:someValuesFrom :Win
+                                                    ]
+                                                  ) ;
+                               rdf:type owl:Class
+                             ] ;
+         rdfs:subClassOf :PodiumAchievers .
+
+
 ###  http://example.org/formula1#WorldChampion
 :WorldChampion rdf:type owl:Class ;
                owl:equivalentClass [ rdf:type owl:Restriction ;
                                      owl:onProperty :driver_champion ;
                                      owl:someValuesFrom :Championship
                                    ] ;
-               rdfs:subClassOf :RacingDriver .
+               rdfs:subClassOf :RacingDriver ;
+               rdfs:label "Racing Drivers that have conquered a FIA World Champion." .
 
 
 ###  http://www.w3.org/2000/01/rdf-schema#Resource
@@ -769,6 +869,7 @@ rdfs:Resource rdf:type owl:Class .
 :AlessandroAlunniBravi rdf:type owl:NamedIndividual ,
                                 :TeamPrincipal ;
                        :employed_by :AlfaRomeo ;
+                       :is_managing :AlfaRomeo ;
                        :dateOfBirth "1974-11-23"^^xsd:date ;
                        :name "Alessandro Alunni Bravi" ;
                        :nationality "Italy" ;
@@ -842,6 +943,7 @@ rdfs:Resource rdf:type owl:Class .
 :AndreaStella rdf:type owl:NamedIndividual ,
                        :TeamPrincipal ;
               :employed_by :McLaren ;
+              :is_managing :McLaren ;
               :dateOfBirth "1971-02-22"^^xsd:date ;
               :name "Andra Stella" ;
               :nationality "Italy" ;
@@ -1388,6 +1490,7 @@ rdfs:Resource rdf:type owl:Class .
 :ChristianHorner rdf:type owl:NamedIndividual ,
                           :TeamPrincipal ;
                  :employed_by :RedBull ;
+                 :is_managing :RedBull ;
                  :dateOfBirth "1973-11-16"^^xsd:date ;
                  :name "Christian Edward Johnston Horner" ;
                  :nationality "Great Britain" ;
@@ -1469,6 +1572,7 @@ rdfs:Resource rdf:type owl:Class .
 :FranzTost rdf:type owl:NamedIndividual ,
                     :TeamPrincipal ;
            :employed_by :AlphaTauri ;
+           :is_managing :AlphaTauri ;
            :dateOfBirth "1956-01-20"^^xsd:date ;
            :name "Franz Tost" ;
            :nationality "Austria" ;
@@ -1479,6 +1583,7 @@ rdfs:Resource rdf:type owl:Class .
 :FredericVasseur rdf:type owl:NamedIndividual ,
                           :TeamPrincipal ;
                  :employed_by :Ferrari ;
+                 :is_managing :Ferrari ;
                  :dateOfBirth "1968-05-28"^^xsd:date ;
                  :name "Frederic Vasseur" ;
                  :nationality "France" ;
@@ -1583,6 +1688,7 @@ rdfs:Resource rdf:type owl:Class .
 :GuentherSteiner rdf:type owl:NamedIndividual ,
                           :TeamPrincipal ;
                  :employed_by :Haas ;
+                 :is_managing :Haas ;
                  :dateOfBirth "1965-04-07"^^xsd:date ;
                  :name "Guenther Steiner" ;
                  :nationality "Italy" ;
@@ -1774,6 +1880,7 @@ rdfs:Resource rdf:type owl:Class .
 :JamesVowles rdf:type owl:NamedIndividual ,
                       :TeamPrincipal ;
              :employed_by :Williams ;
+             :is_managing :Williams ;
              :dateOfBirth "1979-06-20"^^xsd:date ;
              :name "James Patrick Vowles" ;
              :nationality "Great Britain" ;
@@ -2207,6 +2314,7 @@ rdfs:Resource rdf:type owl:Class .
 :MikeKrack rdf:type owl:NamedIndividual ,
                     :TeamPrincipal ;
            :employed_by :AstonMartin ;
+           :is_managing :AstonMartin ;
            :dateOfBirth "1972-03-18"^^xsd:date ;
            :name "Mike Krack" ;
            :nationality "Luxembourgh" ;
@@ -2421,6 +2529,7 @@ rdfs:Resource rdf:type owl:Class .
 :OtmarSzafnauer rdf:type owl:NamedIndividual ,
                          :TeamPrincipal ;
                 :employed_by :Alpine ;
+                :is_managing :Alpine ;
                 :dateOfBirth "1964-08-13"^^xsd:date ;
                 :name "Otmar Marin Szafnauer" ;
                 :nationality "Romania" ;
@@ -2589,11 +2698,6 @@ rdfs:Resource rdf:type owl:Class .
                :fuelFlowLimit 5.3 .
 
 
-###  http://example.org/formula1#Resource_1
-:Resource_1 rdf:type owl:NamedIndividual ,
-                     rdfs:Resource .
-
-
 ###  http://example.org/formula1#Riccardo
 :Riccardo rdf:type owl:NamedIndividual ,
                    :RaceEngineer ;
@@ -2630,6 +2734,7 @@ rdfs:Resource rdf:type owl:Class .
                   :HungaryGP ,
                   :MonacoGP ,
                   :QatarGP ;
+       :sponsors :AstonMartin ;
        :organization "Rolex SA" .
 
 
@@ -2918,6 +3023,7 @@ rdfs:Resource rdf:type owl:Class .
 :TotoWolff rdf:type owl:NamedIndividual ,
                     :TeamPrincipal ;
            :employed_by :Mercedes ;
+           :is_managing :Mercedes ;
            :dateOfBirth "1972-01-12"^^xsd:date ;
            :name "Toto Wolff" ;
            :nationality "Austria" ;
@@ -3075,11 +3181,6 @@ rdfs:Resource rdf:type owl:Class .
       :salary 2 ;
       :sex "Male" ;
       :weight 63 .
-
-
-###  http://example.org/formula1#instance_1
-:instance_1 rdf:type owl:NamedIndividual ,
-                     rdfs:Resource .
 
 
 ###  http://example.org/formula1#season2023

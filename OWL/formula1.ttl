@@ -81,6 +81,7 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#caused_by
 :caused_by rdf:type owl:ObjectProperty ;
+           owl:inverseOf :had_an ;
            rdfs:domain :Accident ;
            rdfs:range :RacingDriver ;
            rdfs:label "Indicates the Drivers involves in a F1 Crash" .
@@ -103,6 +104,7 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://example.org/formula1#competes_with
 :competes_with rdf:type owl:ObjectProperty ;
                owl:inverseOf :developedBy ;
+               rdf:type owl:InverseFunctionalProperty ;
                rdfs:domain :Team ;
                rdfs:range :RacingCar ;
                rdfs:label "Indicates the racing car a team is using" .
@@ -140,6 +142,10 @@ xsd:date rdf:type rdfs:Datatype .
              rdfs:domain :TeamMember ;
              rdfs:range :Team ;
              rdfs:label "Indicates the work of a TeamMember to a specific Team" .
+
+
+###  http://example.org/formula1#had_an
+:had_an rdf:type owl:ObjectProperty .
 
 
 ###  http://example.org/formula1#hasCommonEngineSupplier
@@ -184,6 +190,12 @@ xsd:date rdf:type rdfs:Datatype .
                          owl:SymmetricProperty ;
                 rdfs:domain :RacingDriver ;
                 rdfs:range :RacingDriver .
+
+
+###  http://example.org/formula1#is_given_to
+:is_given_to rdf:type owl:ObjectProperty ;
+             rdfs:domain :Engine ;
+             rdfs:range :RacingCar .
 
 
 ###  http://example.org/formula1#is_managing
@@ -418,6 +430,7 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://example.org/formula1#Cameraman
 :Cameraman rdf:type owl:Class ;
            rdfs:subClassOf :PressMember ;
+           owl:disjointWith :Journalist ;
            rdfs:label "Cameraman of a broadcast channel" .
 
 
@@ -492,15 +505,38 @@ xsd:date rdf:type rdfs:Datatype .
               rdfs:subClassOf :FIA .
 
 
+###  http://example.org/formula1#DriversWithAccident
+:DriversWithAccident rdf:type owl:Class ;
+                     owl:equivalentClass [ rdf:type owl:Restriction ;
+                                           owl:onProperty :had_an ;
+                                           owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                           owl:onClass :Accident
+                                         ] ;
+                     rdfs:subClassOf :RacingDriver .
+
+
 ###  http://example.org/formula1#Engine
 :Engine rdf:type owl:Class ;
         rdfs:subClassOf rdfs:Resource ;
         rdfs:label "Car Engine" .
 
 
+###  http://example.org/formula1#EngineThatIsUsedOnlyToOneCar
+:EngineThatIsUsedOnlyToOneCar rdf:type owl:Class ;
+                              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :is_given_to ;
+                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                    owl:onClass :RacingCar
+                                                  ] ;
+                              rdfs:subClassOf :Engine .
+
+
 ###  http://example.org/formula1#Engineer
 :Engineer rdf:type owl:Class ;
           rdfs:subClassOf :TeamMember ;
+          owl:disjointWith :Mechanic ,
+                           :RacingDriver ,
+                           :TeamPrincipal ;
           rdfs:label "Engineer of a Formula 1 Team" .
 
 
@@ -530,6 +566,11 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#FirstPlace
 :FirstPlace rdf:type owl:Class ;
+            owl:equivalentClass [ rdf:type owl:Class ;
+                                  owl:unionOf ( :Pole
+                                                :Win
+                                              )
+                                ] ;
             rdfs:subClassOf :PodiumPlace ;
             owl:disjointWith :SecondPlace ,
                              :ThirdPlace ;
@@ -545,12 +586,15 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://example.org/formula1#Mechanic
 :Mechanic rdf:type owl:Class ;
           rdfs:subClassOf :TeamMember ;
+          owl:disjointWith :RacingDriver ,
+                           :TeamPrincipal ;
           rdfs:label "Member of the pit crew" .
 
 
 ###  http://example.org/formula1#MedicalCar
 :MedicalCar rdf:type owl:Class ;
             rdfs:subClassOf :FIACars ;
+            owl:disjointWith :SafetyCar ;
             rdfs:label "Formula 1 Medical Car" .
 
 
@@ -639,12 +683,14 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://example.org/formula1#RaceDirector
 :RaceDirector rdf:type owl:Class ;
               rdfs:subClassOf :RaceOfficial ;
+              owl:disjointWith :Steward ;
               rdfs:label "Race Director of FIA" .
 
 
 ###  http://example.org/formula1#RaceEngineer
 :RaceEngineer rdf:type owl:Class ;
               rdfs:subClassOf :Engineer ;
+              owl:disjointWith :Strategist ;
               rdfs:label "Engineer of a Formula 1 Team" .
 
 
@@ -671,6 +717,7 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://example.org/formula1#RacingDriver
 :RacingDriver rdf:type owl:Class ;
               rdfs:subClassOf :TeamMember ;
+              owl:disjointWith :TeamPrincipal ;
               rdfs:label "Formula 1 Driver" .
 
 
@@ -684,6 +731,16 @@ xsd:date rdf:type rdfs:Datatype .
 :SecondPlace rdf:type owl:Class ;
              rdfs:subClassOf :PodiumPlace ;
              rdfs:label "Second Place in an F1 Event" .
+
+
+###  http://example.org/formula1#SponsoredTeams
+:SponsoredTeams rdf:type owl:Class ;
+                owl:equivalentClass [ rdf:type owl:Restriction ;
+                                      owl:onProperty :isSponsoredBy ;
+                                      owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass :Company
+                                    ] ;
+                rdfs:subClassOf :Team .
 
 
 ###  http://example.org/formula1#Steward
@@ -785,6 +842,12 @@ rdfs:Resource rdf:type owl:Class .
 #    Individuals
 #################################################################
 
+###  http://example.org/formula1#AMD
+:AMD rdf:type owl:NamedIndividual ,
+              :Company ;
+     :sponsors :Mercedes .
+
+
 ###  http://example.org/formula1#ANT1
 :ANT1 rdf:type owl:NamedIndividual ,
                :Channel ;
@@ -879,10 +942,17 @@ rdfs:Resource rdf:type owl:Class .
 ###  http://example.org/formula1#AlfaRomeo
 :AlfaRomeo rdf:type owl:NamedIndividual ,
                     :Team ;
-           :competes_with :AlphaRomeoCar ;
            :hasCommonEngineSupplier :Ferrari ;
            :participated_in :season2023 ;
            :team_name "Alfa Romeo F1 Team Stake" .
+
+
+###  http://example.org/formula1#AlfaRomeoCar
+:AlfaRomeoCar rdf:type owl:NamedIndividual ,
+                       :RacingCar ;
+              :developedBy :AlfaRomeo ;
+              :has_engine :FerrariEngine ;
+              :model "C43" .
 
 
 ###  http://example.org/formula1#Alonso
@@ -899,13 +969,6 @@ rdfs:Resource rdf:type owl:Class .
         :salary 5 ;
         :sex "Male" ;
         :weight 68 .
-
-
-###  http://example.org/formula1#AlphaRomeoCar
-:AlphaRomeoCar rdf:type owl:NamedIndividual ,
-                        :RacingCar ;
-               :has_engine :FerrariEngine ;
-               :model "C43" .
 
 
 ###  http://example.org/formula1#AlphaTauri
@@ -1497,6 +1560,12 @@ rdfs:Resource rdf:type owl:Class .
                  :sex "Male" .
 
 
+###  http://example.org/formula1#Chrome
+:Chrome rdf:type owl:NamedIndividual ,
+                 :Company ;
+        :sponsors :McLaren .
+
+
 ###  http://example.org/formula1#Cronin
 :Cronin rdf:type owl:NamedIndividual ,
                  :RaceEngineer ;
@@ -1563,6 +1632,9 @@ rdfs:Resource rdf:type owl:Class .
 ###  http://example.org/formula1#FerrariEngine
 :FerrariEngine rdf:type owl:NamedIndividual ,
                         :Engine ;
+               :is_given_to :AlfaRomeoCar ,
+                            :FerrariCar ,
+                            :HaasCar ;
                :cylinders 6 ;
                :engineModel "1.6-litre turbocharged hybrid" ;
                :fuelFlowLimit 5.5 .
@@ -1739,6 +1811,8 @@ rdfs:Resource rdf:type owl:Class .
 ###  http://example.org/formula1#HondaEngine
 :HondaEngine rdf:type owl:NamedIndividual ,
                       :Engine ;
+             :is_given_to :AlphaTauriCar ,
+                          :RedBullCar ;
              :cylinders 6 ;
              :engineModel "1.6-litre turbocharged hybrid" ;
              :fuelFlowLimit 5.5 .
@@ -2149,6 +2223,10 @@ rdfs:Resource rdf:type owl:Class .
 ###  http://example.org/formula1#MercedesEngine
 :MercedesEngine rdf:type owl:NamedIndividual ,
                          :Engine ;
+                :is_given_to :AstonMartinCar ,
+                             :McLarenCar ,
+                             :MercedesCar ,
+                             :WilliamsCar ;
                 :cylinders 6 ;
                 :engineModel "1.6-litre turbocharged hybrid" ;
                 :fuelFlowLimit 5.4 .
@@ -2414,6 +2492,10 @@ rdfs:Resource rdf:type owl:Class .
          :name "Riccardo Musconi" ;
          :nationality "Italy" ;
          :sex "Male" .
+
+
+###  http://example.org/formula1#Nef
+:Nef rdf:type owl:NamedIndividual .
 
 
 ###  http://example.org/formula1#NefeliParaskeuopoulou
@@ -2693,6 +2775,7 @@ rdfs:Resource rdf:type owl:Class .
 ###  http://example.org/formula1#RenaultEngine
 :RenaultEngine rdf:type owl:NamedIndividual ,
                         :Engine ;
+               :is_given_to :AlpineCar ;
                :cylinders 6 ;
                :engineModel "1.6-litre turbocharged hybrid" ;
                :fuelFlowLimit 5.3 .

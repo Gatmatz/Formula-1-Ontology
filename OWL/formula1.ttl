@@ -81,7 +81,7 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#caused_by
 :caused_by rdf:type owl:ObjectProperty ;
-           owl:inverseOf :had_an ;
+           owl:inverseOf :hadAccident ;
            rdfs:domain :Accident ;
            rdfs:range :RacingDriver ;
            rdfs:label "Indicates the Drivers involves in a F1 Crash" .
@@ -144,8 +144,8 @@ xsd:date rdf:type rdfs:Datatype .
              rdfs:label "Indicates the work of a TeamMember to a specific Team" .
 
 
-###  http://example.org/formula1#had_an
-:had_an rdf:type owl:ObjectProperty .
+###  http://example.org/formula1#hadAccident
+:hadAccident rdf:type owl:ObjectProperty .
 
 
 ###  http://example.org/formula1#hasCommonEngineSupplier
@@ -410,6 +410,14 @@ xsd:date rdf:type rdfs:Datatype .
                   rdfs:label "A description of the weather of a F1 Event" .
 
 
+###  http://example.org/formula1#weatherSummary
+:weatherSummary rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf :weatherCondition ;
+                rdfs:domain :Event ;
+                rdfs:range xsd:string ;
+                rdfs:label "A small description of weather conditions like Sunny or Wet." .
+
+
 ###  http://example.org/formula1#weight
 :weight rdf:type owl:DatatypeProperty ;
         rdfs:domain :RacingDriver ;
@@ -425,6 +433,19 @@ xsd:date rdf:type rdfs:Datatype .
 :Accident rdf:type owl:Class ;
           rdfs:subClassOf rdfs:Resource ;
           rdfs:label "An accident happened in Formula 1" .
+
+
+###  http://example.org/formula1#BritishDrivers
+:BritishDrivers rdf:type owl:Class ;
+                owl:equivalentClass [ owl:intersectionOf ( :RacingDriver
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :nationality ;
+                                                             owl:hasValue "United Kingdom"
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] ;
+                rdfs:subClassOf :RacingDriver .
 
 
 ###  http://example.org/formula1#Cameraman
@@ -508,7 +529,7 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://example.org/formula1#DriversWithAccident
 :DriversWithAccident rdf:type owl:Class ;
                      owl:equivalentClass [ rdf:type owl:Restriction ;
-                                           owl:onProperty :had_an ;
+                                           owl:onProperty :hadAccident ;
                                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                            owl:onClass :Accident
                                          ] ;
@@ -519,16 +540,6 @@ xsd:date rdf:type rdfs:Datatype .
 :Engine rdf:type owl:Class ;
         rdfs:subClassOf rdfs:Resource ;
         rdfs:label "Car Engine" .
-
-
-###  http://example.org/formula1#EngineThatIsUsedOnlyToOneCar
-:EngineThatIsUsedOnlyToOneCar rdf:type owl:Class ;
-                              owl:equivalentClass [ rdf:type owl:Restriction ;
-                                                    owl:onProperty :is_given_to ;
-                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                    owl:onClass :RacingCar
-                                                  ] ;
-                              rdfs:subClassOf :Engine .
 
 
 ###  http://example.org/formula1#Engineer
@@ -544,6 +555,16 @@ xsd:date rdf:type rdfs:Datatype .
 :Event rdf:type owl:Class ;
        rdfs:subClassOf rdfs:Resource ;
        rdfs:label "Formula 1 Grand Prix Event" .
+
+
+###  http://example.org/formula1#ExperiencedViewer
+:ExperiencedViewer rdf:type owl:Class ;
+                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                         owl:onProperty :attends ;
+                                         owl:minQualifiedCardinality "3"^^xsd:nonNegativeInteger ;
+                                         owl:onClass :RaceWeekend
+                                       ] ;
+                   rdfs:subClassOf :Viewer .
 
 
 ###  http://example.org/formula1#FIA
@@ -596,6 +617,16 @@ xsd:date rdf:type rdfs:Datatype .
             rdfs:subClassOf :FIACars ;
             owl:disjointWith :SafetyCar ;
             rdfs:label "Formula 1 Medical Car" .
+
+
+###  http://example.org/formula1#MultiWorldChampion
+:MultiWorldChampion rdf:type owl:Class ;
+                    owl:equivalentClass [ rdf:type owl:Restriction ;
+                                          owl:onProperty :driver_champion ;
+                                          owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                          owl:onClass :Championship
+                                        ] ;
+                    rdfs:subClassOf :WorldChampion .
 
 
 ###  http://example.org/formula1#Person
@@ -660,6 +691,18 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#PressMember
 :PressMember rdf:type owl:Class ;
+             owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :broadcasts_for ;
+                                                          owl:allValuesFrom :Channel
+                                                        ]
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :broadcasts_for ;
+                                                          owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                          owl:onClass :Channel
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] ;
              rdfs:subClassOf :Person ;
              owl:disjointWith :RaceOfficial ,
                               :TeamMember ,
@@ -696,6 +739,18 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#RaceOfficial
 :RaceOfficial rdf:type owl:Class ;
+              owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                           owl:onProperty :is_official ;
+                                                           owl:allValuesFrom :FIA
+                                                         ]
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty :is_official ;
+                                                           owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                           owl:onClass :FIA
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] ;
               rdfs:subClassOf :Person ;
               owl:disjointWith :TeamMember ,
                                :Viewer ;
@@ -733,6 +788,15 @@ xsd:date rdf:type rdfs:Datatype .
              rdfs:label "Second Place in an F1 Event" .
 
 
+###  http://example.org/formula1#SeriousAccident
+:SeriousAccident rdf:type owl:Class ;
+                 owl:equivalentClass [ rdf:type owl:Restriction ;
+                                       owl:onProperty :seriousAccident ;
+                                       owl:someValuesFrom xsd:string
+                                     ] ;
+                 rdfs:subClassOf :Accident .
+
+
 ###  http://example.org/formula1#SponsoredTeams
 :SponsoredTeams rdf:type owl:Class ;
                 owl:equivalentClass [ rdf:type owl:Restriction ;
@@ -745,6 +809,10 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#Steward
 :Steward rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Restriction ;
+                               owl:onProperty :board_member ;
+                               owl:someValuesFrom :RaceWeekend
+                             ] ;
          rdfs:subClassOf :RaceOfficial ;
          rdfs:label "Steward of a Grand Prix" .
 
@@ -753,6 +821,15 @@ xsd:date rdf:type rdfs:Datatype .
 :Strategist rdf:type owl:Class ;
             rdfs:subClassOf :Engineer ;
             rdfs:label "Member of the strategist team" .
+
+
+###  http://example.org/formula1#SunnyRace
+:SunnyRace rdf:type owl:Class ;
+           owl:equivalentClass [ rdf:type owl:Restriction ;
+                                 owl:onProperty :weatherSummary ;
+                                 owl:hasValue "Sunny"
+                               ] ;
+           rdfs:subClassOf :Race .
 
 
 ###  http://example.org/formula1#Team
@@ -796,6 +873,15 @@ xsd:date rdf:type rdfs:Datatype .
 :Viewer rdf:type owl:Class ;
         rdfs:subClassOf :Person ;
         rdfs:label "Formula 1 Fan" .
+
+
+###  http://example.org/formula1#WetRace
+:WetRace rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Restriction ;
+                               owl:onProperty :weatherSummary ;
+                               owl:hasValue "Wet"
+                             ] ;
+         rdfs:subClassOf :Race .
 
 
 ###  http://example.org/formula1#Win
@@ -895,7 +981,8 @@ rdfs:Resource rdf:type owl:Class .
                        :Race ;
               :happeningDay "2023-11-26T15:00:00.000"^^xsd:dateTime ;
               :temperature "27" ;
-              :weatherCondition "Mostly sunny with dry conditions expected throughout the day, as well as a light breeze." .
+              :weatherCondition "Mostly sunny with dry conditions expected throughout the day, as well as a light breeze." ;
+              :weatherSummary "Sunny" .
 
 
 ###  http://example.org/formula1#AbuDhabiSecondPlace
@@ -959,6 +1046,7 @@ rdfs:Resource rdf:type owl:Class .
 :Alonso rdf:type owl:NamedIndividual ,
                  :RacingDriver ;
         :communicates_with :Cronin ;
+        :driver_champion :season2005 ;
         :employed_by :AstonMartin ;
         :isTeamMateWith :Stroll ;
         :raced_in :season2023 ;
@@ -1015,7 +1103,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#AriaBennett
 :AriaBennett rdf:type owl:NamedIndividual ,
-                      :Steward ;
+                      :RaceOfficial ;
              :board_member :BrazilianGP ,
                            :CanadaGP ,
                            :GreatBritainGP ,
@@ -1118,7 +1206,8 @@ rdfs:Resource rdf:type owl:Class .
                          :Race ;
                 :happeningDay "2023-04-02T15:00:00.000"^^xsd:dateTime ;
                 :temperature "15" ;
-                :weatherCondition "Likely dry and cloudy during the race, although light southerly wind is expected throughout the day." .
+                :weatherCondition "Likely dry and cloudy during the race, although light southerly wind is expected throughout the day." ;
+                :weatherSummary "Wet" .
 
 
 ###  http://example.org/formula1#AustralianSecondPlace
@@ -1176,7 +1265,8 @@ rdfs:Resource rdf:type owl:Class .
                       :Race ;
              :happeningDay "2023-06-02T14:00:00.000"^^xsd:dateTime ;
              :temperature "24" ;
-             :weatherCondition "Partly cloudy in the morning with a slight chance of rain hitting the race in the afternoon." .
+             :weatherCondition "Partly cloudy in the morning with a slight chance of rain hitting the race in the afternoon." ;
+             :weatherSummary "Wet" .
 
 
 ###  http://example.org/formula1#AustriaSecondPlace
@@ -1234,7 +1324,8 @@ rdfs:Resource rdf:type owl:Class .
                          :Race ;
                 :happeningDay "2023-04-30T13:00:00.000"^^xsd:dateTime ;
                 :temperature "24" ;
-                :weatherCondition "Mostly cloudy throughout the day with a slight chance of rain late in the afternoon." .
+                :weatherCondition "Mostly cloudy throughout the day with a slight chance of rain late in the afternoon." ;
+                :weatherSummary "Wet" .
 
 
 ###  http://example.org/formula1#AzerbaijanSecondPlace
@@ -1292,7 +1383,8 @@ rdfs:Resource rdf:type owl:Class .
                       :Race ;
              :happeningDay "2023-03-05T14:01:00.000"^^xsd:dateTime ;
              :temperature "23" ;
-             :weatherCondition "Sunny all day long. Hotter than the previous days. Light Southeasterly wind for the race." .
+             :weatherCondition "Sunny all day long. Hotter than the previous days. Light Southeasterly wind for the race." ;
+             :weatherSummary "Sunny" .
 
 
 ###  http://example.org/formula1#BahrainSecondPlace
@@ -1346,7 +1438,8 @@ rdfs:Resource rdf:type owl:Class .
                       :Race ;
              :happeningDay "2023-07-30T14:00:00.000"^^xsd:dateTime ;
              :temperature "17" ;
-             :weatherCondition "A much improved day but there is still a chance of a shower or two in the afternoon." .
+             :weatherCondition "A much improved day but there is still a chance of a shower or two in the afternoon." ;
+             :weatherSummary "Wet" .
 
 
 ###  http://example.org/formula1#BelgianSecondPlace
@@ -1471,6 +1564,14 @@ rdfs:Resource rdf:type owl:Class .
                      :achieved_in :BrazilianRace .
 
 
+###  http://example.org/formula1#Caleb_Rainfield
+:Caleb_Rainfield rdf:type owl:NamedIndividual ,
+                          :RaceOfficial ;
+                 :board_member :MiamiGP ,
+                               :MonacoGP ;
+                 :is_official :FIA2023 .
+
+
 ###  http://example.org/formula1#CalumNicholas
 :CalumNicholas rdf:type owl:NamedIndividual ,
                         :Mechanic ;
@@ -1522,7 +1623,8 @@ rdfs:Resource rdf:type owl:Class .
                      :Race ;
             :happeningDay "2023-05-18T15:00:00.000"^^xsd:dateTime ;
             :temperature "23" ;
-            :weatherCondition "Sunday is expected to be much improved but expect a mix of showers and some sunny spells throughout the day." .
+            :weatherCondition "Sunday is expected to be much improved but expect a mix of showers and some sunny spells throughout the day." ;
+            :weatherSummary "Wet" .
 
 
 ###  http://example.org/formula1#CanadaSecondPlace
@@ -1584,7 +1686,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#ElenaRodriguez
 :ElenaRodriguez rdf:type owl:NamedIndividual ,
-                         :Steward ;
+                         :RaceOfficial ;
                 :board_member :MexicoGP ,
                               :MiamiGP ,
                               :MonacoGP ,
@@ -1691,6 +1793,7 @@ rdfs:Resource rdf:type owl:Class .
 ###  http://example.org/formula1#GiorgosAtmatzidis
 :GiorgosAtmatzidis rdf:type owl:NamedIndividual ,
                             :Viewer ;
+                   owl:differentFrom :NefeliParaskeuopoulou ;
                    :attends :JapanGP ;
                    :dateOfBirth "2002-12-05"^^xsd:date ;
                    :name "Giorgos Atmatzidis" ;
@@ -1739,7 +1842,8 @@ rdfs:Resource rdf:type owl:Class .
                            :Race ;
                   :happeningDay "2023-07-09T15:00:00.000"^^xsd:dateTime ;
                   :temperature "22" ;
-                  :weatherCondition "A chance of rain is likely in the morning until midday, but conditions should become drier in the afternoon." .
+                  :weatherCondition "A chance of rain is likely in the morning until midday, but conditions should become drier in the afternoon." ;
+                  :weatherSummary "Wet" .
 
 
 ###  http://example.org/formula1#GreatBritainSecondPlace
@@ -1796,6 +1900,9 @@ rdfs:Resource rdf:type owl:Class .
 :Hamilton rdf:type owl:NamedIndividual ,
                    :RacingDriver ;
           :communicates_with :Bonnington ;
+          :driver_champion :season2018 ,
+                           :season2019 ,
+                           :season2020 ;
           :employed_by :Mercedes ;
           :isTeamMateWith :Russell ;
           :raced_in :season2023 ;
@@ -1875,7 +1982,8 @@ rdfs:Resource rdf:type owl:Class .
                       :Race ;
              :happeningDay "2023-07-23T14:00:00.000"^^xsd:dateTime ;
              :temperature "29" ;
-             :weatherCondition "Mostly sunny and dry all day with light to moderate gusts of up to 35 kph expected in the afternoon." .
+             :weatherCondition "Mostly sunny and dry all day with light to moderate gusts of up to 35 kph expected in the afternoon." ;
+             :weatherSummary "Sunny" .
 
 
 ###  http://example.org/formula1#HungarySecondPlace
@@ -1927,7 +2035,8 @@ rdfs:Resource rdf:type owl:Class .
                       :Race ;
              :happeningDay "2023-09-03T14:00:00.000"^^xsd:dateTime ;
              :temperature "29" ;
-             :weatherCondition "Mostly sunny and dry conditions but with light southerly winds in the afternoon." .
+             :weatherCondition "Mostly sunny and dry conditions but with light southerly winds in the afternoon." ;
+             :weatherSummary "Sunny" .
 
 
 ###  http://example.org/formula1#ItalianSecondPlace
@@ -2361,7 +2470,8 @@ rdfs:Resource rdf:type owl:Class .
                     :Race ;
            :happeningDay "2023-05-07T18:00:00.000"^^xsd:dateTime ;
            :temperature "30" ;
-           :weatherCondition "High chance of rain and thunderstorms in the Miami area in the afternoon. " .
+           :weatherCondition "High chance of rain and thunderstorms in the Miami area in the afternoon. " ;
+           :weatherSummary "Wet" .
 
 
 ###  http://example.org/formula1#MiamiSecondPlace
@@ -2401,7 +2511,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#MikePapadopoulos
 :MikePapadopoulos rdf:type owl:NamedIndividual ,
-                           :Steward ;
+                           :RaceOfficial ;
                   :board_member :AbuDhabiGP ,
                                 :AustraliaGP ,
                                 :AustriaGP ,
@@ -2411,7 +2521,8 @@ rdfs:Resource rdf:type owl:Class .
                                 :BrazilianGP ,
                                 :CanadaGP ,
                                 :GreatBritainGP ,
-                                :HungaryGP ;
+                                :HungaryGP ,
+                                :MonacoGP ;
                   :is_official :FIA2023 ;
                   :dateOfBirth "1969-10-23"^^xsd:date ;
                   :name "Mike Papadopoulos" ;
@@ -2501,7 +2612,10 @@ rdfs:Resource rdf:type owl:Class .
 ###  http://example.org/formula1#NefeliParaskeuopoulou
 :NefeliParaskeuopoulou rdf:type owl:NamedIndividual ,
                                 :Viewer ;
-                       :attends :ItalianGP ;
+                       :attends :BahrainGP ,
+                                :ItalianGP ,
+                                :MonacoGP ,
+                                :SingaporeGP ;
                        :dateOfBirth "2002-01-26"^^xsd:date ;
                        :name "Nefeli Maria Paraskeuopoulou" ;
                        :nationality "Greece" ;
@@ -2739,7 +2853,8 @@ rdfs:Resource rdf:type owl:Class .
                     :Race ;
            :happeningDay "2023-10-08T19:00:00.000"^^xsd:dateTime ;
            :temperature "32" ;
-           :weatherCondition "Fair weather all day, with light wind throughout the day." .
+           :weatherCondition "Fair weather all day, with light wind throughout the day." ;
+           :weatherSummary "Sunny" .
 
 
 ###  http://example.org/formula1#QatarSecondPlace
@@ -2918,7 +3033,8 @@ rdfs:Resource rdf:type owl:Class .
                           :Race ;
                  :happeningDay "2023-03-19T13:00:00.000"^^xsd:dateTime ;
                  :temperature "25" ;
-                 :weatherCondition "Sunny all day. Light to moderate north-westerly sea breeze with gusts of up to 30kph in the afternoon." .
+                 :weatherCondition "Sunny all day. Light to moderate north-westerly sea breeze with gusts of up to 30kph in the afternoon." ;
+                 :weatherSummary "Sunny" .
 
 
 ###  http://example.org/formula1#SaudiArabiaSecondPlace
@@ -2976,7 +3092,8 @@ rdfs:Resource rdf:type owl:Class .
                         :Race ;
                :happeningDay "2023-09-17T19:00:00.000"^^xsd:dateTime ;
                :temperature "30" ;
-               :weatherCondition "A high chance of thundery and heavy showers during the day and towards the evening." .
+               :weatherCondition "A high chance of thundery and heavy showers during the day and towards the evening." ;
+               :weatherSummary "Wet" .
 
 
 ###  http://example.org/formula1#SingaporeSecondPlace
@@ -3050,7 +3167,8 @@ rdfs:Resource rdf:type owl:Class .
                     :Race ;
            :happeningDay "2023-06-04T13:00:00.000"^^xsd:dateTime ;
            :temperature "23" ;
-           :weatherCondition "The day will be sunny at first then become unsettled on the hills around with a slight chance of a shower during the race. " .
+           :weatherCondition "The day will be sunny at first then become unsettled on the hills around with a slight chance of a shower during the race. " ;
+           :weatherSummary "Sunny" .
 
 
 ###  http://example.org/formula1#SpainSecondPlace
@@ -3201,7 +3319,9 @@ rdfs:Resource rdf:type owl:Class .
 :Verstappen rdf:type owl:NamedIndividual ,
                      :RacingDriver ;
             :communicates_with :Lambiase ;
-            :driver_champion :season2023 ;
+            :driver_champion :season2021 ,
+                             :season2022 ,
+                             :season2023 ;
             :employed_by :RedBull ;
             :isTeamMateWith :Perez ;
             :raced_in :season2023 ;
@@ -3266,6 +3386,36 @@ rdfs:Resource rdf:type owl:Class .
       :weight 63 .
 
 
+###  http://example.org/formula1#season2005
+:season2005 rdf:type owl:NamedIndividual ,
+                     :Championship .
+
+
+###  http://example.org/formula1#season2018
+:season2018 rdf:type owl:NamedIndividual ,
+                     :Championship .
+
+
+###  http://example.org/formula1#season2019
+:season2019 rdf:type owl:NamedIndividual ,
+                     :Championship .
+
+
+###  http://example.org/formula1#season2020
+:season2020 rdf:type owl:NamedIndividual ,
+                     :Championship .
+
+
+###  http://example.org/formula1#season2021
+:season2021 rdf:type owl:NamedIndividual ,
+                     :Championship .
+
+
+###  http://example.org/formula1#season2022
+:season2022 rdf:type owl:NamedIndividual ,
+                     :Championship .
+
+
 ###  http://example.org/formula1#season2023
 :season2023 rdf:type owl:NamedIndividual ,
                      :Championship ;
@@ -3292,6 +3442,112 @@ rdfs:Resource rdf:type owl:Class .
                          :SpainGP ,
                          :UnitedStatesGP ;
             :season 2023 .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :AbuDhabiGP
+                        :AustraliaGP
+                        :AustriaGP
+                        :AzerbaijanGP
+                        :BahrainGP
+                        :BelgiumGP
+                        :BrazilianGP
+                        :CanadaGP
+                        :GreatBritainGP
+                        :HungaryGP
+                        :ItalianGP
+                        :JapanGP
+                        :LasVegasGP
+                        :MexicoGP
+                        :MiamiGP
+                        :MonacoGP
+                        :NetherlandsGP
+                        :QatarGP
+                        :SaudiArabiaGP
+                        :SingaporeGP
+                        :SpainGP
+                        :UnitedStatesGP
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Albon
+                        :Alonso
+                        :Bottas
+                        :Gasly
+                        :Hamilton
+                        :Hulkenberg
+                        :Leclerc
+                        :Magnussen
+                        :Norris
+                        :Ocon
+                        :Perez
+                        :Piastri
+                        :Ricciardo
+                        :Russell
+                        :Sainz
+                        :Sargeant
+                        :Stroll
+                        :Tsunoda
+                        :Verstappen
+                        :Vettel
+                        :Zhou
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :AlfaRomeoCar
+                        :AlphaTauriCar
+                        :AlpineCar
+                        :AstonMartinCar
+                        :FerrariCar
+                        :HaasCar
+                        :McLarenCar
+                        :MercedesCar
+                        :RedBullCar
+                        :WilliamsCar
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :AriaBennett
+                        :Caleb_Rainfield
+                        :ElenaRodriguez
+                        :MikePapadopoulos
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :AstonMedical
+                        :AstonSafety
+                        :FerrariEngine
+                        :HondaEngine
+                        :MercedesEngine
+                        :MercedesMedical
+                        :MercedesSafety
+                        :RenaultEngine
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :season2005
+                        :season2018
+                        :season2019
+                        :season2020
+                        :season2021
+                        :season2022
+                        :season2023
+                      )
+] .
 
 
 ###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi

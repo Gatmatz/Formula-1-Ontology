@@ -72,6 +72,12 @@ xsd:date rdf:type rdfs:Datatype .
                 rdfs:label "Indicates the work of a PressMember to a specific Broadcast Channel" .
 
 
+###  http://example.org/formula1#buysTicket
+:buysTicket rdf:type owl:ObjectProperty ;
+            rdfs:domain :Viewer ;
+            rdfs:range :Ticket .
+
+
 ###  http://example.org/formula1#calls_for
 :calls_for rdf:type owl:ObjectProperty ;
            rdfs:domain :Accident ;
@@ -160,6 +166,14 @@ xsd:date rdf:type rdfs:Datatype .
 :hasJournalist rdf:type owl:ObjectProperty .
 
 
+###  http://example.org/formula1#hasSimilarWeatherConditions
+:hasSimilarWeatherConditions rdf:type owl:ObjectProperty ,
+                                      owl:SymmetricProperty ,
+                                      owl:TransitiveProperty ;
+                             rdfs:domain :Event ;
+                             rdfs:range :Event .
+
+
 ###  http://example.org/formula1#has_engine
 :has_engine rdf:type owl:ObjectProperty ,
                      owl:FunctionalProperty ;
@@ -175,6 +189,14 @@ xsd:date rdf:type rdfs:Datatype .
            rdfs:label "Indicates the specific events of a Grand Prix" .
 
 
+###  http://example.org/formula1#haveSameNationality
+:haveSameNationality rdf:type owl:ObjectProperty ,
+                              owl:SymmetricProperty ,
+                              owl:TransitiveProperty ;
+                     rdfs:domain :RacingDriver ;
+                     rdfs:range :RacingDriver .
+
+
 ###  http://example.org/formula1#isOrganizedBy
 :isOrganizedBy rdf:type owl:ObjectProperty ;
                owl:inverseOf :organises .
@@ -187,7 +209,8 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#isTeamMateWith
 :isTeamMateWith rdf:type owl:ObjectProperty ,
-                         owl:SymmetricProperty ;
+                         owl:SymmetricProperty ,
+                         owl:TransitiveProperty ;
                 rdfs:domain :RacingDriver ;
                 rdfs:range :RacingDriver .
 
@@ -254,6 +277,12 @@ xsd:date rdf:type rdfs:Datatype .
              rdfs:domain :RaceWeekend ;
              rdfs:range :Circuit ;
              rdfs:label "Determines the location of a F1 GP" .
+
+
+###  http://example.org/formula1#works_with
+:works_with rdf:type owl:ObjectProperty ;
+            rdfs:domain :Mechanic ;
+            rdfs:range :Mechanic .
 
 
 #################################################################
@@ -403,6 +432,10 @@ xsd:date rdf:type rdfs:Datatype .
              rdfs:label "The temperature in Celcius for a F1 Event" .
 
 
+###  http://example.org/formula1#ticketLevel
+:ticketLevel rdf:type owl:DatatypeProperty .
+
+
 ###  http://example.org/formula1#weatherCondition
 :weatherCondition rdf:type owl:DatatypeProperty ;
                   rdfs:domain :Event ;
@@ -437,15 +470,21 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#BritishDrivers
 :BritishDrivers rdf:type owl:Class ;
-                owl:equivalentClass [ owl:intersectionOf ( :RacingDriver
-                                                           [ rdf:type owl:Restriction ;
-                                                             owl:onProperty :nationality ;
-                                                             owl:hasValue "United Kingdom"
-                                                           ]
-                                                         ) ;
-                                      rdf:type owl:Class
+                owl:equivalentClass [ rdf:type owl:Restriction ;
+                                      owl:onProperty :nationality ;
+                                      owl:hasValue "United Kingdom"
                                     ] ;
                 rdfs:subClassOf :RacingDriver .
+
+
+###  http://example.org/formula1#BritishWorldChampion
+:BritishWorldChampion rdf:type owl:Class ;
+                      owl:equivalentClass [ owl:intersectionOf ( :BritishDrivers
+                                                                 :WorldChampion
+                                                               ) ;
+                                            rdf:type owl:Class
+                                          ] ;
+                      rdfs:subClassOf :BritishDrivers .
 
 
 ###  http://example.org/formula1#Cameraman
@@ -473,13 +512,29 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#Championship
 :Championship rdf:type owl:Class ;
-              rdfs:subClassOf rdfs:Resource ;
+              rdfs:subClassOf rdfs:Resource ,
+                              [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :consists_of ;
+                                                       owl:allValuesFrom :RaceWeekend
+                                                     ]
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :consists_of ;
+                                                       owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :RaceWeekend
+                                                     ]
+                                                   ) ;
+                                rdf:type owl:Class
+                              ] ;
               rdfs:label "Formula 1 Year Championship" .
 
 
 ###  http://example.org/formula1#Channel
 :Channel rdf:type owl:Class ;
-         rdfs:subClassOf rdfs:Resource ;
+         rdfs:subClassOf rdfs:Resource ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :hasJournalist ;
+                           owl:allValuesFrom :PressMember
+                         ] ;
          rdfs:label "Formula 1 Broadcast Channel" .
 
 
@@ -491,7 +546,18 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#Company
 :Company rdf:type owl:Class ;
-         rdfs:subClassOf rdfs:Resource .
+         rdfs:subClassOf rdfs:Resource ,
+                         [ rdf:type owl:Class ;
+                           owl:unionOf ( [ rdf:type owl:Restriction ;
+                                           owl:onProperty :organises ;
+                                           owl:allValuesFrom :RaceWeekend
+                                         ]
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty :sponsors ;
+                                           owl:allValuesFrom :Team
+                                         ]
+                                       )
+                         ] .
 
 
 ###  http://example.org/formula1#ConstructorWorldChampion
@@ -505,13 +571,9 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#Current
 :Current rdf:type owl:Class ;
-         owl:equivalentClass [ owl:intersectionOf ( :RacingDriver
-                                                    [ rdf:type owl:Restriction ;
-                                                      owl:onProperty :raced_in ;
-                                                      owl:hasValue :season2023
-                                                    ]
-                                                  ) ;
-                               rdf:type owl:Class
+         owl:equivalentClass [ rdf:type owl:Restriction ;
+                               owl:onProperty :raced_in ;
+                               owl:hasValue :season2023
                              ] ;
          rdfs:subClassOf :RacingDriver ;
          rdfs:label "Racing Drivers that race in the current season of Formula 1." .
@@ -598,6 +660,36 @@ xsd:date rdf:type rdfs:Datatype .
             rdfs:label "First Place in an F1 Event" .
 
 
+###  http://example.org/formula1#General
+:General rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Restriction ;
+                               owl:onProperty :ticketLevel ;
+                               owl:hasValue "GeneralAdmission"
+                             ] ;
+         rdfs:subClassOf :Ticket ;
+         owl:disjointWith :Paddock ,
+                          :VIP .
+
+
+###  http://example.org/formula1#GrandPrixSponsors
+:GrandPrixSponsors rdf:type owl:Class ;
+                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                         owl:onProperty :organises ;
+                                         owl:someValuesFrom :RaceWeekend
+                                       ] ;
+                   rdfs:subClassOf :Company .
+
+
+###  http://example.org/formula1#GrandSlamer
+:GrandSlamer rdf:type owl:Class ;
+             owl:equivalentClass [ owl:intersectionOf ( :PoleSitter
+                                                        :Winner
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] ;
+             rdfs:subClassOf :PodiumAchiever .
+
+
 ###  http://example.org/formula1#Journalist
 :Journalist rdf:type owl:Class ;
             rdfs:subClassOf :PressMember ;
@@ -619,6 +711,16 @@ xsd:date rdf:type rdfs:Datatype .
             rdfs:label "Formula 1 Medical Car" .
 
 
+###  http://example.org/formula1#MultiSponsors
+:MultiSponsors rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( :GrandPrixSponsors
+                                                          :TeamSponsors
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] ;
+               rdfs:subClassOf :Company .
+
+
 ###  http://example.org/formula1#MultiWorldChampion
 :MultiWorldChampion rdf:type owl:Class ;
                     owl:equivalentClass [ rdf:type owl:Restriction ;
@@ -629,29 +731,45 @@ xsd:date rdf:type rdfs:Datatype .
                     rdfs:subClassOf :WorldChampion .
 
 
+###  http://example.org/formula1#Paddock
+:Paddock rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Restriction ;
+                               owl:onProperty :ticketLevel ;
+                               owl:hasValue "Paddock"
+                             ] ;
+         rdfs:subClassOf :Ticket ;
+         owl:disjointWith :VIP .
+
+
 ###  http://example.org/formula1#Person
 :Person rdf:type owl:Class ;
         rdfs:subClassOf rdfs:Resource ;
         rdfs:label "Human in Formula 1" .
 
 
-###  http://example.org/formula1#PodiumAchievers
-:PodiumAchievers rdf:type owl:Class ;
-                 owl:equivalentClass [ owl:intersectionOf ( :RacingDriver
-                                                            [ rdf:type owl:Restriction ;
-                                                              owl:onProperty :achievesPodium ;
-                                                              owl:someValuesFrom :PodiumPlace
-                                                            ]
-                                                          ) ;
-                                       rdf:type owl:Class
-                                     ] ;
-                 rdfs:subClassOf :RacingDriver ;
-                 rdfs:label "Racing Drivers that have achieved at least one Podium (either Qualifying or Race) in their carreer." .
+###  http://example.org/formula1#PodiumAchiever
+:PodiumAchiever rdf:type owl:Class ;
+                owl:equivalentClass [ rdf:type owl:Restriction ;
+                                      owl:onProperty :achievesPodium ;
+                                      owl:someValuesFrom :PodiumPlace
+                                    ] ;
+                rdfs:subClassOf :RacingDriver ;
+                rdfs:label "Racing Drivers that have achieved at least one Podium (either Qualifying or Race) in their carreer." .
 
 
 ###  http://example.org/formula1#PodiumPlace
 :PodiumPlace rdf:type owl:Class ;
-             rdfs:subClassOf rdfs:Resource ;
+             rdfs:subClassOf rdfs:Resource ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :achieved_by ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass :RacingDriver
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :achieved_in ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass :Event
+                             ] ;
              rdfs:label "A Podium Finish in a Grand Prix" .
 
 
@@ -668,17 +786,13 @@ xsd:date rdf:type rdfs:Datatype .
       rdfs:subClassOf :FirstPlace .
 
 
-###  http://example.org/formula1#PoleSitters
-:PoleSitters rdf:type owl:Class ;
-             owl:equivalentClass [ owl:intersectionOf ( :PodiumAchievers
-                                                        [ rdf:type owl:Restriction ;
-                                                          owl:onProperty :achievesPodium ;
-                                                          owl:someValuesFrom :Pole
-                                                        ]
-                                                      ) ;
-                                   rdf:type owl:Class
-                                 ] ;
-             rdfs:subClassOf :PodiumAchievers .
+###  http://example.org/formula1#PoleSitter
+:PoleSitter rdf:type owl:Class ;
+            owl:equivalentClass [ rdf:type owl:Restriction ;
+                                  owl:onProperty :achievesPodium ;
+                                  owl:someValuesFrom :Pole
+                                ] ;
+            rdfs:subClassOf :PodiumAchiever .
 
 
 ###  http://example.org/formula1#PracticeSession
@@ -689,21 +803,38 @@ xsd:date rdf:type rdfs:Datatype .
                  rdfs:label "Grand Prix Practice Session" .
 
 
+###  http://example.org/formula1#PremiumViewer
+:PremiumViewer rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :buysTicket ;
+                                                            owl:allValuesFrom :VIP
+                                                          ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :buysTicket ;
+                                                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass :VIP
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] ;
+               rdfs:subClassOf :Viewer .
+
+
 ###  http://example.org/formula1#PressMember
 :PressMember rdf:type owl:Class ;
-             owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                                          owl:onProperty :broadcasts_for ;
-                                                          owl:allValuesFrom :Channel
-                                                        ]
-                                                        [ rdf:type owl:Restriction ;
-                                                          owl:onProperty :broadcasts_for ;
-                                                          owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                          owl:onClass :Channel
-                                                        ]
-                                                      ) ;
-                                   rdf:type owl:Class
-                                 ] ;
-             rdfs:subClassOf :Person ;
+             rdfs:subClassOf :Person ,
+                             [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :broadcasts_for ;
+                                                      owl:allValuesFrom :Channel
+                                                    ]
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :broadcasts_for ;
+                                                      owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :Channel
+                                                    ]
+                                                  ) ;
+                               rdf:type owl:Class
+                             ] ;
              owl:disjointWith :RaceOfficial ,
                               :TeamMember ,
                               :Viewer ;
@@ -732,26 +863,30 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#RaceEngineer
 :RaceEngineer rdf:type owl:Class ;
-              rdfs:subClassOf :Engineer ;
+              rdfs:subClassOf :Engineer ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :communicates_with ;
+                                owl:allValuesFrom :RacingDriver
+                              ] ;
               owl:disjointWith :Strategist ;
               rdfs:label "Engineer of a Formula 1 Team" .
 
 
 ###  http://example.org/formula1#RaceOfficial
 :RaceOfficial rdf:type owl:Class ;
-              owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                                           owl:onProperty :is_official ;
-                                                           owl:allValuesFrom :FIA
-                                                         ]
-                                                         [ rdf:type owl:Restriction ;
-                                                           owl:onProperty :is_official ;
-                                                           owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                           owl:onClass :FIA
-                                                         ]
-                                                       ) ;
-                                    rdf:type owl:Class
-                                  ] ;
-              rdfs:subClassOf :Person ;
+              rdfs:subClassOf :Person ,
+                              [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :is_official ;
+                                                       owl:allValuesFrom :FIA
+                                                     ]
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :is_official ;
+                                                       owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :FIA
+                                                     ]
+                                                   ) ;
+                                rdf:type owl:Class
+                              ] ;
               owl:disjointWith :TeamMember ,
                                :Viewer ;
               rdfs:label "Member of a Grand Prix or FIA" .
@@ -759,13 +894,30 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#RaceWeekend
 :RaceWeekend rdf:type owl:Class ;
-             rdfs:subClassOf rdfs:Resource ;
+             rdfs:subClassOf rdfs:Resource ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :takes_place ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass :Circuit
+                             ] ;
              rdfs:label "A F1 Grand Prix" .
 
 
 ###  http://example.org/formula1#RacingCar
 :RacingCar rdf:type owl:Class ;
-           rdfs:subClassOf :Car ;
+           rdfs:subClassOf :Car ,
+                           [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :developedBy ;
+                                                    owl:allValuesFrom :Team
+                                                  ]
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :developedBy ;
+                                                    owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                    owl:onClass :Team
+                                                  ]
+                                                ) ;
+                             rdf:type owl:Class
+                           ] ;
            rdfs:label "Formula 1 Car" .
 
 
@@ -797,6 +949,15 @@ xsd:date rdf:type rdfs:Datatype .
                  rdfs:subClassOf :Accident .
 
 
+###  http://example.org/formula1#SixCylinder
+:SixCylinder rdf:type owl:Class ;
+             owl:equivalentClass [ rdf:type owl:Restriction ;
+                                   owl:onProperty :cylinders ;
+                                   owl:hasValue 6
+                                 ] ;
+             rdfs:subClassOf :Engine .
+
+
 ###  http://example.org/formula1#SponsoredTeams
 :SponsoredTeams rdf:type owl:Class ;
                 owl:equivalentClass [ rdf:type owl:Restriction ;
@@ -809,9 +970,17 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#Steward
 :Steward rdf:type owl:Class ;
-         owl:equivalentClass [ rdf:type owl:Restriction ;
-                               owl:onProperty :board_member ;
-                               owl:someValuesFrom :RaceWeekend
+         owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :board_member ;
+                                                      owl:allValuesFrom :RaceWeekend
+                                                    ]
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :board_member ;
+                                                      owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :RaceWeekend
+                                                    ]
+                                                  ) ;
+                               rdf:type owl:Class
                              ] ;
          rdfs:subClassOf :RaceOfficial ;
          rdfs:label "Steward of a Grand Prix" .
@@ -840,27 +1009,40 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#TeamMember
 :TeamMember rdf:type owl:Class ;
-            rdfs:subClassOf :Person ;
+            rdfs:subClassOf :Person ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :employed_by ;
+                              owl:allValuesFrom :Team
+                            ] ;
             owl:disjointWith :Viewer ;
             rdfs:label "Member of a Formula 1 team" .
 
 
 ###  http://example.org/formula1#TeamPrincipal
 :TeamPrincipal rdf:type owl:Class ;
-               owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                                            owl:onProperty :is_managing ;
-                                                            owl:allValuesFrom :Team
-                                                          ]
-                                                          [ rdf:type owl:Restriction ;
-                                                            owl:onProperty :is_managing ;
-                                                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                            owl:onClass :Team
-                                                          ]
-                                                        ) ;
-                                     rdf:type owl:Class
-                                   ] ;
-               rdfs:subClassOf :TeamMember ;
+               rdfs:subClassOf :TeamMember ,
+                               [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                        owl:onProperty :is_managing ;
+                                                        owl:allValuesFrom :Team
+                                                      ]
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty :is_managing ;
+                                                        owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                        owl:onClass :Team
+                                                      ]
+                                                    ) ;
+                                 rdf:type owl:Class
+                               ] ;
                rdfs:label "Head of a Formula 1 Team" .
+
+
+###  http://example.org/formula1#TeamSponsors
+:TeamSponsors rdf:type owl:Class ;
+              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                    owl:onProperty :sponsors ;
+                                    owl:someValuesFrom :Team
+                                  ] ;
+              rdfs:subClassOf :Company .
 
 
 ###  http://example.org/formula1#ThirdPlace
@@ -869,9 +1051,35 @@ xsd:date rdf:type rdfs:Datatype .
             rdfs:label "Third Place in an F1 Event" .
 
 
+###  http://example.org/formula1#Ticket
+:Ticket rdf:type owl:Class ;
+        rdfs:subClassOf rdfs:Resource .
+
+
+###  http://example.org/formula1#VIP
+:VIP rdf:type owl:Class ;
+     owl:equivalentClass [ rdf:type owl:Restriction ;
+                           owl:onProperty :ticketLevel ;
+                           owl:hasValue "Premium"
+                         ] ;
+     rdfs:subClassOf :Ticket .
+
+
 ###  http://example.org/formula1#Viewer
 :Viewer rdf:type owl:Class ;
-        rdfs:subClassOf :Person ;
+        rdfs:subClassOf :Person ,
+                        [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                 owl:onProperty :attends ;
+                                                 owl:allValuesFrom :RaceWeekend
+                                               ]
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty :attends ;
+                                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onClass :RaceWeekend
+                                               ]
+                                             ) ;
+                          rdf:type owl:Class
+                        ] ;
         rdfs:label "Formula 1 Fan" .
 
 
@@ -897,17 +1105,13 @@ xsd:date rdf:type rdfs:Datatype .
      rdfs:subClassOf :FirstPlace .
 
 
-###  http://example.org/formula1#Winners
-:Winners rdf:type owl:Class ;
-         owl:equivalentClass [ owl:intersectionOf ( :PodiumAchievers
-                                                    [ rdf:type owl:Restriction ;
-                                                      owl:onProperty :achievesPodium ;
-                                                      owl:someValuesFrom :Win
-                                                    ]
-                                                  ) ;
-                               rdf:type owl:Class
-                             ] ;
-         rdfs:subClassOf :PodiumAchievers .
+###  http://example.org/formula1#Winner
+:Winner rdf:type owl:Class ;
+        owl:equivalentClass [ rdf:type owl:Restriction ;
+                              owl:onProperty :achievesPodium ;
+                              owl:someValuesFrom :Win
+                            ] ;
+        rdfs:subClassOf :PodiumAchiever .
 
 
 ###  http://example.org/formula1#WorldChampion
@@ -997,6 +1201,12 @@ rdfs:Resource rdf:type owl:Class .
                              :ThirdPlace ;
                     :achieved_by :Russell ;
                     :achieved_in :AbuDhabiRace .
+
+
+###  http://example.org/formula1#AbuDhabiTicketGeneral
+:AbuDhabiTicketGeneral rdf:type owl:NamedIndividual ,
+                                :Ticket ;
+                       :ticketLevel "GeneralAdmission" .
 
 
 ###  http://example.org/formula1#Albon
@@ -1099,6 +1309,11 @@ rdfs:Resource rdf:type owl:Class .
               :name "Andra Stella" ;
               :nationality "Italy" ;
               :sex "Male" .
+
+
+###  http://example.org/formula1#Antonis
+:Antonis rdf:type owl:NamedIndividual ;
+         :buysTicket :AbuDhabiTicketGeneral .
 
 
 ###  http://example.org/formula1#AriaBennett
@@ -1792,9 +2007,10 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#GiorgosAtmatzidis
 :GiorgosAtmatzidis rdf:type owl:NamedIndividual ,
-                            :Viewer ;
+                            :PremiumViewer ;
                    owl:differentFrom :NefeliParaskeuopoulou ;
                    :attends :JapanGP ;
+                   :buysTicket :MonacoTicketVIP ;
                    :dateOfBirth "2002-12-05"^^xsd:date ;
                    :name "Giorgos Atmatzidis" ;
                    :nationality "Greece" ;
@@ -1820,6 +2036,12 @@ rdfs:Resource rdf:type owl:Class .
                 :has_event :GreatBritainQualifying ,
                            :GreatBritainRace ;
                 :takes_place :GreatBritain .
+
+
+###  http://example.org/formula1#GreatBritainPaddock
+:GreatBritainPaddock rdf:type owl:NamedIndividual ,
+                              :Ticket ;
+                     :ticketLevel "Paddock" .
 
 
 ###  http://example.org/formula1#GreatBritainPole
@@ -2588,6 +2810,12 @@ rdfs:Resource rdf:type owl:Class .
                   :achieved_in :MonacoRace .
 
 
+###  http://example.org/formula1#MonacoTicketVIP
+:MonacoTicketVIP rdf:type owl:NamedIndividual ,
+                          :Ticket ;
+                 :ticketLevel "Premium" .
+
+
 ###  http://example.org/formula1#MonsterEnergy
 :MonsterEnergy rdf:type owl:NamedIndividual ,
                         :Company ;
@@ -2616,6 +2844,7 @@ rdfs:Resource rdf:type owl:Class .
                                 :ItalianGP ,
                                 :MonacoGP ,
                                 :SingaporeGP ;
+                       :buysTicket :AbuDhabiTicketGeneral ;
                        :dateOfBirth "2002-01-26"^^xsd:date ;
                        :name "Nefeli Maria Paraskeuopoulou" ;
                        :nationality "Greece" ;
@@ -2810,6 +3039,12 @@ rdfs:Resource rdf:type owl:Class .
          :salary 2 ;
          :sex "Male" ;
          :weight 68 .
+
+
+###  http://example.org/formula1#Pirelli
+:Pirelli rdf:type owl:NamedIndividual ,
+                  :Company ;
+         :organises :MonacoGP .
 
 
 ###  http://example.org/formula1#Qatar
@@ -3476,6 +3711,14 @@ rdfs:Resource rdf:type owl:Class .
 
 
 [ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :AbuDhabiTicketGeneral
+                        :GreatBritainPaddock
+                        :MonacoTicketVIP
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
   owl:distinctMembers ( :Albon
                         :Alonso
                         :Bottas
@@ -3534,6 +3777,21 @@ rdfs:Resource rdf:type owl:Class .
                         :MercedesMedical
                         :MercedesSafety
                         :RenaultEngine
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :LeclercCrash
+                        :PerezAccident
+                        :PerezAccident2
+                        :RussellCrash
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :NefeliParaskeuopoulou
                       )
 ] .
 

@@ -47,7 +47,8 @@ xsd:date rdf:type rdfs:Datatype .
 
 
 ###  http://example.org/formula1#achievesPodium
-:achievesPodium rdf:type owl:ObjectProperty .
+:achievesPodium rdf:type owl:ObjectProperty ;
+                rdfs:label "Indicates a Podium is achieved by a specific Driver." .
 
 
 ###  http://example.org/formula1#attends
@@ -75,7 +76,8 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://example.org/formula1#buysTicket
 :buysTicket rdf:type owl:ObjectProperty ;
             rdfs:domain :Viewer ;
-            rdfs:range :Ticket .
+            rdfs:range :Ticket ;
+            rdfs:label "Indicates the purchase of a ticket for a Formula 1 Grand Prix" .
 
 
 ###  http://example.org/formula1#calls_for
@@ -132,7 +134,8 @@ xsd:date rdf:type rdfs:Datatype .
 
 
 ###  http://example.org/formula1#developedBy
-:developedBy rdf:type owl:ObjectProperty .
+:developedBy rdf:type owl:ObjectProperty ;
+             rdfs:label "Indicates the development of a Racing Car from specific Team." .
 
 
 ###  http://example.org/formula1#driver_champion
@@ -151,7 +154,8 @@ xsd:date rdf:type rdfs:Datatype .
 
 
 ###  http://example.org/formula1#hadAccident
-:hadAccident rdf:type owl:ObjectProperty .
+:hadAccident rdf:type owl:ObjectProperty ;
+             rdfs:label "Indicates that a Racing Driver has a specific Accident" .
 
 
 ###  http://example.org/formula1#hasCommonEngineSupplier
@@ -159,11 +163,13 @@ xsd:date rdf:type rdfs:Datatype .
                                   owl:SymmetricProperty ,
                                   owl:TransitiveProperty ;
                          rdfs:domain :Team ;
-                         rdfs:range :Team .
+                         rdfs:range :Team ;
+                         rdfs:label "Indicates that two Team have the same engine supplier." .
 
 
 ###  http://example.org/formula1#hasJournalist
-:hasJournalist rdf:type owl:ObjectProperty .
+:hasJournalist rdf:type owl:ObjectProperty ;
+               rdfs:label "Indicates that a Press Channel are employing a Press Member." .
 
 
 ###  http://example.org/formula1#hasSimilarWeatherConditions
@@ -171,7 +177,8 @@ xsd:date rdf:type rdfs:Datatype .
                                       owl:SymmetricProperty ,
                                       owl:TransitiveProperty ;
                              rdfs:domain :Event ;
-                             rdfs:range :Event .
+                             rdfs:range :Event ;
+                             rdfs:label "Indicates that two events have similar or same weather conditions." .
 
 
 ###  http://example.org/formula1#has_engine
@@ -194,17 +201,20 @@ xsd:date rdf:type rdfs:Datatype .
                               owl:SymmetricProperty ,
                               owl:TransitiveProperty ;
                      rdfs:domain :RacingDriver ;
-                     rdfs:range :RacingDriver .
+                     rdfs:range :RacingDriver ;
+                     rdfs:label "Indicates that two Racing Drivers have the same nationality" .
 
 
 ###  http://example.org/formula1#isOrganizedBy
 :isOrganizedBy rdf:type owl:ObjectProperty ;
-               owl:inverseOf :organises .
+               owl:inverseOf :organises ;
+               rdfs:label "Indicates that a Grand Prix is organised by a Company." .
 
 
 ###  http://example.org/formula1#isSponsoredBy
 :isSponsoredBy rdf:type owl:ObjectProperty ;
-               owl:inverseOf :sponsors .
+               owl:inverseOf :sponsors ;
+               rdfs:label "Indicates the sponsorship of F1 Team from a commercial thrid party company." .
 
 
 ###  http://example.org/formula1#isTeamMateWith
@@ -212,13 +222,15 @@ xsd:date rdf:type rdfs:Datatype .
                          owl:SymmetricProperty ,
                          owl:TransitiveProperty ;
                 rdfs:domain :RacingDriver ;
-                rdfs:range :RacingDriver .
+                rdfs:range :RacingDriver ;
+                rdfs:label "Indicates that a specific RacingDriver is teammate with another RacingDriver." .
 
 
 ###  http://example.org/formula1#is_given_to
 :is_given_to rdf:type owl:ObjectProperty ;
              rdfs:domain :Engine ;
-             rdfs:range :RacingCar .
+             rdfs:range :RacingCar ;
+             rdfs:label "Indicates that a Engine is given to a specific Racing Car." .
 
 
 ###  http://example.org/formula1#is_managing
@@ -226,7 +238,8 @@ xsd:date rdf:type rdfs:Datatype .
              rdfs:subPropertyOf owl:topObjectProperty ;
              rdf:type owl:InverseFunctionalProperty ;
              rdfs:domain :TeamPrincipal ;
-             rdfs:range :Team .
+             rdfs:range :Team ;
+             rdfs:label "Indicates that a Team Principal is managing a Team." .
 
 
 ###  http://example.org/formula1#is_official
@@ -282,7 +295,8 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://example.org/formula1#works_with
 :works_with rdf:type owl:ObjectProperty ;
             rdfs:domain :Mechanic ;
-            rdfs:range :Mechanic .
+            rdfs:range :Mechanic ;
+            rdfs:label "Indicates that a specific Mechanic works with another Mechanic" .
 
 
 #################################################################
@@ -433,7 +447,8 @@ xsd:date rdf:type rdfs:Datatype .
 
 
 ###  http://example.org/formula1#ticketLevel
-:ticketLevel rdf:type owl:DatatypeProperty .
+:ticketLevel rdf:type owl:DatatypeProperty ;
+             rdfs:comment "Indicates the type of a Ticket." .
 
 
 ###  http://example.org/formula1#weatherCondition
@@ -474,7 +489,8 @@ xsd:date rdf:type rdfs:Datatype .
                                       owl:onProperty :nationality ;
                                       owl:hasValue "United Kingdom"
                                     ] ;
-                rdfs:subClassOf :RacingDriver .
+                rdfs:subClassOf :RacingDriver ;
+                rdfs:label "Racing Drivers that are from United Kindgom." .
 
 
 ###  http://example.org/formula1#BritishWorldChampion
@@ -484,7 +500,8 @@ xsd:date rdf:type rdfs:Datatype .
                                                                ) ;
                                             rdf:type owl:Class
                                           ] ;
-                      rdfs:subClassOf :BritishDrivers .
+                      rdfs:subClassOf :BritishDrivers ;
+                      rdfs:label "Racing Drivers that are from United Kingdom and have achieved a World Championship." .
 
 
 ###  http://example.org/formula1#Cameraman
@@ -507,7 +524,8 @@ xsd:date rdf:type rdfs:Datatype .
                                              owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                              owl:onClass :ConstructorWorldChampion
                                            ] ;
-                       rdfs:subClassOf :TeamPrincipal .
+                       rdfs:subClassOf :TeamPrincipal ;
+                       rdfs:label "Team Principals that have won a Constructors World Championship" .
 
 
 ###  http://example.org/formula1#Championship
@@ -557,7 +575,8 @@ xsd:date rdf:type rdfs:Datatype .
                                            owl:allValuesFrom :Team
                                          ]
                                        )
-                         ] .
+                         ] ;
+         rdfs:label "A third party Company that has some commercial/financial relationship with Formula 1." .
 
 
 ###  http://example.org/formula1#ConstructorWorldChampion
@@ -566,7 +585,8 @@ xsd:date rdf:type rdfs:Datatype .
                                                 owl:onProperty :constructor_champion ;
                                                 owl:someValuesFrom :Championship
                                               ] ;
-                          rdfs:subClassOf :Team .
+                          rdfs:subClassOf :Team ;
+                          rdfs:label "A team that have achieved a Constructors World Championship." .
 
 
 ###  http://example.org/formula1#Current
@@ -585,7 +605,8 @@ xsd:date rdf:type rdfs:Datatype .
                                     owl:onProperty :board_year ;
                                     owl:hasValue 2023
                                   ] ;
-              rdfs:subClassOf :FIA .
+              rdfs:subClassOf :FIA ;
+              rdfs:label "The board of FIA for the current season of Formula 1." .
 
 
 ###  http://example.org/formula1#DriversWithAccident
@@ -595,7 +616,8 @@ xsd:date rdf:type rdfs:Datatype .
                                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                            owl:onClass :Accident
                                          ] ;
-                     rdfs:subClassOf :RacingDriver .
+                     rdfs:subClassOf :RacingDriver ;
+                     rdfs:label "Racing Drivers that have at least a racing Accident." .
 
 
 ###  http://example.org/formula1#Engine
@@ -626,7 +648,8 @@ xsd:date rdf:type rdfs:Datatype .
                                          owl:minQualifiedCardinality "3"^^xsd:nonNegativeInteger ;
                                          owl:onClass :RaceWeekend
                                        ] ;
-                   rdfs:subClassOf :Viewer .
+                   rdfs:subClassOf :Viewer ;
+                   rdfs:label "Viewers that have attended at least 3 Formula 1 Grand Prix." .
 
 
 ###  http://example.org/formula1#FIA
@@ -644,7 +667,8 @@ xsd:date rdf:type rdfs:Datatype .
                                            )
                              ] ;
          rdfs:subClassOf :Car ;
-         owl:disjointWith :RacingCar .
+         owl:disjointWith :RacingCar ;
+         rdfs:label "Cars that are official for the FIA." .
 
 
 ###  http://example.org/formula1#FirstPlace
@@ -668,7 +692,8 @@ xsd:date rdf:type rdfs:Datatype .
                              ] ;
          rdfs:subClassOf :Ticket ;
          owl:disjointWith :Paddock ,
-                          :VIP .
+                          :VIP ;
+         rdfs:label "General Admission tickets for a Formula 1 Grand Prix." .
 
 
 ###  http://example.org/formula1#GrandPrixSponsors
@@ -677,7 +702,8 @@ xsd:date rdf:type rdfs:Datatype .
                                          owl:onProperty :organises ;
                                          owl:someValuesFrom :RaceWeekend
                                        ] ;
-                   rdfs:subClassOf :Company .
+                   rdfs:subClassOf :Company ;
+                   rdfs:label "Sponsor Companies that sponsor a Grand Prix" .
 
 
 ###  http://example.org/formula1#GrandSlamer
@@ -687,7 +713,8 @@ xsd:date rdf:type rdfs:Datatype .
                                                       ) ;
                                    rdf:type owl:Class
                                  ] ;
-             rdfs:subClassOf :PodiumAchiever .
+             rdfs:subClassOf :PodiumAchiever ;
+             rdfs:label "Racing Drivers that have both a Win and a Pole" .
 
 
 ###  http://example.org/formula1#Journalist
@@ -718,7 +745,8 @@ xsd:date rdf:type rdfs:Datatype .
                                                         ) ;
                                      rdf:type owl:Class
                                    ] ;
-               rdfs:subClassOf :Company .
+               rdfs:subClassOf :Company ;
+               rdfs:label "Sponsor Company that sponsor a Team and a Grand Prix." .
 
 
 ###  http://example.org/formula1#MultiWorldChampion
@@ -728,7 +756,8 @@ xsd:date rdf:type rdfs:Datatype .
                                           owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
                                           owl:onClass :Championship
                                         ] ;
-                    rdfs:subClassOf :WorldChampion .
+                    rdfs:subClassOf :WorldChampion ;
+                    rdfs:label "Racing Drivers that have won more than one Formula 1 World Championship." .
 
 
 ###  http://example.org/formula1#Paddock
@@ -738,7 +767,8 @@ xsd:date rdf:type rdfs:Datatype .
                                owl:hasValue "Paddock"
                              ] ;
          rdfs:subClassOf :Ticket ;
-         owl:disjointWith :VIP .
+         owl:disjointWith :VIP ;
+         rdfs:label "Paddock Pass for a Formula 1 Grand Prix." .
 
 
 ###  http://example.org/formula1#Person
@@ -792,7 +822,8 @@ xsd:date rdf:type rdfs:Datatype .
                                   owl:onProperty :achievesPodium ;
                                   owl:someValuesFrom :Pole
                                 ] ;
-            rdfs:subClassOf :PodiumAchiever .
+            rdfs:subClassOf :PodiumAchiever ;
+            rdfs:label "Racing Drivers that have won a Pole" .
 
 
 ###  http://example.org/formula1#PracticeSession
@@ -817,7 +848,8 @@ xsd:date rdf:type rdfs:Datatype .
                                                         ) ;
                                      rdf:type owl:Class
                                    ] ;
-               rdfs:subClassOf :Viewer .
+               rdfs:subClassOf :Viewer ;
+               rdfs:label "Viewers that buy only VIP tickets for Formula 1 Grand Prix." .
 
 
 ###  http://example.org/formula1#PressMember
@@ -946,7 +978,8 @@ xsd:date rdf:type rdfs:Datatype .
                                        owl:onProperty :seriousAccident ;
                                        owl:someValuesFrom xsd:string
                                      ] ;
-                 rdfs:subClassOf :Accident .
+                 rdfs:subClassOf :Accident ;
+                 rdfs:comment "Accidents in Formula 1 that have a serious impact." .
 
 
 ###  http://example.org/formula1#SixCylinder
@@ -965,7 +998,8 @@ xsd:date rdf:type rdfs:Datatype .
                                       owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                       owl:onClass :Company
                                     ] ;
-                rdfs:subClassOf :Team .
+                rdfs:subClassOf :Team ;
+                rdfs:label "Formula 1 Teams that have a Sponsorship from a third party Company." .
 
 
 ###  http://example.org/formula1#Steward
@@ -1042,7 +1076,8 @@ xsd:date rdf:type rdfs:Datatype .
                                     owl:onProperty :sponsors ;
                                     owl:someValuesFrom :Team
                                   ] ;
-              rdfs:subClassOf :Company .
+              rdfs:subClassOf :Company ;
+              rdfs:label "Sponsor Company that sponsors a Formula 1 Team." .
 
 
 ###  http://example.org/formula1#ThirdPlace
@@ -1053,7 +1088,8 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#Ticket
 :Ticket rdf:type owl:Class ;
-        rdfs:subClassOf rdfs:Resource .
+        rdfs:subClassOf rdfs:Resource ;
+        rdfs:label "Ticket for a Formula 1 Grand Prix" .
 
 
 ###  http://example.org/formula1#VIP
@@ -1062,7 +1098,8 @@ xsd:date rdf:type rdfs:Datatype .
                            owl:onProperty :ticketLevel ;
                            owl:hasValue "Premium"
                          ] ;
-     rdfs:subClassOf :Ticket .
+     rdfs:subClassOf :Ticket ;
+     rdfs:label "VIP ticket for a Formula 1 Grand Prix." .
 
 
 ###  http://example.org/formula1#Viewer
@@ -1111,7 +1148,8 @@ xsd:date rdf:type rdfs:Datatype .
                               owl:onProperty :achievesPodium ;
                               owl:someValuesFrom :Win
                             ] ;
-        rdfs:subClassOf :PodiumAchiever .
+        rdfs:subClassOf :PodiumAchiever ;
+        rdfs:label "Racing Drivers that have won a Race." .
 
 
 ###  http://example.org/formula1#WorldChampion

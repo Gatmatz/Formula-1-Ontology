@@ -113,7 +113,7 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#communicates_with
 :communicates_with rdf:type owl:ObjectProperty ;
-                   rdfs:domain :RacingDriver ;
+                   rdfs:domain :TeamMember ;
                    rdfs:range :RaceEngineer ;
                    rdfs:label "Indicates the relationship between a racing Driver and his race enginner" .
 
@@ -548,9 +548,13 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#BritishDrivers
 :BritishDrivers rdf:type owl:Class ;
-                owl:equivalentClass [ rdf:type owl:Restriction ;
-                                      owl:onProperty :nationality ;
-                                      owl:hasValue "United Kingdom"
+                owl:equivalentClass [ owl:intersectionOf ( :RacingDriver
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :nationality ;
+                                                             owl:hasValue "United Kingdom"
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
                                     ] ;
                 rdfs:subClassOf :RacingDriver ;
                 rdfs:label "Racing Drivers that are from United Kindgom." .
@@ -980,11 +984,7 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#RaceEngineer
 :RaceEngineer rdf:type owl:Class ;
-              rdfs:subClassOf :Engineer ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty :communicates_with ;
-                                owl:allValuesFrom :RacingDriver
-                              ] ;
+              rdfs:subClassOf :Engineer ;
               owl:disjointWith :Strategist ;
               rdfs:label "Engineer of a Formula 1 Team" .
 
@@ -1040,7 +1040,11 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#RacingDriver
 :RacingDriver rdf:type owl:Class ;
-              rdfs:subClassOf :TeamMember ;
+              rdfs:subClassOf :TeamMember ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :communicates_with ;
+                                owl:allValuesFrom :RaceEngineer
+                              ] ;
               rdfs:label "Formula 1 Driver" .
 
 
@@ -1080,19 +1084,19 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#Steward
 :Steward rdf:type owl:Class ;
-         owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                                      owl:onProperty :board_member ;
-                                                      owl:allValuesFrom :RaceWeekend
-                                                    ]
-                                                    [ rdf:type owl:Restriction ;
-                                                      owl:onProperty :board_member ;
-                                                      owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                      owl:onClass :RaceWeekend
-                                                    ]
-                                                  ) ;
-                               rdf:type owl:Class
-                             ] ;
-         rdfs:subClassOf :RaceOfficial ;
+         rdfs:subClassOf :RaceOfficial ,
+                         [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                  owl:onProperty :board_member ;
+                                                  owl:allValuesFrom :RaceWeekend
+                                                ]
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty :board_member ;
+                                                  owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :RaceWeekend
+                                                ]
+                                              ) ;
+                           rdf:type owl:Class
+                         ] ;
          rdfs:label "Steward of a Grand Prix" .
 
 
@@ -1104,9 +1108,13 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#SunnyRace
 :SunnyRace rdf:type owl:Class ;
-           owl:equivalentClass [ rdf:type owl:Restriction ;
-                                 owl:onProperty :weatherSummary ;
-                                 owl:hasValue "Sunny"
+           owl:equivalentClass [ owl:intersectionOf ( :Race
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty :weatherSummary ;
+                                                        owl:hasValue "Sunny"
+                                                      ]
+                                                    ) ;
+                                 rdf:type owl:Class
                                ] ;
            rdfs:subClassOf :Race ;
            rdfs:label "Formula 1 Race that has Sunny Weather." .
@@ -1209,9 +1217,13 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#WetRace
 :WetRace rdf:type owl:Class ;
-         owl:equivalentClass [ rdf:type owl:Restriction ;
-                               owl:onProperty :weatherSummary ;
-                               owl:hasValue "Wet"
+         owl:equivalentClass [ owl:intersectionOf ( :Race
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :weatherSummary ;
+                                                      owl:hasValue "Wet"
+                                                    ]
+                                                  ) ;
+                               rdf:type owl:Class
                              ] ;
          rdfs:subClassOf :Race ;
          rdfs:label "Formula 1 Race that has Wet Weather" .
@@ -1262,7 +1274,8 @@ rdfs:Resource rdf:type owl:Class .
 ###  http://example.org/formula1#AMD
 :AMD rdf:type owl:NamedIndividual ,
               :Company ;
-     :sponsors :Mercedes .
+     :sponsors :Mercedes ;
+     :organization "Advanced Micro Devices, Inc." .
 
 
 ###  http://example.org/formula1#ANT1
@@ -1339,7 +1352,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Albon
 :Albon rdf:type owl:NamedIndividual ,
-                :RacingDriver ;
+                :TeamMember ;
        :communicates_with :Urwin ;
        :employed_by :Williams ;
        :isTeamMateWith :Sargeant ;
@@ -1382,7 +1395,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Alonso
 :Alonso rdf:type owl:NamedIndividual ,
-                 :RacingDriver ;
+                 :TeamMember ;
         :communicates_with :Cronin ;
         :driver_champion :season2005 ;
         :employed_by :AstonMartin ;
@@ -1442,12 +1455,16 @@ rdfs:Resource rdf:type owl:Class .
 ###  http://example.org/formula1#AntonisLiarokapis
 :AntonisLiarokapis rdf:type owl:NamedIndividual ,
                             :OneTimeViewer ;
-                   :attends :MexicoGP .
+                   :attends :MexicoGP ;
+                   :dateOfBirth "2002-12-19"^^xsd:date ;
+                   :name "Antonios Panagiotis Liarokapis" ;
+                   :nationality "Greece" ;
+                   :sex "Male" .
 
 
 ###  http://example.org/formula1#AriaBennett
 :AriaBennett rdf:type owl:NamedIndividual ,
-                      :RaceOfficial ;
+                      :Steward ;
              :board_member :BrazilianGP ,
                            :CanadaGP ,
                            :GreatBritainGP ,
@@ -1836,7 +1853,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Bottas
 :Bottas rdf:type owl:NamedIndividual ,
-                 :RacingDriver ;
+                 :TeamMember ;
         :communicates_with :Chan ;
         :employed_by :AlfaRomeo ;
         :isTeamMateWith :Zhou ;
@@ -1910,10 +1927,14 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Caleb_Rainfield
 :Caleb_Rainfield rdf:type owl:NamedIndividual ,
-                          :RaceOfficial ;
+                          :Steward ;
                  :board_member :MiamiGP ,
                                :MonacoGP ;
-                 :is_official :FIA2023 .
+                 :is_official :FIA2023 ;
+                 :dateOfBirth "1987-03-27"^^xsd:date ;
+                 :name "Caleb Rainfield" ;
+                 :nationality "United Kingdom" ;
+                 :sex "Male" .
 
 
 ###  http://example.org/formula1#CalumNicholas
@@ -2009,7 +2030,8 @@ rdfs:Resource rdf:type owl:Class .
 ###  http://example.org/formula1#Chrome
 :Chrome rdf:type owl:NamedIndividual ,
                  :Company ;
-        :sponsors :McLaren .
+        :sponsors :McLaren ;
+        :organization "Google Chrome" .
 
 
 ###  http://example.org/formula1#Cronin
@@ -2039,7 +2061,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#ElenaRodriguez
 :ElenaRodriguez rdf:type owl:NamedIndividual ,
-                         :RaceOfficial ;
+                         :Steward ;
                 :board_member :MexicoGP ,
                               :MiamiGP ,
                               :MonacoGP ,
@@ -2129,7 +2151,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Gasly
 :Gasly rdf:type owl:NamedIndividual ,
-                :RacingDriver ;
+                :TeamMember ;
        :communicates_with :Loos ;
        :employed_by :Alpine ;
        :isTeamMateWith :Ocon ;
@@ -2259,7 +2281,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Hamilton
 :Hamilton rdf:type owl:NamedIndividual ,
-                   :RacingDriver ;
+                   :TeamMember ;
           :communicates_with :Bonnington ;
           :driver_champion :season2018 ,
                            :season2019 ,
@@ -2288,7 +2310,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Hulkenberg
 :Hulkenberg rdf:type owl:NamedIndividual ,
-                     :RacingDriver ;
+                     :TeamMember ;
             :communicates_with :Gannon ;
             :employed_by :Haas ;
             :isTeamMateWith :Magnussen ;
@@ -2589,7 +2611,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Leclerc
 :Leclerc rdf:type owl:NamedIndividual ,
-                  :RacingDriver ;
+                  :TeamMember ;
          :communicates_with :Xavi ;
          :employed_by :Ferrari ;
          :isTeamMateWith :Sainz ;
@@ -2625,7 +2647,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Magnussen
 :Magnussen rdf:type owl:NamedIndividual ,
-                    :RacingDriver ;
+                    :TeamMember ;
            :communicates_with :Slade ;
            :employed_by :Haas ;
            :raced_in :season2023 ;
@@ -2872,7 +2894,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#MikePapadopoulos
 :MikePapadopoulos rdf:type owl:NamedIndividual ,
-                           :RaceOfficial ;
+                           :Steward ;
                   :board_member :AbuDhabiGP ,
                                 :AustraliaGP ,
                                 :AustriaGP ,
@@ -3057,7 +3079,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Norris
 :Norris rdf:type owl:NamedIndividual ,
-                 :RacingDriver ;
+                 :TeamMember ;
         :communicates_with :Joseph ;
         :employed_by :McLaren ;
         :isTeamMateWith :Piastri ;
@@ -3073,7 +3095,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Ocon
 :Ocon rdf:type owl:NamedIndividual ,
-               :RacingDriver ;
+               :TeamMember ;
       :communicates_with :Peckett ;
       :employed_by :Alpine ;
       :raced_in :season2023 ;
@@ -3119,7 +3141,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Perez
 :Perez rdf:type owl:NamedIndividual ,
-                :RacingDriver ;
+                :TeamMember ;
        :communicates_with :Bird ;
        :employed_by :RedBull ;
        :raced_in :season2023 ;
@@ -3164,7 +3186,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Piastri
 :Piastri rdf:type owl:NamedIndividual ,
-                  :RacingDriver ;
+                  :TeamMember ;
          :communicates_with :Stallard ;
          :employed_by :McLaren ;
          :raced_in :season2023 ;
@@ -3180,7 +3202,8 @@ rdfs:Resource rdf:type owl:Class .
 ###  http://example.org/formula1#Pirelli
 :Pirelli rdf:type owl:NamedIndividual ,
                   :Company ;
-         :organises :MonacoGP .
+         :organises :MonacoGP ;
+         :organization "Pirelli & C. S.p.A." .
 
 
 ###  http://example.org/formula1#Qatar
@@ -3279,7 +3302,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Ricciardo
 :Ricciardo rdf:type owl:NamedIndividual ,
-                    :RacingDriver ;
+                    :TeamMember ;
            :communicates_with :Hamelin ;
            :employed_by :AlphaTauri ;
            :raced_in :season2023 ;
@@ -3309,7 +3332,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Russell
 :Russell rdf:type owl:NamedIndividual ,
-                  :RacingDriver ;
+                  :TeamMember ;
          :communicates_with :Musconi ;
          :employed_by :Mercedes ;
          :raced_in :season2023 ;
@@ -3335,7 +3358,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Sainz
 :Sainz rdf:type owl:NamedIndividual ,
-                :RacingDriver ;
+                :TeamMember ;
        :communicates_with :Riccardo ;
        :employed_by :Ferrari ;
        :raced_in :season2023 ;
@@ -3350,7 +3373,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Sargeant
 :Sargeant rdf:type owl:NamedIndividual ,
-                   :RacingDriver ;
+                   :TeamMember ;
           :communicates_with :Jego ;
           :employed_by :Williams ;
           :raced_in :season2023 ;
@@ -3578,7 +3601,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Stroll
 :Stroll rdf:type owl:NamedIndividual ,
-                 :RacingDriver ;
+                 :TeamMember ;
         :communicates_with :Michell ;
         :employed_by :AstonMartin ;
         :raced_in :season2023 ;
@@ -3605,7 +3628,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Tsunoda
 :Tsunoda rdf:type owl:NamedIndividual ,
-                  :RacingDriver ;
+                  :TeamMember ;
          :communicates_with :Spini ;
          :employed_by :AlphaTauri ;
          :isTeamMateWith :Ricciardo ;
@@ -3689,7 +3712,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Verstappen
 :Verstappen rdf:type owl:NamedIndividual ,
-                     :RacingDriver ;
+                     :TeamMember ;
             :communicates_with :Lambiase ;
             :driver_champion :season2021 ,
                              :season2022 ,
@@ -3708,7 +3731,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Vettel
 :Vettel rdf:type owl:NamedIndividual ,
-                 :RacingDriver ;
+                 :TeamMember ;
         :hasRacedAgainst :Hamilton ;
         :dateOfBirth "1987-07-03"^^xsd:date ;
         :height 1.75 ;
@@ -3746,7 +3769,7 @@ rdfs:Resource rdf:type owl:Class .
 
 ###  http://example.org/formula1#Zhou
 :Zhou rdf:type owl:NamedIndividual ,
-               :RacingDriver ;
+               :TeamMember ;
       :communicates_with :Becker ;
       :employed_by :AlfaRomeo ;
       :raced_in :season2023 ;

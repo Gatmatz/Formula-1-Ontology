@@ -1047,11 +1047,15 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://example.org/formula1#RacingDriver
 :RacingDriver rdf:type owl:Class ;
-              rdfs:subClassOf :TeamMember ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty :communicates_with ;
-                                owl:allValuesFrom :RaceEngineer
-                              ] ;
+              owl:equivalentClass [ owl:intersectionOf ( :TeamMember
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty :communicates_with ;
+                                                           owl:allValuesFrom :RaceEngineer
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] ;
+              rdfs:subClassOf :TeamMember ;
               rdfs:label "Formula 1 Driver" .
 
 
